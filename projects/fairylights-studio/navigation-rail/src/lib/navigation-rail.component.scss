@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  height: 100vh;
+  width: max-content;
+  min-width: 80px;
+  max-width: 80px;
+  background-color: var(--mat-sys-surface, #fff);
+  border-right: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
+  transition: max-width 0.3s cubic-bezier(0.2, 0, 0, 1),
+              min-width 0.3s cubic-bezier(0.2, 0, 0, 1);
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+:host(.mat-nav-rail-expanded) {
+  max-width: 360px;
+  min-width: 256px;
+}
+
+.mat-nav-rail-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.mat-nav-rail-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Header 区域不再进行 hack，只做基础布局转换 */
+:host ::ng-deep mat-navigation-rail-header {
+  display: flex;
+  flex-direction: column;
+  /* 收起时居中对齐，展开时靠左对齐 (假设你的 FAB 和 Menu 图标已经同宽或完美居中) */
+  align-items: flex-start;
+  padding: 24px 16px;
+  gap: 16px;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+:host(.mat-nav-rail-expanded) ::ng-deep mat-navigation-rail-header {
+  align-items: flex-start;
+  padding: 24px 16px;
+}

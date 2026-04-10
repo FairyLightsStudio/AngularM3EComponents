@@ -1,0 +1,31 @@
+<div class="layout">
+<mat-navigation-rail [expanded]="isExpanded()">
+  <mat-navigation-rail-header>
+    <button mat-icon-button (click)="isExpanded.set(!isExpanded())">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- 使用你优化后的 FAB -->
+    <button mat-fab  [extended]="isExpanded()" color="primary">
+      <mat-icon>edit</mat-icon>
+      <span *ngIf="isExpanded()">Compose</span>
+    </button>
+  </mat-navigation-rail-header>
+
+    @for (item of menuItems; track item.id) {
+      <mat-navigation-rail-item [active]="activeId() === item.id" (click)="activeId.set(item.id)">
+    <!-- Icon 依然直接投影 -->
+    <mat-icon matNavRailIcon>{{ item.icon }}</mat-icon>
+
+    <!-- Label 改用 ng-template 提供！ -->
+    <ng-template matNavRailLabel>{{ item.label }}</ng-template>
+
+      </mat-navigation-rail-item>
+    }
+</mat-navigation-rail>
+
+  <main class="content">
+    <h1>Dashboard</h1>
+    <router-outlet />
+  </main>
+</div>

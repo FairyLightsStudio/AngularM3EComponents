@@ -1,0 +1,121 @@
+:host {
+  display: block;
+}
+
+.mat-nav-rail-item-button {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding: 16px 28px 0 28px;
+  height: 72px;
+  width: max-content;
+  min-width: 80px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: var(--mat-sys-on-surface-variant, #49454F);
+  transition: height 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+.mat-nav-rail-state-layer {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 56px;
+  height: 32px;
+  border-radius: 16px;
+  background-color: transparent;
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  z-index: 0;
+}
+
+.mat-nav-rail-icon-container {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- 文字动画公共属性 --- */
+.mat-nav-rail-label-bottom,
+.mat-nav-rail-label-side {
+  position: absolute;
+  z-index: 1;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ==================================================
+   底部文字 (Collapsed State)
+   展开时：向上淡出 (translateY: 0 -> -8px)
+   收起时：向下淡入 (translateY: -8px -> 0)
+   ================================================== */
+.mat-nav-rail-label-bottom {
+  top: 48px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px); /* 默认隐藏态：偏上 */
+  font-size: 12px;
+  line-height: 16px;
+  opacity: 0;
+  transition: opacity 0.2s cubic-bezier(0.2, 0, 0, 1),
+              transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+
+  &.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0); /* 归位 */
+    transition-delay: 0.1s; /* 收起淡入时稍微延迟，等容器变窄 */
+  }
+}
+
+/* ==================================================
+   侧边文字 (Expanded State)
+   展开时：向右淡入 (translateX: -8px -> 0)
+   收起时：向左淡出 (translateX: 0 -> -8px)
+   ================================================== */
+.mat-nav-rail-label-side {
+  top: 16px;
+  left: 64px; /* Icon 28 + 24 + 间距 12 */
+  font-size: 14px;
+  line-height: 24px;
+  opacity: 0;
+  transform: translateX(-8px); /* 默认隐藏态：偏左 */
+  transition: opacity 0.15s cubic-bezier(0.2, 0, 0, 1),
+              transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+
+  &.show {
+    opacity: 1;
+    transform: translateX(0); /* 向右滑入归位 */
+    transition-delay: 0.1s; /* 展开淡入时稍微延迟，等右侧留出空间 */
+  }
+}
+
+/* RTL (阿拉伯语/希伯来语) 适配，这是 CDK Bidi 的魔力 */
+.mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-side {
+  transform: translateX(8px); /* 隐藏时偏右 */
+  &.show { transform: translateX(0); } /* 归位（向左滑入） */
+}
+
+/* --- 选中颜色 --- */
+.mat-nav-rail-item-button.active {
+  color: var(--mat-sys-on-secondary-container, #1D192B);
+  .mat-nav-rail-state-layer { background-color: var(--mat-sys-secondary-container, #E8DEF8); }
+  .mat-nav-rail-label-bottom, .mat-nav-rail-label-side { font-weight: 700; }
+}
+
+/* --- 展开状态 (Expanded) --- */
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button {
+  height: 56px;
+}
+
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-state-layer {
+  top: 0;
+  left: 12px;
+  width: calc(100% - 24px); /* 依然保持完美贴合文字 */
+  height: 56px;
+  border-radius: 28px;
+}
