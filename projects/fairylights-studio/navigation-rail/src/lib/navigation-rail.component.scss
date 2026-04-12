@@ -5,7 +5,6 @@
   min-width: 80px;
   max-width: 80px;
   background-color: var(--mat-sys-surface, #fff);
-  border-right: 1px solid var(--mat-sys-outline-variant, #e0e0e0);
   transition: max-width 0.3s cubic-bezier(0.2, 0, 0, 1),
               min-width 0.3s cubic-bezier(0.2, 0, 0, 1);
   overflow: hidden;

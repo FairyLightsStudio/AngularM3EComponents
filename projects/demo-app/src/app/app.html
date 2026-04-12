@@ -6,9 +6,9 @@
     </button>
 
     <!-- 使用你优化后的 FAB -->
-    <button mat-fab  [extended]="isExpanded()" color="primary">
+    <button mat-fab  extended="true" [collapsed]="!isExpanded()" color="primary">
       <mat-icon>edit</mat-icon>
-      <span *ngIf="isExpanded()">Compose</span>
+      <span>Compose</span>
     </button>
   </mat-navigation-rail-header>
 
