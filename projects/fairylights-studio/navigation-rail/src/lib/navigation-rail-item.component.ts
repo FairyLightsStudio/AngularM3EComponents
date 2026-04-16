@@ -1,6 +1,7 @@
 import { Component, Input, HostBinding, inject, forwardRef, ElementRef, AfterViewInit, OnDestroy, ContentChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatNavigationRailComponent } from './navigation-rail.component';
@@ -9,58 +10,64 @@ import { MatNavigationRailLabel } from './directives';
 @Component({
   selector: 'mat-navigation-rail-item',
   standalone: true,
-  imports: [CommonModule, MatRippleModule],
+  imports: [CommonModule, MatRippleModule, MatBadgeModule],
   template: `
     <button class="mat-nav-rail-item-button" [class.active]="active" [attr.dir]="dir.value" #buttonEl>
-      <!-- 状态/涟漪层 -->
-      <div class="mat-nav-rail-state-layer" matRipple></div>
 
-      <!-- Icon 层 -->
-      <div class="mat-nav-rail-icon-container">
-        <ng-content select="[matNavRailIcon]"></ng-content>
+      <!-- 指示器容器 (Hug 还是 Fill) -->
+      <div class="mat-nav-rail-indicator"
+           [class.indicator-fill]="rail?.indicatorShape === 'fill'"
+           [class.indicator-hug]="rail?.indicatorShape === 'hug'">
+
+        <!-- 单独的涟漪层 (避免 overflow hidden 切断外界的 Badge) -->
+        <div class="mat-nav-rail-ripple" matRipple [matRippleTrigger]="buttonEl"></div>
+
+        <!-- 图标及徽标区域 -->
+        <div class="mat-nav-rail-icon-box"
+             [matBadge]="badge"
+             [matBadgeHidden]="!badge"
+             matBadgeSize="small"
+             [matBadgeColor]="badgeColor">
+          <span class="icon-default"><ng-content select="[matNavRailIcon]"></ng-content></span>
+          <span class="icon-active"><ng-content select="[matNavRailActiveIcon]"></ng-content></span>
+        </div>
+
+        <!-- 侧边文字 (展开态) -->
+        <div class="mat-nav-rail-label-side">
+          <!-- 💡 增加一个 inner 容器配合 Grid 动画 -->
+          <div class="mat-nav-rail-label-inner">
+            <ng-container *ngTemplateOutlet="label?.templateRef || null"></ng-container>
+          </div>
+        </div>
+
       </div>
 
-      <!-- 核心修复 2：底部文字 (收起时显示，向上淡出) -->
-      <div class="mat-nav-rail-label-bottom" [class.show]="!isExpanded">
+      <!-- 底部文字 (收起态) -->
+      <div class="mat-nav-rail-label-bottom">
         <ng-container *ngTemplateOutlet="label?.templateRef || null"></ng-container>
       </div>
 
-      <!-- 核心修复 2：侧边文字 (展开时显示，向右淡入) -->
-      <div class="mat-nav-rail-label-side" [class.show]="isExpanded">
-        <ng-container *ngTemplateOutlet="label?.templateRef || null"></ng-container>
-      </div>
     </button>
   `,
   styleUrls: ['./navigation-rail-item.component.scss']
 })
 export class MatNavigationRailItemComponent implements AfterViewInit, OnDestroy {
   @Input() active = false;
+  @Input() badge?: string | number | null;
+  @Input() badgeColor: 'primary' | 'accent' | 'warn' = 'warn';
 
-  // 捕获用户传入的 ng-template
   @ContentChild(MatNavigationRailLabel) label?: MatNavigationRailLabel;
 
   rail = inject(forwardRef(() => MatNavigationRailComponent), { optional: true });
-
-  // 引入 CDK
   private focusMonitor = inject(FocusMonitor);
   private el = inject(ElementRef);
   public dir = inject(Directionality, { optional: true }) || { value: 'ltr' };
 
-  get isExpanded() {
+  @HostBinding('class.mat-nav-rail-item-expanded')
+  get expandedClass() {
     return this.rail?.expanded;
   }
 
-  @HostBinding('class.mat-nav-rail-item-expanded')
-  get expandedClass() {
-    return this.isExpanded;
-  }
-
-  // CDK FocusMonitor 接管焦点行为，增强 A11y 可访问性
-  ngAfterViewInit() {
-    this.focusMonitor.monitor(this.el, true);
-  }
-
-  ngOnDestroy() {
-    this.focusMonitor.stopMonitoring(this.el);
-  }
+  ngAfterViewInit() { this.focusMonitor.monitor(this.el, true); }
+  ngOnDestroy() { this.focusMonitor.stopMonitoring(this.el); }
 }

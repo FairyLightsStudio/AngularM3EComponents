@@ -1,121 +1,164 @@
 :host {
   display: block;
+  width: 100%;
 }
 
 .mat-nav-rail-item-button {
   position: relative;
   display: flex;
-  align-items: flex-start;
-  padding: 16px 28px 0 28px;
-  height: 72px;
-  width: max-content;
-  min-width: 80px;
+  flex-direction: column;
+  align-items: flex-start; /* 永远左对齐，解决突跳 */
+  justify-content: flex-start;
+  width: 100%; /* Target Area 100% 占满 */
+  height: 72px; /* 默认收起态包含底部文字的高 */
+  padding: 12px 12px 0 12px; /* 预留 12px 的侧边距 */
   background: transparent;
   border: none;
   cursor: pointer;
   outline: none;
   color: var(--mat-sys-on-surface-variant, #49454F);
-  transition: height 0.3s cubic-bezier(0.2, 0, 0, 1);
+  transition: height 0.2s cubic-bezier(0.2, 0, 0, 1),
+              padding 0.2s cubic-bezier(0.2, 0, 0, 1);
+  box-sizing: border-box;
 }
 
-.mat-nav-rail-state-layer {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  width: 56px;
+/* 展开态：按钮变矮，文字移入胶囊内 */
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button {
+  height: 56px;
+  padding: 0 12px;
+}
+
+/* ================== 胶囊指示器 (Indicator) ================== */
+.mat-nav-rail-indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   height: 32px;
+  width: 56px; /* 56px 正好完美填满 (80 - 12 - 12) 达成居中！ */
   border-radius: 16px;
   background-color: transparent;
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-  z-index: 0;
+  transition: height 0.2s cubic-bezier(0.2, 0, 0, 1),
+              border-radius 0.2s cubic-bezier(0.2, 0, 0, 1),
+              background-color 0.2s cubic-bezier(0.2, 0, 0, 1);
+  z-index: 1;
 }
 
-.mat-nav-rail-icon-container {
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator {
+  height: 56px;
+  border-radius: 28px;
+}
+
+.mat-nav-rail-indicator.indicator-hug {
+  width: max-content; /* 依然保持随内容自适应撑开 */
+  padding-inline-end: 16px;
+}
+
+
+/* 🎯 Fill 模式：直接填满父级 (此模式本身即可平滑，因为父级 width 在平滑变大) */
+.mat-nav-rail-indicator.indicator-fill {
+  width: 100%;
+}
+
+
+/* 单独剥离出来的涟漪层及背景层 (防止切除外界的 Badge) */
+.mat-nav-rail-ripple {
+  position: absolute;
+  inset: 0; /* 即 top:0; left:0; right:0; bottom:0; */
+  border-radius: inherit;
+  overflow: hidden; /* 这里切涟漪，不切外部 Indicator */
+  z-index: -1;
+}
+
+/* ================== 图标容器 ================== */
+.mat-nav-rail-icon-box {
+  position: relative;
   width: 24px;
   height: 24px;
-  position: relative;
-  z-index: 1;
+  margin-inline-start: 16px; /* 图标永远距左 16px，不论展开或收缩，彻底告别位移！ */
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* --- 文字动画公共属性 --- */
-.mat-nav-rail-label-bottom,
-.mat-nav-rail-label-side {
+.icon-default, .icon-active {
   position: absolute;
-  z-index: 1;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-default { opacity: 1; }
+.icon-active { opacity: 0; }
+
+/* ================== 展开态文字 (Side Label) ================== */
+.mat-nav-rail-label-side {
+  /* 💡 核心魔法：使用 Grid 布局 */
+  display: grid;
+  /* 初始轨道宽度为 0 */
+  grid-template-columns: 0fr;
+
+  font-size: 14px;
   font-weight: 500;
+  pointer-events: none;
+  padding-inline-start: 0;
+  opacity: 0;
+
+  /* 平滑过渡 grid 轨道和透明度 */
+  transition: grid-template-columns 0.2s cubic-bezier(0.2, 0, 0, 1),
+              padding-inline-start 0.2s cubic-bezier(0.2, 0, 0, 1),
+              opacity 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+/* 内部内容层负责裁剪，防止撑破 0fr 的轨道 */
+.mat-nav-rail-label-inner {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-label-side {
+  /* 轨道平滑撑开到 1fr (自动计算文字真实宽度) */
+  grid-template-columns: 1fr;
+  padding-inline-start: 12px;
+  opacity: 1;
+}
+
+/* RTL 适配 */
+.mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-side { transform: translateX(8px); }
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-side { transform: translateX(0); }
+
+/* ================== 收起态底部文字 (Bottom Label) ================== */
+.mat-nav-rail-label-bottom {
+  position: absolute;
+  top: 48px; /* 12px 顶边距 + 32px 胶囊 + 4px 间隔 */
+  left: 40px; /* 利用 50% 自动完美居中于整个占满区域 */
+  transform: translateX(-50%) translateY(0);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
   white-space: nowrap;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
-/* ==================================================
-   底部文字 (Collapsed State)
-   展开时：向上淡出 (translateY: 0 -> -8px)
-   收起时：向下淡入 (translateY: -8px -> 0)
-   ================================================== */
-.mat-nav-rail-label-bottom {
-  top: 48px;
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px); /* 默认隐藏态：偏上 */
-  font-size: 12px;
-  line-height: 16px;
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-label-bottom {
   opacity: 0;
-  transition: opacity 0.2s cubic-bezier(0.2, 0, 0, 1),
-              transform 0.3s cubic-bezier(0.2, 0, 0, 1);
-
-  &.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0); /* 归位 */
-    transition-delay: 0.1s; /* 收起淡入时稍微延迟，等容器变窄 */
-  }
+  transform: translateX(-50%) translateY(-8px);
 }
 
-/* ==================================================
-   侧边文字 (Expanded State)
-   展开时：向右淡入 (translateX: -8px -> 0)
-   收起时：向左淡出 (translateX: 0 -> -8px)
-   ================================================== */
-.mat-nav-rail-label-side {
-  top: 16px;
-  left: 64px; /* Icon 28 + 24 + 间距 12 */
-  font-size: 14px;
-  line-height: 24px;
-  opacity: 0;
-  transform: translateX(-8px); /* 默认隐藏态：偏左 */
-  transition: opacity 0.15s cubic-bezier(0.2, 0, 0, 1),
-              transform 0.3s cubic-bezier(0.2, 0, 0, 1);
-
-  &.show {
-    opacity: 1;
-    transform: translateX(0); /* 向右滑入归位 */
-    transition-delay: 0.1s; /* 展开淡入时稍微延迟，等右侧留出空间 */
-  }
-}
-
-/* RTL (阿拉伯语/希伯来语) 适配，这是 CDK Bidi 的魔力 */
-.mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-side {
-  transform: translateX(8px); /* 隐藏时偏右 */
-  &.show { transform: translateX(0); } /* 归位（向左滑入） */
-}
-
-/* --- 选中颜色 --- */
+/* ================== 活动状态 (Active) ================== */
 .mat-nav-rail-item-button.active {
   color: var(--mat-sys-on-secondary-container, #1D192B);
-  .mat-nav-rail-state-layer { background-color: var(--mat-sys-secondary-container, #E8DEF8); }
-  .mat-nav-rail-label-bottom, .mat-nav-rail-label-side { font-weight: 700; }
-}
 
-/* --- 展开状态 (Expanded) --- */
-:host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button {
-  height: 56px;
-}
+  .mat-nav-rail-indicator {
+    background-color: var(--mat-sys-secondary-container, #E8DEF8);
+  }
 
-:host(.mat-nav-rail-item-expanded) .mat-nav-rail-state-layer {
-  top: 0;
-  left: 12px;
-  width: calc(100% - 24px); /* 依然保持完美贴合文字 */
-  height: 56px;
-  border-radius: 28px;
+  .icon-default { opacity: 0; }
+  .icon-active { opacity: 1; }
+
+  .mat-nav-rail-label-bottom, .mat-nav-rail-label-side {
+    // font-weight: 700; /* M3 规范：选中文字变粗 */
+  }
 }

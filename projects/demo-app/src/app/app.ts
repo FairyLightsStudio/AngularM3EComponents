@@ -3,23 +3,35 @@ import { RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/navigation-rail';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MAT_NAVIGATION_RAIL_MODULES, MatNavRailIndicatorShape } from '@fairylights-studio/navigation-rail';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatIconModule, MatButtonModule, CommonModule, MatProgressSpinnerModule, ...MAT_NAVIGATION_RAIL_MODULES],
+  imports: [ MatIconModule, MatButtonModule, CommonModule, ...MAT_NAVIGATION_RAIL_MODULES],
   templateUrl: './app.html',
   styleUrl: './app.sass',
 })
 export class App {
-  protected readonly title = signal('demo-app');
   isExpanded = signal(false);
   activeId = signal('inbox');
 
-  menuItems = [
-    { id: 'inbox', label: 'Inbox', icon: 'inbox', iconActive: 'inbox' },
-    { id: 'outbox', label: 'Outbox', icon: 'send', iconActive: 'send' },
-    { id: 'favorites', label: 'Favorites', icon: 'favorite_border', iconActive: 'favorite' },
-    { id: 'trash', label: 'Trash', icon: 'delete_outline', iconActive: 'delete' },
+  // 可切换配置测试
+  indicatorShape = signal<MatNavRailIndicatorShape>('hug');
+  showDivider = signal(true);
+
+  // 顶部导航 (带 Badge)
+  topItems = [
+    { id: 'inbox', label: 'Inbox', icon: 'inbox', activeIcon: 'move_to_inbox', badge: 3 },
+    { id: 'outbox', label: 'Outbox', icon: 'send', activeIcon: 'send', badge: null },
   ];
+
+  // 中部导航
+  middleItems = [
+    { id: 'favorites', label: 'Favorites', icon: 'favorite_border', activeIcon: 'favorite' },
+    { id: 'trash', label: 'Trash', icon: 'delete_outline', activeIcon: 'delete' },
+  ];
+
+  toggleShape() {
+    this.indicatorShape.set(this.indicatorShape() === 'hug' ? 'fill' : 'hug');
+  }
 }

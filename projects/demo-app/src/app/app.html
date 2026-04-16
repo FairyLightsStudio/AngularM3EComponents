@@ -1,31 +1,67 @@
-<div class="layout">
-<mat-navigation-rail [expanded]="isExpanded()">
-  <mat-navigation-rail-header>
-    <button mat-icon-button (click)="isExpanded.set(!isExpanded())">
-      <mat-icon>menu</mat-icon>
-    </button>
+<div class="layout" dir="ltr"> <!-- 尝试改为 dir="rtl" 查看魔法效果 -->
 
-    <!-- 使用你优化后的 FAB -->
-    <button mat-fab  extended="true" [collapsed]="!isExpanded()" color="primary">
-      <mat-icon>edit</mat-icon>
-      <span>Compose</span>
-    </button>
-  </mat-navigation-rail-header>
+  <mat-navigation-rail
+    [expanded]="isExpanded()"
+    [indicatorShape]="indicatorShape()"
+    [showDivider]="showDivider()">
 
-    @for (item of menuItems; track item.id) {
-      <mat-navigation-rail-item [active]="activeId() === item.id" (click)="activeId.set(item.id)">
-    <!-- Icon 依然直接投影 -->
-    <mat-icon matNavRailIcon>{{ item.icon }}</mat-icon>
+    <!-- Header: 顶部汉堡包和 FAB -->
+    <mat-navigation-rail-header>
+      <button mat-icon-button (click)="isExpanded.set(!isExpanded())">
+        <mat-icon>menu</mat-icon>
+      </button>
 
-    <!-- Label 改用 ng-template 提供！ -->
-    <ng-template matNavRailLabel>{{ item.label }}</ng-template>
+      <button mat-fab extended="true" [collapsed]="!isExpanded()" color="primary">
+        <mat-icon>edit</mat-icon>
+        <span>Compose</span>
+      </button>
+    </mat-navigation-rail-header>
+
+    <!-- 🌟 利用 CSS Flex 让下面元素居中。可以放一个 spacer -->
+    <div class="spacer" style="flex: 1;"></div>
+
+    <!-- Top 区块 -->
+    @for (item of topItems; track item.id) {
+      <mat-navigation-rail-item
+        [active]="activeId() === item.id"
+        (click)="activeId.set(item.id)"
+        [badge]="item.badge ?? undefined">
+
+        <!-- 提供默认Icon和高亮实心Icon -->
+        <mat-icon matNavRailIcon>{{ item.icon }}</mat-icon>
+        <mat-icon matNavRailActiveIcon>{{ item.activeIcon }}</mat-icon>
+        <ng-template matNavRailLabel>{{ item.label }}</ng-template>
 
       </mat-navigation-rail-item>
     }
-</mat-navigation-rail>
+
+    <!-- Middle 区块 -->
+    @for (item of middleItems; track item.id) {
+      <mat-navigation-rail-item
+        [active]="activeId() === item.id"
+        (click)="activeId.set(item.id)">
+        <mat-icon matNavRailIcon>{{ item.icon }}</mat-icon>
+        <mat-icon matNavRailActiveIcon>{{ item.activeIcon }}</mat-icon>
+        <ng-template matNavRailLabel>{{ item.label }}</ng-template>
+      </mat-navigation-rail-item>
+    }
+
+    <!-- Bottom 区块 (可以再放个 spacer 推到底部，或者直接放在这) -->
+    <div class="spacer" style="flex: 1;"></div>
+
+    <mat-navigation-rail-item>
+       <mat-icon matNavRailIcon>dark_mode</mat-icon>
+       <mat-icon matNavRailActiveIcon>light_mode</mat-icon>
+       <ng-template matNavRailLabel>Theme</ng-template>
+    </mat-navigation-rail-item>
+
+  </mat-navigation-rail>
 
   <main class="content">
     <h1>Dashboard</h1>
-    <router-outlet />
+    <p>Target area covers full width, pill hugs or fills!</p>
+    <button mat-stroked-button (click)="toggleShape()">
+      Toggle Indicator Shape: {{ indicatorShape() | titlecase }}
+    </button>
   </main>
 </div>
