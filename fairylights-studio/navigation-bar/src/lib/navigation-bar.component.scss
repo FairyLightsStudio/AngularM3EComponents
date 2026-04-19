@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 80px; /* Jetpack Compose 源码中的 NavigationBarHeight = TallContainerHeight */
+  background-color: var(--mat-sys-surface-container, #f3edf7);
+  /* M3 底部导航通常有极其轻微的 Elevation，这里用 surface-container 代替 */
+  z-index: 100;
+}
+
+.mat-nav-bar-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch; /* 让 Item 占满 80px 高度 */
+  width: 100%;
+  height: 100%;
+  padding-bottom: env(safe-area-inset-bottom); /* 适配 iOS/Android 全面屏底栏 */
+}

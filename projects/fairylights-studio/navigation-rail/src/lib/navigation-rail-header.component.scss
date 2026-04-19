@@ -1,8 +1,35 @@
 :host {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* 🚨 核心魔法：永远靠前端对齐，绝不使用 center，杜绝动画跳跃 */
+  align-items: flex-start;
+
+  /*
+     Padding 计算：
+     顶部/底部：24px
+     侧边：12px (因为 12px + 56px(FAB) + 12px = 80px)
+     注意：这里使用逻辑属性 padding-inline-start 以完美支持 RTL 语种
+  */
   padding: 24px 0;
+  padding-inline-start: 12px;
+
   gap: 16px;
   width: 100%;
+  box-sizing: border-box;
+}
+
+/*
+ * 📐 魔法数学居中法：
+ * 导航栏收缩时的总宽度为 80px。
+ * 我们为不同尺寸的组件精确计算 margin-left，使它们的中心轴完全对齐在 40px 处！
+ */
+
+/*
+ * 1. 汉堡菜单 (Angular Material M3 标准宽度：48px)
+ * 居中公式：(80 - 48) / 2 = 16px
+ * 兼容属性选择器和 MDC 类名，确保绝对生效
+ */
+:host ::ng-deep button[mat-icon-button],
+:host ::ng-deep .mat-mdc-icon-button {
+  margin-inline-start: 16px;
 }
