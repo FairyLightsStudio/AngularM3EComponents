@@ -9,10 +9,7 @@ export type MatNavRailIndicatorShape = 'hug' | 'fill';
   imports: [CommonModule],
   template: `
     <div class="mat-nav-rail-container">
-      <!-- 头部内容 (如汉堡菜单、FAB) -->
       <ng-content select="mat-navigation-rail-header"></ng-content>
-
-      <!-- 主内容区域，使用 flex 允许内部自由分布(如使用 spacer) -->
       <div class="mat-nav-rail-content">
         <ng-content></ng-content>
       </div>
@@ -33,5 +30,10 @@ export class MatNavigationRailComponent {
   @HostBinding('class.mat-nav-rail-has-divider')
   get getDividerClass() {
     return this.showDivider;
+  }
+
+  @HostBinding('attr.data-indicator-shape')
+  get getIndicatorShapeAttr() {
+    return this.indicatorShape;
   }
 }

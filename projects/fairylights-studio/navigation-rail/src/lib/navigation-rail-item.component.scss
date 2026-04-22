@@ -44,15 +44,29 @@
   z-index: 1;
 }
 
-:host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator {
-  height: 56px;
-  border-radius: 28px;
-}
 
 .mat-nav-rail-indicator.indicator-hug {
   width: max-content; /* 依然保持随内容自适应撑开 */
   padding-inline-end: 16px;
 }
+
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator {
+  height: 56px;
+  border-radius: 28px;
+}
+
+/* 确保 Hug 模式是贴合内容的 */
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator.indicator-hug {
+  width: max-content;
+  min-width: 56px;
+  padding-inline-end: 16px;
+}
+
+/* 确保 Fill 模式是 100% 铺满的 */
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator.indicator-fill {
+  width: 100%; /* 因为有外层 button 左右 12px 的 Padding 保护，刚好留出完美的边距 */
+}
+
 
 
 /* 🎯 Fill 模式：直接填满父级 (此模式本身即可平滑，因为父级 width 在平滑变大) */
@@ -131,28 +145,54 @@
 .mat-nav-rail-label-bottom {
   position: absolute;
   top: 48px; /* 12px 顶边距 + 32px 胶囊 + 4px 间隔 */
-  left: 40px; /* 利用 50% 自动完美居中于整个占满区域 */
-  transform: translateX(-50%) translateY(0);
+  left: 40px;
+  transform: translateX(-50%); /* 保持 X 轴完美居中 */
+
+  width: max-content;
+  max-width: 76px;
+
+  /* 💡 核心魔法：使用 Grid 垂直轨道动画 */
+  display: grid;
+  grid-template-rows: 1fr; /* 默认收起状态下：显示（高度自适应为1fr） */
+  opacity: 1;
+
+  transition: grid-template-rows 0.2s cubic-bezier(0.2, 0, 0, 1),
+              opacity 0.2s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* 内部内容层负责裁剪，防止撑破 0fr 的轨道 */
+.mat-nav-rail-label-bottom-inner {
+  min-height: 0; /* 🚨 Grid 垂直动画的灵魂：允许高度被挤压到 0 */
+  overflow: hidden; /* 切除溢出部分，形成物理意义上的“向上擦除” */
+  text-overflow: ellipsis;
+  text-align: center;
+
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
   white-space: nowrap;
   pointer-events: none;
-  opacity: 1;
-  transition: opacity 0.2s, transform 0.2s;
 }
 
+/* 展开态：轨道闭合为 0fr，文字被向上无缝擦除 */
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-label-bottom {
+  grid-template-rows: 0fr;
   opacity: 0;
-  transform: translateX(-50%) translateY(-8px);
+}
+
+/* ======== 🌍 RTL (从右到左语种) 完美适配 ======== */
+.mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-bottom {
+  left: auto;
+  right: 40px;
+  transform: translateX(50%);
 }
 
 /* ================== 活动状态 (Active) ================== */
 .mat-nav-rail-item-button.active {
-  color: var(--mat-sys-on-secondary-container, #1D192B);
+  color: var(--mat-sys-on-secondary-container);
 
   .mat-nav-rail-indicator {
-    background-color: var(--mat-sys-secondary-container, #E8DEF8);
+    background-color: var(--mat-sys-secondary-container);
   }
 
   .icon-default { opacity: 0; }

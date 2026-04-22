@@ -18,7 +18,7 @@
     </mat-navigation-rail-header>
 
     <!-- 🌟 利用 CSS Flex 让下面元素居中。可以放一个 spacer -->
-    <div class="spacer" style="flex: 1;"></div>
+    <!-- <div class="spacer" style="flex: 1;"></div> -->
 
     <!-- Top 区块 -->
     @for (item of topItems; track item.id) {
@@ -49,12 +49,6 @@
     <!-- Bottom 区块 (可以再放个 spacer 推到底部，或者直接放在这) -->
     <div class="spacer" style="flex: 1;"></div>
 
-    <mat-navigation-rail-item>
-       <mat-icon matNavRailIcon>dark_mode</mat-icon>
-       <mat-icon matNavRailActiveIcon>light_mode</mat-icon>
-       <ng-template matNavRailLabel>Theme</ng-template>
-    </mat-navigation-rail-item>
-
   </mat-navigation-rail>
 
   <main class="content">
@@ -62,6 +56,9 @@
     <p>Target area covers full width, pill hugs or fills!</p>
     <button mat-stroked-button (click)="toggleShape()">
       Toggle Indicator Shape: {{ indicatorShape() | titlecase }}
+    </button>
+    <button mat-stroked-button (click)="toggleDivider()">
+      Toggle Divider: {{ showDivider() ? 'On' : 'Off' }}
     </button>
   </main>
 </div>

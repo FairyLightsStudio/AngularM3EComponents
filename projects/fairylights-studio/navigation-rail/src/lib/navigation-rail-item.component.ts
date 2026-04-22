@@ -44,8 +44,12 @@ import { MatNavigationRailLabel } from './directives';
 
       <!-- 底部文字 (收起态) -->
       <div class="mat-nav-rail-label-bottom">
-        <ng-container *ngTemplateOutlet="label?.templateRef || null"></ng-container>
+        <!-- 💡 增加一层 inner 容器，专门负责垂直擦除的裁剪 -->
+        <div class="mat-nav-rail-label-bottom-inner">
+          <ng-container *ngTemplateOutlet="label?.templateRef || null"></ng-container>
+        </div>
       </div>
+
 
     </button>
   `,

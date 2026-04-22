@@ -1,22 +1,35 @@
 :host {
   display: block;
   height: 100vh;
-  width: 80px; /* 收起时的固定宽度 */
+
+  /* 🌟 核心 API：暴露展开宽度和最大宽度控制 */
+  --_expanded-width: var(--mat-nav-rail-expanded-width, max-content);
+  --_expanded-max-width: var(--mat-nav-rail-expanded-max-width, 360px);
+
+  /* 平时应用设定的宽度（默认 max-content 紧贴内容） */
+  width: var(--_expanded-width);
+
+  /* 闭合状态下，强制用 max-width 把自适应卡死在 80px */
+  min-width: 80px;
+  max-width: 80px;
+
   background-color: var(--mat-sys-surface, #fff);
   border-inline-end: 1px solid transparent;
-  transition: width 0.2s cubic-bezier(0.2, 0, 0, 1),
+
+  /* 动画依然由 max-width 驱动 */
+  transition: max-width 0.2s cubic-bezier(0.2, 0, 0, 1),
               border-color 0.2s;
   overflow: hidden;
   position: relative;
   z-index: 100;
-  white-space: nowrap; /* 防止动画期间文字换行 */
+  white-space: nowrap;
 }
 
 :host(.mat-nav-rail-expanded) {
-  width: 256px; /* 展开时的 M3 基线宽度 */
+  /* 展开时，释放封印到设定的最大宽度 */
+  max-width: var(--_expanded-max-width);
 }
 
-/* 可选的垂直分割线 */
 :host(.mat-nav-rail-has-divider) {
   border-inline-end-color: var(--mat-sys-outline-variant, #cac4d0);
 }
@@ -29,32 +42,14 @@
 }
 
 .mat-nav-rail-content {
-  flex: 1; /* 占据剩余空间，方便内部使用 spacer 推到底部 */
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* 统一左对齐，避免跳跃 */
+  align-items: stretch;
   width: 100%;
-  gap: 0px; // item间 无间距
   padding-bottom: 24px;
   overflow-y: auto;
   overflow-x: hidden;
-  /* 隐藏滚动条 */
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
-}
-
-/* Header 区域统一左对齐，通过 Padding 实现居中，动画完美平滑 */
-:host ::ng-deep mat-navigation-rail-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 24px 12px; /* 12px padding 让 56px 的 FAB 完美居中于 80px */
-  gap: 16px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* 微调默认 Menu 按钮 (48px) 让它在 56px 的内部空间中也居中 */
-:host ::ng-deep mat-navigation-rail-header > button[mat-icon-button] {
-  margin-inline-start: 4px;
 }

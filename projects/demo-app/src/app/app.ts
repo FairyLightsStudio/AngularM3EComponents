@@ -4,10 +4,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MAT_NAVIGATION_RAIL_MODULES, MatNavRailIndicatorShape } from '@fairylights-studio/navigation-rail';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-root',
-  imports: [ MatIconModule, MatButtonModule, CommonModule, ...MAT_NAVIGATION_RAIL_MODULES],
+  imports: [ MatIconModule, MatButtonModule, CommonModule, ...MAT_NAVIGATION_RAIL_MODULES, MatProgressSpinner],
   templateUrl: './app.html',
   styleUrl: './app.sass',
 })
@@ -30,7 +31,9 @@ export class App {
     { id: 'favorites', label: 'Favorites', icon: 'favorite_border', activeIcon: 'favorite' },
     { id: 'trash', label: 'Trash', icon: 'delete_outline', activeIcon: 'delete' },
   ];
-
+  toggleDivider() {
+    this.showDivider.set(!this.showDivider());
+  }
   toggleShape() {
     this.indicatorShape.set(this.indicatorShape() === 'hug' ? 'fill' : 'hug');
   }
