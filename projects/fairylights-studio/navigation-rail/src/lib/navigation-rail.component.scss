@@ -1,3 +1,10 @@
+@use 'sass:map';
+@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
+
+$m3-motion-tokens: m3-motion.md-sys-motion-values();
+$duration-medium1: map.get($m3-motion-tokens, duration-medium1);
+$easing-standard: map.get($m3-motion-tokens, easing-standard);
+
 :host {
   display: block;
   height: 100vh;
@@ -16,9 +23,9 @@
   background-color: var(--mat-sys-surface, #fff);
   border-inline-end: 1px solid transparent;
 
-  /* 动画依然由 max-width 驱动 */
-  transition: max-width 0.2s cubic-bezier(0.2, 0, 0, 1),
-              border-color 0.2s;
+  /* 动画使用动效令牌 */
+  transition: max-width $duration-medium1 $easing-standard,
+              border-color $duration-medium1 $easing-standard;
   overflow: hidden;
   position: relative;
   z-index: 100;

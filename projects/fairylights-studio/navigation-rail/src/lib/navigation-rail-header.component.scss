@@ -1,3 +1,10 @@
+@use 'sass:map';
+@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
+
+$m3-motion-tokens: m3-motion.md-sys-motion-values();
+$duration-medium1: map.get($m3-motion-tokens, duration-medium1);
+$easing-standard: map.get($m3-motion-tokens, easing-standard);
+
 :host {
   display: flex;
   flex-direction: column;
@@ -16,10 +23,7 @@
    * 💡 使用 margin-inline-start 自动完美支持 RTL 语种！
    */
   margin-left: var(--_measured-margin, 12px);
-  // margin-left: auto;
-  // margin-right: auto;
 
-  /* 因为现在是固定像素值到固定像素值，过渡绝对与自身缩放 100% 同步！ */
-  transition: margin-inline-start 0.2s cubic-bezier(0.2, 0, 0, 1),
-              width 0.2s cubic-bezier(0.2, 0, 0, 1);
+  transition: margin-inline-start $duration-medium1 $easing-standard,
+              width $duration-medium1 $easing-standard;
 }
