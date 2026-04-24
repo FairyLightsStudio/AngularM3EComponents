@@ -1,21 +1,22 @@
 {
 	"servers": {
-		// "angular-cli": {
-		// 	"command": "ng",
-		// 	"args": [
-		// 		"mcp"
-		// 	],
-		// 	"type": "stdio"
-		// },
-		"browser-dev-tool": {
-			"type": "stdio",
+		"angular-cli": {
 			"command": "bunx",
 			"args": [
-				"-y",
-				"chrome-devtools-mcp@latest",
-				"--no-usage-statistics"
-			]
-		}
+        "ng",
+				"mcp"
+			],
+			"type": "stdio"
+		},
+		// "browser-dev-tool": {
+		// 	"type": "stdio",
+		// 	"command": "bunx",
+		// 	"args": [
+		// 		"-y",
+		// 		"chrome-devtools-mcp@latest",
+		// 		"--no-usage-statistics"
+		// 	]
+		// }
 	},
 	"inputs": []
 }

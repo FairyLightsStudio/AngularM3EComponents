@@ -4,7 +4,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@fairylights-studio/navigation-rail": ["./projects/fairylights-studio/navigation-rail/src/public-api"]
+      "@fairylights-studio/navigation-rail": ["./projects/fairylights-studio/navigation-rail/src/public-api"],
+      "@fairylights-studio/navigation-bar": ["./projects/fairylights-studio/navigation-bar/src/public-api"],
+      "@fairylights-studio/navigation-common": ["./projects/fairylights-studio/navigation-common/src/public-api"],
+      "@fairylights-studio/navigation-suite": ["./projects/fairylights-studio/navigation-suite/src/public-api"]
     },
     "strict": true,
     "noImplicitOverride": true,
