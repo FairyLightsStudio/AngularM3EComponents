@@ -1,9 +1,21 @@
 {
-  // For more information, visit: https://angular.dev/ai/mcp
-  "servers": {
-    "angular-cli": {
-      "command": "ng",
-      "args": [ "mcp"]
-    }
-  }
+	"servers": {
+		// "angular-cli": {
+		// 	"command": "ng",
+		// 	"args": [
+		// 		"mcp"
+		// 	],
+		// 	"type": "stdio"
+		// },
+		"browser-dev-tool": {
+			"type": "stdio",
+			"command": "bunx",
+			"args": [
+				"-y",
+				"chrome-devtools-mcp@latest",
+				"--no-usage-statistics"
+			]
+		}
+	},
+	"inputs": []
 }
