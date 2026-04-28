@@ -1,0 +1,50 @@
+@use 'sass:map';
+@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
+
+$m3-motion-tokens: m3-motion.md-sys-motion-values();
+$duration-medium1: map.get($m3-motion-tokens, duration-medium1);
+$easing-standard: map.get($m3-motion-tokens, easing-standard);
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 容器采用 inline-grid 完美叠加内容，不脱离正常的文档流 */
+.icon-container {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+mat-icon {
+  /* 让所有 icon 在 grid 中占据同一个单元格从而完美重叠 */
+  grid-area: 1 / 1;
+  transition: transform $duration-medium1 $easing-standard,
+              opacity $duration-medium1 $easing-standard;
+}
+
+.menu-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}
+
+.menu-open-icon {
+  opacity: 0;
+  /* 初始时倒过来，这样一转就正了 */
+  transform: rotate(-180deg);
+}
+
+/* 按钮展开时的翻转与透明度交替 */
+button.expanded .menu-icon {
+  opacity: 0;
+  transform: rotate(180deg);
+}
+
+button.expanded .menu-open-icon {
+  opacity: 1;
+  transform: rotate(0deg);
+}

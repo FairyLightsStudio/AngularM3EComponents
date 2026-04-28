@@ -1,12 +1,14 @@
 {
-  "name": "@fairylights-studio/navigation-rail",
+  "name": "@fairylights-studio/navigation-suite",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^21.2.0",
     "@angular/core": "^21.2.0",
     "@angular/material": "^21",
     "@angular/cdk": "^21",
-    "@fairylights-studio/navigation-common": "0.0.1"
+    "@fairylights-studio/navigation-common": "0.0.1",
+    "@fairylights-studio/navigation-bar": "0.0.1",
+    "@fairylights-studio/navigation-rail": "0.0.1"
   },
   "dependencies": {
     "tslib": "^2.3.0"

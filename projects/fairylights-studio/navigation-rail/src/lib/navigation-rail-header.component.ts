@@ -16,6 +16,7 @@ export class MatNavigationRailHeaderComponent implements AfterViewInit, OnDestro
   private mutationObserver!: MutationObserver;
 
   ngAfterViewInit() {
+    // FIXME 一开始就在展开状态怎么办？
     // 1. 使用 ResizeObserver 精确测量元素宽度
     this.resizeObserver = new ResizeObserver((entries) => {
       // 🚨 核心逻辑：如果在展开状态，元素(如扩展FAB)的宽度正在变大，此时测量是不准确的。

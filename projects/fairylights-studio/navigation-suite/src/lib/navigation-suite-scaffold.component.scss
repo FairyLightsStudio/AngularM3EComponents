@@ -1,0 +1,54 @@
+.mat-navigation-suite-scaffold {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  .mat-navigation-suite-scaffold-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+
+    .mat-navigation-suite-scaffold-content {
+      flex: 1;
+      overflow-y: auto;
+    }
+  }
+
+  /* Floating Action Area for Navigation Bar mode */
+  .mat-navigation-suite-primary-action-floating {
+    position: absolute;
+    bottom: calc(80px + 16px); /* NavBar Height (80dp) + 16dp spacing */
+    z-index: 10;
+    pointer-events: none;
+    display: flex;
+    width: calc(100% - 32px); /* 16dp margin on both sides */
+    margin: 0 16px;
+
+    & > * {
+      pointer-events: auto; /* Re-enable pointer events for the actual button */
+    }
+
+    &.align-start { justify-content: flex-start; }
+    &.align-center { justify-content: center; }
+    &.align-end { justify-content: flex-end; }
+
+    /* Animation transition when switching modes */
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  }
+
+  &.mat-navigation-suite-layout-navigation-bar {
+    flex-direction: column;
+
+    .mat-navigation-suite-scaffold-main {
+      order: -1; /* Content above the bottom bar */
+    }
+  }
+
+  &.mat-navigation-suite-layout-navigation-rail {
+    flex-direction: row;
+  }
+}

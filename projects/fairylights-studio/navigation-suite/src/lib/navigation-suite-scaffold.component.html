@@ -1,0 +1,95 @@
+<div
+  class="mat-navigation-suite-scaffold"
+  [ngClass]="'mat-navigation-suite-layout-' + currentLayout()"
+>
+  <!-- Mobile View: Navigation Bar + Floating Primary Action -->
+  @if (currentLayout() === 'navigation-bar' || currentLayout() === 'navigation-bar-horizontal') {
+    <!-- Floating FAB for Mobile -->
+    @if (primaryAction()?.templateRef) {
+      <div
+        class="mat-navigation-suite-primary-action-floating"
+        [ngClass]="'align-' + primaryActionContentHorizontal()"
+      >
+        <ng-container *ngTemplateOutlet="primaryAction()!.templateRef!"></ng-container>
+      </div>
+    }
+
+    <mat-navigation-bar>
+      @for (item of items(); track item.label) {
+        <mat-navigation-bar-item
+          [active]="item.active()"
+          [disabled]="item.disabled()"
+          [alwaysShowLabel]="alwaysShowLabel()"
+          [layout]="currentLayout() === 'navigation-bar-horizontal' ? 'horizontal' : 'vertical'"
+          (click)="item.selected.emit()"
+        >
+          @if (item.icon?.templateRef) {
+            <ng-container
+              *ngTemplateOutlet="item.icon!.templateRef"
+              matNavigationIcon
+            ></ng-container>
+          }
+          @if (item.activeIcon?.templateRef) {
+            <ng-container
+              *ngTemplateOutlet="item.activeIcon!.templateRef"
+              matNavigationActiveIcon
+            ></ng-container>
+          }
+          <ng-template matNavigationLabel>
+            <ng-container *ngTemplateOutlet="item.label!.templateRef"></ng-container>
+          </ng-template>
+        </mat-navigation-bar-item>
+      }
+    </mat-navigation-bar>
+  }
+
+  <!-- Tablet/Desktop View: Navigation Rail with Integrated Primary Action in Header -->
+  @if (currentLayout() === 'navigation-rail') {
+    <mat-navigation-rail
+      [expanded]="expanded()"
+      [indicatorShape]="indicatorShape()"
+      [showDivider]="showDivider()"
+      [verticalArrangement]="navigationItemVerticalArrangement()"
+    >
+      <!-- Primary Action absorbed into Rail Header -->
+      <mat-navigation-rail-header>
+        @if (primaryAction()?.templateRef) {
+          <ng-container *ngTemplateOutlet="primaryAction()!.templateRef!"></ng-container>
+        }
+        <ng-content select="mat-navigation-rail-header"></ng-content>
+      </mat-navigation-rail-header>
+
+      @for (item of items(); track item.label) {
+        <mat-navigation-rail-item
+          [active]="item.active()"
+          [disabled]="item.disabled()"
+          [badge]="item.badge()"
+          [badgeColor]="item.badgeColor()"
+          (click)="item.selected.emit()"
+        >
+          @if (item.icon?.templateRef) {
+            <ng-container
+              *ngTemplateOutlet="item.icon!.templateRef"
+              matNavigationIcon
+            ></ng-container>
+          }
+          @if (item.activeIcon?.templateRef) {
+            <ng-container
+              *ngTemplateOutlet="item.activeIcon!.templateRef"
+              matNavigationActiveIcon
+            ></ng-container>
+          }
+          <ng-template matNavigationLabel>
+            <ng-container *ngTemplateOutlet="item.label!.templateRef"></ng-container>
+          </ng-template>
+        </mat-navigation-rail-item>
+      }
+    </mat-navigation-rail>
+  }
+
+  <div class="mat-navigation-suite-scaffold-main">
+    <div class="mat-navigation-suite-scaffold-content">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

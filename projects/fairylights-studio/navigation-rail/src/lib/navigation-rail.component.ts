@@ -21,6 +21,7 @@ export class MatNavigationRailComponent {
   @Input() expanded = false;
   @Input() indicatorShape: MatNavRailIndicatorShape = 'hug';
   @Input() showDivider = false;
+  @Input() verticalArrangement: 'top' | 'center' | 'bottom' = 'top';
 
   @HostBinding('class.mat-nav-rail-expanded')
   get getExpandedClass() {
@@ -35,5 +36,10 @@ export class MatNavigationRailComponent {
   @HostBinding('attr.data-indicator-shape')
   get getIndicatorShapeAttr() {
     return this.indicatorShape;
+  }
+
+  @HostBinding('attr.data-vertical-arrangement')
+  get getVerticalArrangementAttr() {
+    return this.verticalArrangement;
   }
 }

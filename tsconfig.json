@@ -4,10 +4,10 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@fairylights-studio/navigation-rail": ["./projects/fairylights-studio/navigation-rail/src/public-api"],
-      "@fairylights-studio/navigation-bar": ["./projects/fairylights-studio/navigation-bar/src/public-api"],
-      "@fairylights-studio/navigation-common": ["./projects/fairylights-studio/navigation-common/src/public-api"],
-      "@fairylights-studio/navigation-suite": ["./projects/fairylights-studio/navigation-suite/src/public-api"]
+      "@fairylights-studio/navigation-rail": ["./projects/fairylights-studio/navigation-rail/src/public-api.ts"],
+      "@fairylights-studio/navigation-bar": ["./projects/fairylights-studio/navigation-bar/src/public-api.ts"],
+      "@fairylights-studio/navigation-common": ["./projects/fairylights-studio/navigation-common/src/public-api.ts"],
+      "@fairylights-studio/navigation-suite": ["./projects/fairylights-studio/navigation-suite/src/public-api.ts"]
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -30,10 +30,28 @@
   "files": [],
   "references": [
     {
+      "path": "./projects/fairylights-studio/navigation-common/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/fairylights-studio/navigation-common/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/fairylights-studio/navigation-bar/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/fairylights-studio/navigation-bar/tsconfig.spec.json"
+    },
+    {
       "path": "./projects/fairylights-studio/navigation-rail/tsconfig.lib.json"
     },
     {
       "path": "./projects/fairylights-studio/navigation-rail/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/fairylights-studio/navigation-suite/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/fairylights-studio/navigation-suite/tsconfig.spec.json"
     },
     {
       "path": "./projects/demo-app/tsconfig.app.json"

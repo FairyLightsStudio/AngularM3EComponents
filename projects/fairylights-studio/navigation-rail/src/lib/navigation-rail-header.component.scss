@@ -22,8 +22,10 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
    * 如果 JS 还没来得及运行(首屏渲染瞬间)，默认 fallback 到 12px (FAB 居中的位置)
    * 💡 使用 margin-inline-start 自动完美支持 RTL 语种！
    */
-  margin-left: var(--_measured-margin, 12px);
+  margin-inline-start: var(--_measured-margin, 12px);
+  margin-inline-end: var(--_measured-margin, 12px);
 
   transition: margin-inline-start $duration-medium1 $easing-standard,
+              margin-inline-end $duration-medium1 $easing-standard,
               width $duration-medium1 $easing-standard;
 }

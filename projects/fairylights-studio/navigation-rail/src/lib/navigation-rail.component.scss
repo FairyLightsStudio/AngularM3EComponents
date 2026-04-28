@@ -60,3 +60,11 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }
 }
+
+:host([data-vertical-arrangement="center"]) .mat-nav-rail-content {
+  justify-content: center;
+}
+
+:host([data-vertical-arrangement="bottom"]) .mat-nav-rail-content {
+  justify-content: flex-end;
+}

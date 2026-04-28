@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'mat-navigation-bar',
+  standalone: true,
   template: `
     <div class="mat-nav-bar-content">
       <ng-content></ng-content>
