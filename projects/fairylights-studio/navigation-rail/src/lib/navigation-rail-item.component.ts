@@ -12,7 +12,7 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
   standalone: true,
   imports: [CommonModule, MatRippleModule, MatBadgeModule],
   template: `
-    <button class="mat-nav-rail-item-button" [class.active]="active()" [attr.dir]="dir.value" #buttonEl [disabled]="disabled()">
+    <button class="mat-nav-rail-item-button" [class.active]="active()" [attr.dir]="dir.value" matRipple [matRippleDisabled]="disabled()" [disabled]="disabled()">
 
       <!-- 指示器容器 (Hug 还是 Fill) -->
       <div class="mat-nav-rail-indicator"
@@ -20,7 +20,7 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
            [class.indicator-hug]="rail?.indicatorShape === 'hug'">
 
         <!-- 单独的涟漪层 (避免 overflow hidden 切断外界的 Badge) -->
-        <div class="mat-nav-rail-ripple" matRipple [matRippleTrigger]="buttonEl" [matRippleDisabled]="disabled()"></div>
+        <div class="mat-nav-rail-ripple" ></div>
 
         <!-- 图标及徽标区域 -->
         <div class="mat-nav-rail-icon-box"

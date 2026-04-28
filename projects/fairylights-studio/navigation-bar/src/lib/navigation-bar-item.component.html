@@ -1,10 +1,10 @@
-<div class="mat-navigation-bar-item-container" 
-     [class.mat-navigation-bar-item-selected]="active()" 
+<div class="mat-navigation-bar-item-container"
+     [class.mat-navigation-bar-item-selected]="active()"
      [class.mat-navigation-bar-item-always-show-label]="alwaysShowLabel()"
-     [class.mat-navigation-bar-item-horizontal]="layout() === 'horizontal'">
-  
+     [class.mat-navigation-bar-item-horizontal]="layout() === 'horizontal'"  matRipple [matRippleDisabled]="disabled()">
+
   <div class="mat-navigation-bar-item-icon-wrapper">
-    <div class="mat-navigation-bar-item-active-indicator" matRipple [matRippleCentered]="true" [matRippleDisabled]="disabled()"></div>
+    <div class="mat-navigation-bar-item-active-indicator" ></div>
     <div class="mat-navigation-bar-item-icon-content">
       @if (active() && activeIcon) {
         <ng-content select="[matNavigationActiveIcon], [matNavActiveIcon]"></ng-content>
