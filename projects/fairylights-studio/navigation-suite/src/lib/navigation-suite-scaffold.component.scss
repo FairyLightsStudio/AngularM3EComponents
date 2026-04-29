@@ -23,7 +23,6 @@
     position: absolute;
     bottom: calc(80px + 16px); /* NavBar Height (80dp) + 16dp spacing */
     z-index: 10;
-    pointer-events: none;
     display: flex;
     width: calc(100% - 32px); /* 16dp margin on both sides */
     margin: 0 16px;
