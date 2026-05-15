@@ -21,6 +21,14 @@
           [disabled]="item.disabled()"
           [alwaysShowLabel]="alwaysShowLabel()"
           [layout]="currentLayout() === 'navigation-bar-horizontal' ? 'horizontal' : 'vertical'"
+          [badge]="item.badge()"
+          [badgeColor]="item.badgeColor()"
+          [badgePosition]="item.badgePosition()"
+          [badgeSize]="item.badgeSize()"
+          [badgeHidden]="item.badgeHidden()"
+          [badgeDisabled]="item.badgeDisabled()"
+          [badgeOverlap]="item.badgeOverlap()"
+          [badgeDescription]="item.badgeDescription()"
           (click)="item.selected.emit()"
         >
           @if (item.icon?.templateRef) {
@@ -65,6 +73,12 @@
           [disabled]="item.disabled()"
           [badge]="item.badge()"
           [badgeColor]="item.badgeColor()"
+          [badgePosition]="item.badgePosition()"
+          [badgeSize]="item.badgeSize()"
+          [badgeHidden]="item.badgeHidden()"
+          [badgeDisabled]="item.badgeDisabled()"
+          [badgeOverlap]="item.badgeOverlap()"
+          [badgeDescription]="item.badgeDescription()"
           (click)="item.selected.emit()"
         >
           @if (item.icon?.templateRef) {

@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, inject, forwardRef, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, HostBinding, inject, forwardRef, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -24,9 +24,13 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
 
         <!-- 图标及徽标区域 -->
         <div class="mat-nav-rail-icon-box"
-             [matBadge]="badge"
-             [matBadgeHidden]="!badge"
-             [matBadgeColor]="badgeColor">
+             [matBadge]="badge()"
+             [matBadgeColor]="badgeColor()"
+             [matBadgePosition]="badgePosition()"
+             [matBadgeSize]="badgeSize()"
+             [matBadgeHidden]="badgeHidden()"
+             [matBadgeDisabled]="badgeDisabled()"
+             [matBadgeOverlap]="badgeOverlap()">
           <span class="icon-default"><ng-content select="[matNavigationIcon], [matNavIcon]"></ng-content></span>
           <span class="icon-active"><ng-content select="[matNavigationActiveIcon], [matNavActiveIcon]"></ng-content></span>
         </div>
@@ -58,9 +62,6 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
   }
 })
 export class MatNavigationRailItemComponent extends MatNavigationItemBase implements AfterViewInit, OnDestroy {
-  @Input() badge?: string | number | null;
-  @Input() badgeColor: 'primary' | 'accent' | 'warn' = 'warn';
-
   rail = inject(forwardRef(() => MatNavigationRailComponent), { optional: true });
   private focusMonitor = inject(FocusMonitor);
   private el = inject(ElementRef);

@@ -25,7 +25,7 @@ export class App {
   // 导航项列表
   navItems = [
     { id: 'inbox', label: 'Inbox', icon: 'inbox', activeIcon: 'move_to_inbox', badge: 3 },
-    { id: 'outbox', label: 'Outbox', icon: 'send', activeIcon: 'send', badge: null },
+    { id: 'outbox', label: 'Outbox', icon: 'send', activeIcon: 'send'},
     { id: 'favorites', label: 'Favorites', icon: 'favorite_border', activeIcon: 'favorite' },
     { id: 'trash', label: 'Trash', icon: 'delete_outline', activeIcon: 'delete' },
   ];

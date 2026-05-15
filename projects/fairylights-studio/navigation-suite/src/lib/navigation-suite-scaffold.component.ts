@@ -36,8 +36,6 @@ import { map } from 'rxjs/operators';
 })
 export class MatNavigationSuiteItem extends MatNavigationItemBase {
   selected = output<void>();
-  badge = input<string | number | null | undefined>(undefined);
-  badgeColor = input<'primary' | 'accent' | 'warn'>('warn');
 }
 
 @Directive({

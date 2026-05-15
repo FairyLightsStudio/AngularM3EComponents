@@ -1,11 +1,28 @@
-<div class="mat-navigation-bar-item-container"
-     [class.mat-navigation-bar-item-selected]="active()"
-     [class.mat-navigation-bar-item-always-show-label]="alwaysShowLabel()"
-     [class.mat-navigation-bar-item-horizontal]="layout() === 'horizontal'" #buttonEl  >
-
-  <div class="mat-navigation-bar-item-icon-wrapper" matRipple [matRippleDisabled]="disabled()" [matRippleTrigger]="buttonEl" matRippleColor="rgba(128, 128, 128, 0.1)">
+<div
+  class="mat-navigation-bar-item-container"
+  [class.mat-navigation-bar-item-selected]="active()"
+  [class.mat-navigation-bar-item-always-show-label]="alwaysShowLabel()"
+  [class.mat-navigation-bar-item-horizontal]="layout() === 'horizontal'"
+  #buttonEl
+>
+  <div
+    class="mat-navigation-bar-item-icon-wrapper"
+    matRipple
+    [matRippleDisabled]="disabled()"
+    [matRippleTrigger]="buttonEl"
+    matRippleColor="rgba(128, 128, 128, 0.1)"
+  >
     <div class="mat-navigation-bar-item-active-indicator"></div>
-    <div class="mat-navigation-bar-item-icon-content">
+    <div
+      class="mat-navigation-bar-item-icon-content"
+      [matBadge]="badge()"
+      [matBadgeColor]="badgeColor()"
+      [matBadgePosition]="badgePosition()"
+      [matBadgeSize]="badgeSize()"
+      [matBadgeHidden]="badgeHidden()"
+      [matBadgeDisabled]="badgeDisabled()"
+      [matBadgeOverlap]="badgeOverlap()"
+    >
       @if (active() && activeIcon) {
         <ng-content select="[matNavigationActiveIcon], [matNavActiveIcon]"></ng-content>
       } @else {
@@ -14,8 +31,10 @@
     </div>
 
     @if (layout() === 'horizontal') {
-      <div class="mat-navigation-bar-item-label-content-horizontal"
-           [class.mat-navigation-bar-item-label-hidden]="!active() && !alwaysShowLabel()">
+      <div
+        class="mat-navigation-bar-item-label-content-horizontal"
+        [class.mat-navigation-bar-item-label-hidden]="!active() && !alwaysShowLabel()"
+      >
         @if (label) {
           <ng-container *ngTemplateOutlet="label.templateRef || null"></ng-container>
         }
@@ -24,8 +43,10 @@
   </div>
 
   @if (layout() === 'vertical') {
-    <div class="mat-navigation-bar-item-label-container"
-         [class.mat-navigation-bar-item-label-hidden]="!active() && !alwaysShowLabel()">
+    <div
+      class="mat-navigation-bar-item-label-container"
+      [class.mat-navigation-bar-item-label-hidden]="!active() && !alwaysShowLabel()"
+    >
       <div class="mat-navigation-bar-item-label-content">
         @if (label) {
           <ng-container *ngTemplateOutlet="label.templateRef || null"></ng-container>

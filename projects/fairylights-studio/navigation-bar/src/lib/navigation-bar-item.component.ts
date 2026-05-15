@@ -5,12 +5,13 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatNavigationItemBase, MatNavigationActiveIcon, MatNavigationIcon, MatNavigationLabel } from '@fairylights-studio/navigation-common';
 
 @Component({
   selector: 'mat-navigation-bar-item',
   standalone: true,
-  imports: [CommonModule, MatRippleModule],
+  imports: [CommonModule, MatRippleModule, MatBadgeModule],
   templateUrl: './navigation-bar-item.component.html',
   styleUrl: './navigation-bar-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

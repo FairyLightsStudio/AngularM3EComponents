@@ -32,7 +32,8 @@
       <mat-navigation-suite-item
         [active]="activeId() === item.id"
         (selected)="activeId.set(item.id)"
-        [badge]="item.badge ?? undefined"
+        [badge]="item.badge"
+        badgeColor="warn"
       >
         <ng-template matNavigationIcon
           ><mat-icon>{{ item.icon }}</mat-icon></ng-template
