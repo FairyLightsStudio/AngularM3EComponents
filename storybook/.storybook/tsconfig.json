@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "emitDecoratorMetadata": true
+  },
+  "exclude": ["../**/*.spec.ts"],
+  "include": [
+    "../../projects/fairylights-studio/**/*.stories.ts",
+    "../../projects/fairylights-studio/**/*.stories.js",
+    "../../projects/fairylights-studio/**/*.stories.jsx",
+    "../../projects/fairylights-studio/**/*.stories.tsx",
+    "../../projects/fairylights-studio/**/*.stories.mdx",
+    "./*.js",
+    "./*.ts"
+  ]
+}

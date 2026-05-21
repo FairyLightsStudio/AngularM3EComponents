@@ -1,0 +1,25 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    "skipLibCheck": true,
+    "paths": {
+      "@fairylights-studio/navigation-rail": [
+        "./projects/fairylights-studio/navigation-rail/src/public-api.ts"
+      ],
+      "@fairylights-studio/navigation-bar": [
+        "./projects/fairylights-studio/navigation-bar/src/public-api.ts"
+      ],
+      "@fairylights-studio/navigation-common": [
+        "./projects/fairylights-studio/navigation-common/src/public-api.ts"
+      ],
+      "@fairylights-studio/navigation-suite": [
+        "./projects/fairylights-studio/navigation-suite/src/public-api.ts"
+      ],
+      "storybook": ["./storybook/src/index.ts"]
+    }
+  }
+}
