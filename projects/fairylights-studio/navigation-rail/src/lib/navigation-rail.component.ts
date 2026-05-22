@@ -1,12 +1,12 @@
 import { Component, Input, HostBinding } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 export type MatNavRailIndicatorShape = 'hug' | 'fill';
 
 @Component({
   selector: 'mat-navigation-rail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <div class="mat-nav-rail-container">
       <ng-content select="mat-navigation-rail-header"></ng-content>
