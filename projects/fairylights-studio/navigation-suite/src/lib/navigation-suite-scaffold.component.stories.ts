@@ -29,7 +29,7 @@ type NavigationSuiteStoryArgs = {
 };
 
 const meta: Meta<NavigationSuiteStoryArgs> = {
-  title: 'Fairylights Studio/Navigation Suite Scaffold',
+  title: 'Navigation/Navigation Suite Scaffold',
   decorators: [
     moduleMetadata({
       imports: [

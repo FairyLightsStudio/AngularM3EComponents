@@ -14,7 +14,7 @@ type NavigationRailStoryArgs = {
 };
 
 const meta: Meta<NavigationRailStoryArgs> = {
-  title: 'Fairylights Studio/Navigation Rail',
+  title: 'Navigation/Navigation Rail/Rail',
   decorators: [
     moduleMetadata({
       imports: [
@@ -60,7 +60,7 @@ export const Collapsed: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <div style="height: 560px">
+      <div>
         <mat-navigation-rail
           [expanded]="expanded"
           [indicatorShape]="indicatorShape"
@@ -69,7 +69,7 @@ export const Collapsed: Story = {
           aria-label="Primary navigation"
         >
           <mat-navigation-rail-header>
-                      <mat-navigation-rail-toggle [expanded]="expanded"></mat-navigation-rail-toggle>
+            <mat-navigation-rail-toggle [expanded]="expanded" (click)="expanded = !expanded"></mat-navigation-rail-toggle>
             <button mat-fab aria-label="Create item">
               <mat-icon aria-hidden="true">add</mat-icon>
             </button>

@@ -12,7 +12,7 @@ type NavigationBarStoryArgs = {
 };
 
 const meta: Meta<NavigationBarStoryArgs> = {
-  title: 'Fairylights Studio/Navigation Bar',
+  title: 'Navigation/Navigation Bar',
   decorators: [
     moduleMetadata({
       imports: [
