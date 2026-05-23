@@ -79,7 +79,7 @@ type Story = StoryObj<NavigationSuiteStoryArgs>;
 const renderSuite: Story['render'] = (args) => ({
   props: args,
   template: `
-    <div style="height: 560px; border: 1px solid #dadce0; overflow: hidden">
+    <div>
       <mat-navigation-suite-scaffold
         [layout]="layout"
         [expanded]="expanded"
@@ -89,8 +89,8 @@ const renderSuite: Story['render'] = (args) => ({
         [primaryActionContentHorizontal]="primaryActionContentHorizontal"
       >
         <button
+          *matNavigationSuitePrimaryAction
           mat-fab
-          matNavigationSuitePrimaryAction
           aria-label="Create document"
         >
           <mat-icon aria-hidden="true">edit</mat-icon>
@@ -100,9 +100,9 @@ const renderSuite: Story['render'] = (args) => ({
           [active]="selectedIndex === 0"
           (selected)="selectedIndex = 0"
         >
-          <mat-icon matNavigationIcon aria-hidden="true">dashboard</mat-icon>
-          <mat-icon matNavigationActiveIcon aria-hidden="true">space_dashboard</mat-icon>
-          <span matNavigationLabel>Dashboard</span>
+          <mat-icon *matNavigationIcon aria-hidden="true">dashboard</mat-icon>
+          <mat-icon *matNavigationActiveIcon aria-hidden="true">space_dashboard</mat-icon>
+          <ng-template matNavigationLabel>Dashboard</ng-template>
         </mat-navigation-suite-item>
 
         <mat-navigation-suite-item
@@ -111,26 +111,26 @@ const renderSuite: Story['render'] = (args) => ({
           badgeDescription="5 active tasks"
           (selected)="selectedIndex = 1"
         >
-          <mat-icon matNavigationIcon aria-hidden="true">task_alt</mat-icon>
-          <mat-icon matNavigationActiveIcon aria-hidden="true">assignment_turned_in</mat-icon>
-          <span matNavigationLabel>Tasks</span>
+          <mat-icon *matNavigationIcon aria-hidden="true">task_alt</mat-icon>
+          <mat-icon *matNavigationActiveIcon aria-hidden="true">assignment_turned_in</mat-icon>
+          <ng-template matNavigationLabel>Tasks</ng-template>
         </mat-navigation-suite-item>
 
         <mat-navigation-suite-item
           [active]="selectedIndex === 2"
           (selected)="selectedIndex = 2"
         >
-          <mat-icon matNavigationIcon aria-hidden="true">analytics</mat-icon>
-          <mat-icon matNavigationActiveIcon aria-hidden="true">monitoring</mat-icon>
-          <span matNavigationLabel>Reports</span>
+          <mat-icon *matNavigationIcon aria-hidden="true">analytics</mat-icon>
+          <mat-icon *matNavigationActiveIcon aria-hidden="true">monitoring</mat-icon>
+          <ng-template matNavigationLabel>Reports</ng-template>
         </mat-navigation-suite-item>
 
         <mat-navigation-suite-item
           [active]="selectedIndex === 3"
           [disabled]="true"
         >
-          <mat-icon matNavigationIcon aria-hidden="true">admin_panel_settings</mat-icon>
-          <span matNavigationLabel>Admin</span>
+          <mat-icon *matNavigationIcon aria-hidden="true">admin_panel_settings</mat-icon>
+          <ng-template matNavigationLabel>Admin</ng-template>
         </mat-navigation-suite-item>
 
         <section style="padding: 32px">
