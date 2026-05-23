@@ -17,14 +17,13 @@ import {
 
 import { MAT_NAVIGATION_SUITE_MODULES } from '@fairylights-studio/navigation-suite';
 
-
 type NavigationSuiteStoryArgs = {
   selectedIndex: number;
   layout: 'auto' | NavigationSuiteLayoutType;
   expanded: boolean;
   indicatorShape: 'hug' | 'fill';
   showDivider: boolean;
-  navigationItemVerticalArrangement: 'top' | 'center' | 'bottom';
+  navigationItemVerticalArrangement: 'top' | 'center';
   primaryActionContentHorizontal: 'start' | 'center' | 'end';
 };
 
@@ -32,12 +31,7 @@ const meta: Meta<NavigationSuiteStoryArgs> = {
   title: 'Navigation/Navigation Suite Scaffold',
   decorators: [
     moduleMetadata({
-      imports: [
-        CommonModule,
-        MatButtonModule,
-        MatIconModule,
-        ...MAT_NAVIGATION_SUITE_MODULES,
-      ],
+      imports: [CommonModule, MatButtonModule, MatIconModule, ...MAT_NAVIGATION_SUITE_MODULES],
     }),
   ],
   argTypes: {
@@ -46,13 +40,7 @@ const meta: Meta<NavigationSuiteStoryArgs> = {
     },
     layout: {
       control: 'radio',
-      options: [
-        'auto',
-        'navigation-bar',
-        'navigation-rail',
-        'navigation-bar-horizontal',
-        'none',
-      ],
+      options: ['auto', 'navigation-bar', 'navigation-rail', 'navigation-bar-horizontal', 'none'],
     },
     expanded: {
       control: 'boolean',
@@ -66,7 +54,7 @@ const meta: Meta<NavigationSuiteStoryArgs> = {
     },
     navigationItemVerticalArrangement: {
       control: 'radio',
-      options: ['top', 'center', 'bottom'],
+      options: ['top', 'center'],
     },
     primaryActionContentHorizontal: {
       control: 'radio',

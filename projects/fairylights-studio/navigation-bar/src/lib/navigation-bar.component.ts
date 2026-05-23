@@ -9,6 +9,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </div>
   `,
   styleUrl: './navigation-bar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatNavigationBarComponent {}

@@ -1,27 +1,25 @@
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
-import { MAT_NAVIGATION_RAIL_MODULES, MatNavRailIndicatorShape } from '@fairylights-studio/navigation-rail';
+import {
+  MAT_NAVIGATION_RAIL_MODULES,
+  MatNavRailIndicatorShape,
+} from '@fairylights-studio/navigation-rail';
 
 type NavigationRailStoryArgs = {
   selectedIndex: number;
   expanded: boolean;
   indicatorShape: 'hug' | 'fill';
   showDivider: boolean;
-  verticalArrangement: 'top' | 'center' | 'bottom';
+  verticalArrangement: 'top' | 'center';
 };
 
 const meta: Meta<NavigationRailStoryArgs> = {
   title: 'Navigation/Navigation Rail/Rail',
   decorators: [
     moduleMetadata({
-      imports: [
-        MatButtonModule,
-        MatIconModule,
-        ...MAT_NAVIGATION_RAIL_MODULES,
-      ],
+      imports: [MatButtonModule, MatIconModule, ...MAT_NAVIGATION_RAIL_MODULES],
     }),
   ],
   argTypes: {
@@ -40,7 +38,7 @@ const meta: Meta<NavigationRailStoryArgs> = {
     },
     verticalArrangement: {
       control: 'radio',
-      options: ['top', 'center', 'bottom'],
+      options: ['top', 'center'],
     },
   },
   args: {
@@ -136,21 +134,5 @@ export const Expanded: Story = {
   //   const canvas = within(canvasElement);
   //   await expect(canvas.getByText('Inbox')).toBeInTheDocument();
   //   await expect(canvas.getByText('Calendar')).toBeInTheDocument();
-  // },
-};
-
-export const BottomAligned: Story = {
-  args: {
-    selectedIndex: 2,
-    expanded: false,
-    indicatorShape: 'hug',
-    showDivider: false,
-    verticalArrangement: 'bottom',
-  },
-  render: Collapsed.render,
-  // play: async ({ canvasElement }) => {
-  //   const canvas = within(canvasElement);
-  //   await userEvent.click(canvas.getByText('Inbox'));
-  //   await expect(canvas.getByText('Inbox')).toBeInTheDocument();
   // },
 };

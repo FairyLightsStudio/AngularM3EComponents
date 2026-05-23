@@ -1,27 +1,18 @@
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 import { MatNavigationRailToggleComponent } from '@fairylights-studio/navigation-rail';
 
-type NavigationRailStoryArgs = {
-  selectedIndex: number;
+type NavigationRailToggleStoryArgs = {
   expanded: boolean;
-  indicatorShape: 'hug' | 'fill';
-  showDivider: boolean;
-  verticalArrangement: 'top' | 'center' | 'bottom';
 };
 
-const meta: Meta<NavigationRailStoryArgs> = {
+const meta: Meta<NavigationRailToggleStoryArgs> = {
   title: 'Navigation/Navigation Rail/Toggle',
   decorators: [
     moduleMetadata({
-      imports: [
-        MatButtonModule,
-        MatIconModule,
-        MatNavigationRailToggleComponent,
-      ],
+      imports: [MatButtonModule, MatIconModule, MatNavigationRailToggleComponent],
     }),
   ],
   argTypes: {
@@ -34,10 +25,9 @@ const meta: Meta<NavigationRailStoryArgs> = {
   },
 };
 
-
 export default meta;
 
-type Story = StoryObj<NavigationRailStoryArgs>;
+type Story = StoryObj<NavigationRailToggleStoryArgs>;
 
 export const Toggle: Story = {
   render: (args) => ({

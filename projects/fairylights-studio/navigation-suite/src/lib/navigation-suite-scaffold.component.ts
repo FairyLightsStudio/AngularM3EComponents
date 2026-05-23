@@ -76,7 +76,7 @@ export type NavigationSuiteLayoutType =
 })
 export class MatNavigationSuiteScaffoldComponent {
   layout = input<'auto' | NavigationSuiteLayoutType>('auto');
-  navigationItemVerticalArrangement = input<'top' | 'center' | 'bottom'>('top');
+  navigationItemVerticalArrangement = input<'top' | 'center'>('top');
   primaryActionContentHorizontal = input<'start' | 'center' | 'end'>('end');
   expanded = input<boolean>(false);
   indicatorShape = input<'hug' | 'fill'>('hug');

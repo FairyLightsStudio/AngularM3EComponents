@@ -24,8 +24,9 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   border-inline-end: 1px solid transparent;
 
   /* 动画使用动效令牌 */
-  transition: max-width $duration-medium1 $easing-standard,
-              border-color $duration-medium1 $easing-standard;
+  transition:
+    max-width $duration-medium1 $easing-standard,
+    border-color $duration-medium1 $easing-standard;
   overflow: hidden;
   position: relative;
   z-index: 100;
@@ -58,13 +59,11 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-:host([data-vertical-arrangement="center"]) .mat-nav-rail-content {
+:host([data-vertical-arrangement='center']) .mat-nav-rail-content {
   justify-content: center;
-}
-
-:host([data-vertical-arrangement="bottom"]) .mat-nav-rail-content {
-  justify-content: flex-end;
 }

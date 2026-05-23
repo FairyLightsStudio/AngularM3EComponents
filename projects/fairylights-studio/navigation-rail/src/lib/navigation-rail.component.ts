@@ -1,6 +1,5 @@
 import { Component, Input, HostBinding } from '@angular/core';
 
-
 export type MatNavRailIndicatorShape = 'hug' | 'fill';
 
 @Component({
@@ -15,13 +14,13 @@ export type MatNavRailIndicatorShape = 'hug' | 'fill';
       </div>
     </div>
   `,
-  styleUrls: ['./navigation-rail.component.scss']
+  styleUrls: ['./navigation-rail.component.scss'],
 })
 export class MatNavigationRailComponent {
   @Input() expanded = false;
   @Input() indicatorShape: MatNavRailIndicatorShape = 'hug';
   @Input() showDivider = false;
-  @Input() verticalArrangement: 'top' | 'center' | 'bottom' = 'top';
+  @Input() verticalArrangement: 'top' | 'center' = 'top';
 
   @HostBinding('class.mat-nav-rail-expanded')
   get getExpandedClass() {
