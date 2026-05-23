@@ -48,7 +48,7 @@ export const Basic: Story = {
   render: (args) => ({
     props: args,
     template: `
-      <div style="max-width:500px;">
+      <div>
         <mat-navigation-bar aria-label="Primary navigation">
           <mat-navigation-bar-item
             [active]="selectedIndex === 0"
@@ -111,6 +111,9 @@ export const HorizontalLabels: Story = {
     selectedIndex: 1,
     layout: 'horizontal',
     alwaysShowLabel: true,
+  },
+  globals: {
+    viewport: { value: 'tablet', isRotated: false },
   },
   render: Basic.render,
   play: async ({ canvasElement }) => {

@@ -1,8 +1,6 @@
 <div
   class="mat-navigation-bar-item-container"
   [class.mat-navigation-bar-item-selected]="active()"
-  [class.mat-navigation-bar-item-always-show-label]="alwaysShowLabel()"
-  [class.mat-navigation-bar-item-horizontal]="layout() === 'horizontal'"
   #buttonEl
 >
   <div
@@ -31,10 +29,7 @@
     </div>
 
     @if (layout() === 'horizontal') {
-      <div
-        class="mat-navigation-bar-item-label-content-horizontal"
-        [class.mat-navigation-bar-item-label-hidden]="!active() && !alwaysShowLabel()"
-      >
+      <div class="mat-navigation-bar-item-label-content-horizontal">
         @if (label) {
           <ng-container *ngTemplateOutlet="label.templateRef || null"></ng-container>
         }

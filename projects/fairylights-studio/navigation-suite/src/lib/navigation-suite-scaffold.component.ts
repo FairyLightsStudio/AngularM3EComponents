@@ -129,7 +129,10 @@ export class MatNavigationSuiteScaffoldComponent {
   alwaysShowLabel = computed(() => {
     const count = this.items().length;
     const layout = this.currentLayout();
-    if (layout === 'navigation-bar' || layout === 'navigation-bar-horizontal') {
+    if (layout === 'navigation-bar-horizontal') {
+      return true;
+    }
+    if (layout === 'navigation-bar') {
       return count <= 3;
     }
     return true;
