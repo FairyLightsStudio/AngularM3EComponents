@@ -23,6 +23,13 @@
   opacity: 0.38;
 }
 
+:host(.mat-navigation-bar-item-horizontal) {
+  flex: 0 0 168px;
+  min-width: 168px;
+  max-width: 168px;
+  height: 64px;
+}
+
 .mat-navigation-bar-item-container {
   position: relative;
   display: flex;
@@ -86,10 +93,10 @@
   justify-content: center;
   align-items: center;
   width: max-content;
-  min-width: 56px;
-  height: 32px;
-  border-radius: 16px;
-  padding: 0 16px;
+  min-width: 0;
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 20px;
   transition: padding 200ms linear;
 }
 
@@ -118,7 +125,7 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  margin-left: 8px; /* space between icon and label */
+  margin-left: 4px; /* space between icon and label */
   font-family: var(--mat-sys-typescale-label-large-font);
   font-size: var(--mat-sys-typescale-label-large-size);
   font-weight: var(--mat-sys-typescale-label-large-weight);
