@@ -7,11 +7,11 @@
   flex: 1
   padding: 24px
 
-/* 1. 拦截 fill 状态，设定为一个固定且完美的经典宽度 (如 256px) */
+/* 1. 拦截 fill 状态，设定宽度 (如 256px) */
 mat-navigation-rail[data-indicator-shape="fill"]
   /* 固定实际宽度 */
   --mat-nav-rail-expanded-width: 256px
-  /* 💡 高阶技巧：把 max-width 也设为一样的值，这样可以防止动画跑偏，保证过渡曲线 100% 完美贴合 256px */
+  /* 把 max-width 也设为一样的值，这样可以防止动画跑偏，保证过渡曲线 100% 完美贴合 256px */
   --mat-nav-rail-expanded-max-width: 256px
 
 /* 2. 你甚至可以控制在 hug 状态下的表现 (它现在默认是 max-content，如果你觉得太挤，也可以设固定值) */

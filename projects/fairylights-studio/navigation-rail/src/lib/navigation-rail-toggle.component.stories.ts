@@ -46,15 +46,3 @@ export const Toggle: Story = {
     await expect(canvas.getByRole('button')).toBeInTheDocument();
   },
 };
-
-export const Expanded: Story = {
-  args: {
-    expanded: true,
-  },
-  render: Toggle.render,
-  // play: async ({ canvasElement }) => {
-  //   const canvas = within(canvasElement);
-  //   await expect(canvas.getByText('Inbox')).toBeInTheDocument();
-  //   await expect(canvas.getByText('Calendar')).toBeInTheDocument();
-  // },
-};

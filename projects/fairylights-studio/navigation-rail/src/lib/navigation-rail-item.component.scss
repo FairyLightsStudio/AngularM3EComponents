@@ -42,7 +42,7 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   align-items: center;
   justify-content: flex-start;
   height: 32px;
-  width: 56px; /* 56px 正好完美填满 (80 - 12 - 12) 达成居中！ */
+  width: 56px; /* 56px 正好填满 (80 - 12 - 12) 达成居中 */
   border-radius: 16px;
   background-color: transparent;
   transition: height $duration-medium1 $easing-standard,

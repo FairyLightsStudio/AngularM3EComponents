@@ -23,8 +23,7 @@
           }
         ],
         "styles": [
-          "projects/demo-app/src/material-theme.scss",
-          "projects/demo-app/src/styles.sass"
+          "projects/demo-app/src/material-theme.scss"
         ],
         "outputPath": "dist/demo-app"
       },

@@ -20,10 +20,9 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   min-width: 80px;
   max-width: 80px;
 
-  background-color: var(--mat-sys-surface, #fff);
+  background-color: var(--mat-sys-surface);
   border-inline-end: 1px solid transparent;
 
-  /* 动画使用动效令牌 */
   transition:
     max-width $duration-medium1 $easing-standard,
     border-color $duration-medium1 $easing-standard;
@@ -34,12 +33,11 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 }
 
 :host(.mat-nav-rail-expanded) {
-  /* 展开时，释放封印到设定的最大宽度 */
   max-width: var(--_expanded-max-width);
 }
 
 :host(.mat-nav-rail-has-divider) {
-  border-inline-end-color: var(--mat-sys-outline-variant, #cac4d0);
+  border-inline-end-color: var(--mat-sys-outline-variant);
 }
 
 .mat-nav-rail-container {

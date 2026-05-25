@@ -104,7 +104,6 @@ export const Collapsed: Story = {
 
           <mat-navigation-rail-item
             [active]="selectedIndex === 3"
-            [disabled]="true"
           >
             <mat-icon matNavigationIcon aria-hidden="true">settings</mat-icon>
             <ng-template matNavigationLabel>Settings</ng-template>
