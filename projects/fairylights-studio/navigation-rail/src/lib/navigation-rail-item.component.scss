@@ -96,21 +96,6 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   justify-content: center;
 }
 
-.icon-default,
-.icon-active {
-  position: absolute;
-  transition: opacity $duration-medium1 $easing-standard;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.icon-default {
-  opacity: 1;
-}
-.icon-active {
-  opacity: 0;
-}
-
 .mat-nav-rail-label-side {
   display: grid;
   grid-template-columns: 0fr;
@@ -185,12 +170,6 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   color: token-utils.slot(nav-rail-item-active-text-color, $fallbacks);
   .mat-nav-rail-indicator {
     background-color: token-utils.slot(nav-rail-indicator-color, $fallbacks);
-  }
-  .icon-default {
-    opacity: 0;
-  }
-  .icon-active {
-    opacity: 1;
   }
 }
 
