@@ -6,6 +6,7 @@ import {
   inject,
   input,
   OnDestroy,
+  viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
@@ -20,7 +21,6 @@ import {
 
 @Component({
   selector: 'mat-navigation-bar-item',
-  standalone: true,
   imports: [CommonModule, MatRippleModule, MatBadgeModule],
   templateUrl: './navigation-bar-item.component.html',
   styleUrl: './navigation-bar-item.component.scss',
@@ -31,10 +31,6 @@ import {
     '[class.mat-navigation-bar-item-always-show-label]':
       'alwaysShowLabel() || layout() === "horizontal"',
     '[class.mat-navigation-bar-item-horizontal]': 'layout() === "horizontal"',
-    '[attr.tabindex]': '_tabIndex',
-    '[attr.role]': 'role()',
-    '[attr.aria-selected]': 'active()',
-    '[attr.aria-current]': 'active() ? "page" : null',
   },
 })
 export class MatNavigationBarItemComponent
@@ -47,22 +43,29 @@ export class MatNavigationBarItemComponent
 
   private _focusMonitor = inject(FocusMonitor);
   private _el = inject<ElementRef<HTMLElement>>(ElementRef);
-
-  _tabIndex = -1;
+  private _button = viewChild.required<ElementRef<HTMLButtonElement>>('buttonEl');
 
   focus(origin?: FocusOrigin): void {
-    this._el.nativeElement.focus({ preventScroll: origin === 'keyboard' });
+    this._button().nativeElement.focus({ preventScroll: origin === 'keyboard' });
   }
 
   _getHostElement(): HTMLElement {
     return this._el.nativeElement;
   }
 
+  _getButtonElement(): HTMLButtonElement {
+    return this._button().nativeElement;
+  }
+
+  getLabel(): string {
+    return this._button().nativeElement.textContent?.trim() ?? '';
+  }
+
   ngAfterViewInit() {
-    this._focusMonitor.monitor(this._el, true);
+    this._focusMonitor.monitor(this._button(), true);
   }
 
   ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this._el);
+    this._focusMonitor.stopMonitoring(this._button());
   }
 }

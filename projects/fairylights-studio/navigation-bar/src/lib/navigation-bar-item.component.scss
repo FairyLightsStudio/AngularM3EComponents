@@ -29,6 +29,13 @@ $fallbacks: m3-nav-bar.get-tokens();
   align-items: center;
   width: 100%;
   height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .mat-navigation-bar-item-icon-wrapper {
@@ -164,7 +171,7 @@ $fallbacks: m3-nav-bar.get-tokens();
   color: token-utils.slot(nav-bar-item-active-label-color, $fallbacks);
 }
 
-:host:focus-visible {
+.mat-navigation-bar-item-container:focus-visible {
   outline: 2px solid var(--mat-sys-primary, #6750a4);
   outline-offset: -2px;
 }

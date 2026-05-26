@@ -1,6 +1,10 @@
-<div
+<button
+  type="button"
   class="mat-navigation-bar-item-container"
   [class.mat-navigation-bar-item-selected]="active()"
+  [attr.role]="role()"
+  [attr.aria-selected]="active()"
+  [attr.aria-current]="active() ? 'page' : null"
   #buttonEl
 >
   <div
@@ -48,4 +52,4 @@
       </div>
     </div>
   }
-</div>
+</button>

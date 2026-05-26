@@ -8,7 +8,7 @@ import {
   OnDestroy,
   QueryList,
 } from '@angular/core';
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager, type FocusableOption } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
@@ -17,7 +17,6 @@ import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
 
 @Component({
   selector: 'mat-navigation-bar',
-  standalone: true,
   template: `
     <div class="mat-nav-bar-content">
       <ng-content></ng-content>
@@ -37,26 +36,20 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
   @ContentChildren(MatNavigationBarItemComponent, { descendants: true })
   _items!: QueryList<MatNavigationBarItemComponent>;
 
-  private _keyManager!: FocusKeyManager<any>;
+  private _keyManager!: FocusKeyManager<MatNavigationBarItemComponent>;
   private _dir = inject(Directionality, { optional: true });
   private _destroyed = new Subject<void>();
 
   ngAfterContentInit() {
-    this._keyManager = new FocusKeyManager(this._items as any)
+    this._keyManager = new FocusKeyManager<MatNavigationBarItemComponent>(
+      this._items as unknown as QueryList<MatNavigationBarItemComponent & FocusableOption>,
+    )
       .withHorizontalOrientation(this._dir?.value || 'ltr')
       .withHomeAndEnd()
-      .withWrap();
+      .withWrap()
+      .withTypeAhead();
 
-    this._keyManager.change.pipe(takeUntil(this._destroyed)).subscribe((index) => {
-      this._items.forEach((item, i) => {
-        item._tabIndex = i === index ? 0 : -1;
-      });
-    });
-
-    this._items.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
-      const activeIndex = this._keyManager.activeItemIndex ?? 0;
-      this._keyManager.updateActiveItem(activeIndex);
-    });
+    this._setInitialActiveItem();
 
     if (this._dir) {
       this._dir.change.pipe(takeUntil(this._destroyed)).subscribe((dir) => {
@@ -68,17 +61,15 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
   _handleKeydown(event: KeyboardEvent) {
     if (hasModifierKey(event)) return;
 
+    const item = this._getEventItem(event);
+    if (!item) return;
+    this._updateActiveItem(item);
+
     switch (event.keyCode) {
       case ENTER:
       case SPACE:
         event.preventDefault();
-        const index = this._keyManager.activeItemIndex;
-        if (index != null) {
-          const item = this._items.get(index);
-          if (item) {
-            item._getHostElement().click();
-          }
-        }
+        item._getButtonElement().click();
         break;
       default:
         this._keyManager.onKeydown(event);
@@ -86,7 +77,33 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this._keyManager?.destroy();
     this._destroyed.next();
     this._destroyed.complete();
+  }
+
+  private _getEventItem(event: KeyboardEvent): MatNavigationBarItemComponent | undefined {
+    const target = event.target;
+    if (!(target instanceof Node)) return undefined;
+
+    return this._items.find((item) => item._getHostElement().contains(target));
+  }
+
+  private _setInitialActiveItem(): void {
+    const items = this._items.toArray();
+    const activeIndex = items.findIndex((item) => item.active());
+    const firstIndex = items.length > 0 ? 0 : -1;
+    const initialIndex = activeIndex >= 0 ? activeIndex : firstIndex;
+
+    if (initialIndex >= 0) {
+      this._keyManager.updateActiveItem(initialIndex);
+    }
+  }
+
+  private _updateActiveItem(item: MatNavigationBarItemComponent): void {
+    const index = this._items.toArray().indexOf(item);
+    if (index >= 0 && index !== this._keyManager.activeItemIndex) {
+      this._keyManager.updateActiveItem(index);
+    }
   }
 }
