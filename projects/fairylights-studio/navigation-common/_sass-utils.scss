@@ -1,0 +1,16 @@
+@use 'sass:string';
+@use 'sass:meta';
+
+@mixin current-selector-or-root($root: html) {
+  @if & {
+    @content;
+  } @else {
+    #{$root} {
+      @content;
+    }
+  }
+}
+
+@function is-css-var-name($value) {
+  @return meta.type-of($value) == string and string.index($value, '--') == 1;
+}

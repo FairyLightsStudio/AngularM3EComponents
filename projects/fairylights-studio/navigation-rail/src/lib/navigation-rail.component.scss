@@ -1,6 +1,9 @@
+@use '@fairylights-studio/navigation-common/token-utils' as token-utils;
+@use '../../m3-navigation-rail' as m3-nav-rail;
 @use 'sass:map';
 @use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
-
+@use '@angular/cdk' as cdk;
+$fallbacks: m3-nav-rail.get-tokens();
 $m3-motion-tokens: m3-motion.md-sys-motion-values();
 $duration-medium1: map.get($m3-motion-tokens, duration-medium1);
 $easing-standard: map.get($m3-motion-tokens, easing-standard);
@@ -8,36 +11,26 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 :host {
   display: block;
   height: 100vh;
-
-  /* 🌟 核心 API：暴露展开宽度和最大宽度控制 */
-  --_expanded-width: var(--mat-nav-rail-expanded-width, max-content);
-  --_expanded-max-width: var(--mat-nav-rail-expanded-max-width, 360px);
-
-  /* 平时应用设定的宽度（默认 max-content 紧贴内容） */
-  width: var(--_expanded-width);
-
-  /* 闭合状态下，强制用 max-width 把自适应卡死在 80px */
-  min-width: 80px;
-  max-width: 80px;
-
-  background-color: var(--mat-sys-surface);
+  width: max-content;
+  min-width: token-utils.slot(nav-rail-container-collapsed-width, $fallbacks);
+  max-width: token-utils.slot(nav-rail-container-collapsed-width, $fallbacks);
+  background-color: token-utils.slot(nav-rail-container-background-color, $fallbacks);
   border-inline-end: 1px solid transparent;
-
   transition:
     max-width $duration-medium1 $easing-standard,
     border-color $duration-medium1 $easing-standard;
   overflow: hidden;
   position: relative;
-  z-index: 100;
+  z-index: token-utils.slot(nav-rail-container-z-index, $fallbacks);
   white-space: nowrap;
 }
 
 :host(.mat-nav-rail-expanded) {
-  max-width: var(--_expanded-max-width);
+  max-width: token-utils.slot(nav-rail-container-expanded-max-width, $fallbacks);
 }
 
 :host(.mat-nav-rail-has-divider) {
-  border-inline-end-color: var(--mat-sys-outline-variant);
+  border-inline-end-color: token-utils.slot(nav-rail-container-divider-color, $fallbacks);
 }
 
 .mat-nav-rail-container {
@@ -64,4 +57,10 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 :host([data-vertical-arrangement='center']) .mat-nav-rail-content {
   justify-content: center;
+}
+
+@include cdk.high-contrast {
+  :host {
+    outline: solid 1px currentColor;
+  }
 }

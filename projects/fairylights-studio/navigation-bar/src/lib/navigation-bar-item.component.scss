@@ -1,33 +1,29 @@
-@use '@angular/material/core/tokens/m3/md-sys-motion' as motion;
+@use '@fairylights-studio/navigation-common/token-utils' as token-utils;
+@use '../../m3-navigation-bar' as m3-nav-bar;
+@use '@angular/cdk' as cdk;
+$fallbacks: m3-nav-bar.get-tokens();
 
 :host {
   flex: 1;
   display: flex;
-  min-width: 88px;
+  min-width: token-utils.slot(nav-bar-item-min-width, $fallbacks);
   height: 100%;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  /* Colors */
-  --mat-nav-bar-item-icon-color: var(--mat-sys-on-surface-variant);
-  --mat-nav-bar-item-active-icon-color: var(--mat-sys-on-secondary-container);
-  --mat-nav-bar-item-label-color: var(--mat-sys-on-surface-variant);
-  --mat-nav-bar-item-active-label-color: var(--mat-sys-on-surface);
-  --mat-nav-bar-item-indicator-color: var(--mat-sys-secondary-container);
-
   --_animation-progress: 0;
 }
 
 :host(.mat-navigation-bar-item-disabled) {
   cursor: default;
-  opacity: 0.38;
+  opacity: token-utils.slot(nav-bar-item-disabled-opacity, $fallbacks);
 }
 
 :host(.mat-navigation-bar-item-horizontal) {
-  flex: 0 0 168px;
-  min-width: 168px;
-  max-width: 168px;
-  height: 64px;
+  flex: 0 0 token-utils.slot(nav-bar-item-horizontal-width, $fallbacks);
+  min-width: token-utils.slot(nav-bar-item-horizontal-width, $fallbacks);
+  max-width: token-utils.slot(nav-bar-item-horizontal-width, $fallbacks);
+  height: token-utils.slot(nav-bar-item-horizontal-height, $fallbacks);
 }
 
 .mat-navigation-bar-item-container {
@@ -40,26 +36,24 @@
   height: 100%;
 }
 
-/* wrapper for indicator + icon -> allows overlay */
 .mat-navigation-bar-item-icon-wrapper {
   display: inline-grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   place-items: center;
   position: relative;
-  width: 56px;
-  height: 32px;
-  border-radius: 16px; /* Pill */
+  width: token-utils.slot(nav-bar-item-icon-wrapper-width, $fallbacks);
+  height: token-utils.slot(nav-bar-item-icon-wrapper-height, $fallbacks);
+  border-radius: token-utils.slot(nav-bar-item-icon-wrapper-shape, $fallbacks);
 }
 
-/* Indicator Background */
 .mat-navigation-bar-item-active-indicator {
   grid-column: 1 / -1;
   grid-row: 1;
   width: 0%;
   height: 100%;
-  border-radius: 16px;
-  background-color: var(--mat-nav-bar-item-indicator-color);
+  border-radius: token-utils.slot(nav-bar-item-icon-wrapper-shape, $fallbacks);
+  background-color: token-utils.slot(nav-bar-item-indicator-color, $fallbacks);
   opacity: 0;
   transition:
     width 300ms cubic-bezier(0.2, 0, 0, 1),
@@ -69,24 +63,21 @@
 .mat-navigation-bar-item-icon-content {
   grid-column: 1 / -1;
   grid-row: 1;
-  z-index: 1; /* keep above indicator ripple */
-  color: var(--mat-nav-bar-item-icon-color);
+  z-index: 1;
+  color: token-utils.slot(nav-bar-item-icon-color, $fallbacks);
   display: flex;
   transition: color 200ms linear;
 }
 
-/* Selected state overrides */
 :host(.mat-navigation-bar-item-selected) .mat-navigation-bar-item-active-indicator {
   width: 100%;
   opacity: 1;
-  /* Use FastSpatial? 300ms decelerate */
 }
 
 :host(.mat-navigation-bar-item-selected) .mat-navigation-bar-item-icon-content {
-  color: var(--mat-nav-bar-item-active-icon-color);
+  color: token-utils.slot(nav-bar-item-active-icon-color, $fallbacks);
 }
 
-/* Horizontal Layout Enhancements */
 :host(.mat-navigation-bar-item-horizontal) .mat-navigation-bar-item-icon-wrapper {
   display: inline-flex;
   flex-direction: row;
@@ -94,9 +85,9 @@
   align-items: center;
   width: max-content;
   min-width: 0;
-  height: 40px;
-  border-radius: 20px;
-  padding: 0 20px;
+  height: token-utils.slot(nav-bar-item-horizontal-indicator-height, $fallbacks);
+  border-radius: token-utils.slot(nav-bar-item-horizontal-indicator-shape, $fallbacks);
+  padding: token-utils.slot(nav-bar-item-horizontal-padding, $fallbacks);
   transition: padding 200ms linear;
 }
 
@@ -125,18 +116,18 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  margin-left: 4px; /* space between icon and label */
-  font-family: var(--mat-sys-typescale-label-large-font);
-  font-size: var(--mat-sys-typescale-label-large-size);
-  font-weight: var(--mat-sys-typescale-label-large-weight);
-  color: var(--mat-nav-bar-item-label-color);
+  margin-left: token-utils.slot(nav-bar-item-label-spacing, $fallbacks);
+  font-family: token-utils.slot(nav-bar-item-label-font, $fallbacks);
+  font-size: token-utils.slot(nav-bar-item-label-size, $fallbacks);
+  font-weight: token-utils.slot(nav-bar-item-label-weight, $fallbacks);
+  color: token-utils.slot(nav-bar-item-label-color, $fallbacks);
   white-space: nowrap;
   transition:
     opacity 200ms linear,
     max-width 300ms cubic-bezier(0.2, 0, 0, 1),
     margin-left 300ms cubic-bezier(0.2, 0, 0, 1),
     color 200ms linear;
-  max-width: 150px;
+  max-width: token-utils.slot(nav-bar-item-label-max-width, $fallbacks);
   opacity: 1;
   overflow: hidden;
 }
@@ -149,20 +140,17 @@
 
 :host(.mat-navigation-bar-item-horizontal.mat-navigation-bar-item-selected)
   .mat-navigation-bar-item-label-content-horizontal {
-  color: var(--mat-nav-bar-item-active-label-color);
+  color: token-utils.slot(nav-bar-item-active-label-color, $fallbacks);
 }
 
-/* Label Container (Vertical) */
 .mat-navigation-bar-item-label-container {
   display: flex;
   overflow: hidden;
-  margin-top: 4px; /* Icon-to-label spacing */
-  /* Font styling */
-  font-family: var(--mat-sys-typescale-label-large-font);
-  font-size: var(--mat-sys-typescale-label-large-size);
-  font-weight: var(--mat-sys-typescale-label-large-weight);
-  color: var(--mat-nav-bar-item-label-color);
-  /* Animation behavior */
+  margin-top: token-utils.slot(nav-bar-item-label-spacing, $fallbacks);
+  font-family: token-utils.slot(nav-bar-item-label-font, $fallbacks);
+  font-size: token-utils.slot(nav-bar-item-label-size, $fallbacks);
+  font-weight: token-utils.slot(nav-bar-item-label-weight, $fallbacks);
+  color: token-utils.slot(nav-bar-item-label-color, $fallbacks);
   opacity: 0;
   height: 0;
   transition:
@@ -171,16 +159,32 @@
     color 200ms linear;
 }
 
-/* Selected OR Always show label */
 :host(.mat-navigation-bar-item-selected) .mat-navigation-bar-item-label-container,
 :host(.mat-navigation-bar-item-always-show-label) .mat-navigation-bar-item-label-container {
   opacity: 1;
-  height: 16px; /* Approx label height to smoothly transition the icon shift */
+  height: token-utils.slot(nav-bar-item-label-container-height, $fallbacks);
 }
 
 :host(.mat-navigation-bar-item-selected) .mat-navigation-bar-item-label-container {
-  color: var(--mat-nav-bar-item-active-label-color);
+  color: token-utils.slot(nav-bar-item-active-label-color, $fallbacks);
 }
 
-/* If ALWAYS show label, unselected margin shift might be unnecessary,
-   but it is implicitly handled by the container remaining statically large. */
+:host:focus-visible {
+  outline: 2px solid var(--mat-sys-primary, #6750a4);
+  outline-offset: -2px;
+}
+
+@include cdk.high-contrast {
+  :host {
+    outline: solid 1px currentColor;
+  }
+
+  :host(.mat-navigation-bar-item-selected) {
+    outline: solid 2px currentColor;
+  }
+
+  :host(.mat-navigation-bar-item-disabled) {
+    outline: none;
+    color: GrayText;
+  }
+}

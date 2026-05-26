@@ -44,6 +44,63 @@
         "vitest": "^4.0.8",
       },
     },
+    "projects/fairylights-studio/navigation-bar": {
+      "name": "@fairylights-studio/navigation-bar",
+      "version": "0.0.1",
+      "dependencies": {
+        "tslib": "^2.3.0",
+      },
+      "peerDependencies": {
+        "@angular/cdk": "^21",
+        "@angular/common": "^21.2.0",
+        "@angular/core": "^21.2.0",
+        "@angular/material": "^21",
+        "@fairylights-studio/navigation-common": "0.0.1",
+      },
+    },
+    "projects/fairylights-studio/navigation-common": {
+      "name": "@fairylights-studio/navigation-common",
+      "version": "0.0.1",
+      "dependencies": {
+        "tslib": "^2.3.0",
+      },
+      "peerDependencies": {
+        "@angular/cdk": "^21",
+        "@angular/common": "^21.2.0",
+        "@angular/core": "^21.2.0",
+        "@angular/material": "^21",
+      },
+    },
+    "projects/fairylights-studio/navigation-rail": {
+      "name": "@fairylights-studio/navigation-rail",
+      "version": "0.0.1",
+      "dependencies": {
+        "tslib": "^2.3.0",
+      },
+      "peerDependencies": {
+        "@angular/cdk": "^21",
+        "@angular/common": "^21.2.0",
+        "@angular/core": "^21.2.0",
+        "@angular/material": "^21",
+        "@fairylights-studio/navigation-common": "0.0.1",
+      },
+    },
+    "projects/fairylights-studio/navigation-suite": {
+      "name": "@fairylights-studio/navigation-suite",
+      "version": "0.0.1",
+      "dependencies": {
+        "tslib": "^2.3.0",
+      },
+      "peerDependencies": {
+        "@angular/cdk": "^21",
+        "@angular/common": "^21.2.0",
+        "@angular/core": "^21.2.0",
+        "@angular/material": "^21",
+        "@fairylights-studio/navigation-bar": "0.0.1",
+        "@fairylights-studio/navigation-common": "0.0.1",
+        "@fairylights-studio/navigation-rail": "0.0.1",
+      },
+    },
   },
   "packages": {
     "@acemir/cssom": ["@acemir/cssom@0.9.31", "", {}, "sha512-ZnR3GSaH+/vJ0YlHau21FjfLYjMpYVIzTD8M8vIEQvIGxeOXyXdzCI140rrCY862p/C/BbzWsjc1dgnM9mkoTA=="],
@@ -425,6 +482,14 @@
     "@eslint/plugin-kit": ["@eslint/plugin-kit@0.7.1", "", { "dependencies": { "@eslint/core": "^1.2.1", "levn": "^0.4.1" } }, "sha512-rZAP3aVgB9ds9KOeUSL+zZ21hPmo8dh6fnIFwRQj5EAZl9gzR7wxYbYXYysAM8CTqGmUGyp2S4kUdV17MnGuWQ=="],
 
     "@exodus/bytes": ["@exodus/bytes@1.15.0", "", { "peerDependencies": { "@noble/hashes": "^1.8.0 || ^2.0.0" }, "optionalPeers": ["@noble/hashes"] }, "sha512-UY0nlA+feH81UGSHv92sLEPLCeZFjXOuHhrIo0HQydScuQc8s0A7kL/UdgwgDq8g8ilksmuoF35YVTNphV2aBQ=="],
+
+    "@fairylights-studio/navigation-bar": ["@fairylights-studio/navigation-bar@workspace:projects/fairylights-studio/navigation-bar"],
+
+    "@fairylights-studio/navigation-common": ["@fairylights-studio/navigation-common@workspace:projects/fairylights-studio/navigation-common"],
+
+    "@fairylights-studio/navigation-rail": ["@fairylights-studio/navigation-rail@workspace:projects/fairylights-studio/navigation-rail"],
+
+    "@fairylights-studio/navigation-suite": ["@fairylights-studio/navigation-suite@workspace:projects/fairylights-studio/navigation-suite"],
 
     "@gar/promise-retry": ["@gar/promise-retry@1.0.3", "", {}, "sha512-GmzA9ckNokPypTg10pgpeHNQe7ph+iIKKmhKu3Ob9ANkswreCx7R3cKmY781K8QK3AqVL3xVh9A42JvIAbkkSA=="],
 

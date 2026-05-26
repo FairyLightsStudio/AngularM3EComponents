@@ -1,7 +1,16 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  inject,
+  input,
+  OnDestroy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
 import { MatBadgeModule } from '@angular/material/badge';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
   MatNavigationItemBase,
   MatNavigationActiveIcon,
@@ -23,15 +32,39 @@ import {
       'alwaysShowLabel() || layout() === "horizontal"',
     '[class.mat-navigation-bar-item-disabled]': 'disabled()',
     '[class.mat-navigation-bar-item-horizontal]': 'layout() === "horizontal"',
+    '[attr.tabindex]': 'disabled() ? -1 : _tabIndex',
+    '[attr.role]': 'role()',
+    '[attr.aria-selected]': 'active()',
+    '[attr.aria-disabled]': 'disabled() || null',
+    '[attr.aria-current]': 'active() ? "page" : null',
   },
 })
-export class MatNavigationBarItemComponent extends MatNavigationItemBase {
-  /**
-   * Controls whether inactive items should always display their label.
-   * This input has no effect when {@link layout} is `'horizontal'` — labels are always shown.
-   *
-   * 控制未激活项是否始终显示标签。当 {@link layout} 为 `'horizontal'` 时此输入无效，标签将始终显示。
-   */
+export class MatNavigationBarItemComponent
+  extends MatNavigationItemBase
+  implements AfterViewInit, OnDestroy
+{
   alwaysShowLabel = input<boolean>(true);
   layout = input<'vertical' | 'horizontal'>('vertical');
+  role = input<string>('tab');
+
+  private _focusMonitor = inject(FocusMonitor);
+  private _el = inject<ElementRef<HTMLElement>>(ElementRef);
+
+  _tabIndex = -1;
+
+  focus(origin?: FocusOrigin): void {
+    this._el.nativeElement.focus({ preventScroll: origin === 'keyboard' });
+  }
+
+  _getHostElement(): HTMLElement {
+    return this._el.nativeElement;
+  }
+
+  ngAfterViewInit() {
+    this._focusMonitor.monitor(this._el, true);
+  }
+
+  ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this._el);
+  }
 }

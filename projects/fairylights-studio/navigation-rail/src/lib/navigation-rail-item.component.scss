@@ -1,6 +1,9 @@
+@use '@fairylights-studio/navigation-common/token-utils' as token-utils;
+@use '../../m3-navigation-rail' as m3-nav-rail;
 @use 'sass:map';
 @use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
-
+@use '@angular/cdk' as cdk;
+$fallbacks: m3-nav-rail.get-tokens();
 $m3-motion-tokens: m3-motion.md-sys-motion-values();
 $duration-medium1: map.get($m3-motion-tokens, duration-medium1);
 $easing-standard: map.get($m3-motion-tokens, easing-standard);
@@ -14,56 +17,55 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* 永远左对齐，解决突跳 */
+  align-items: flex-start;
   justify-content: flex-start;
-  width: 100%; /* Target Area 100% 占满 */
-  height: 72px; /* 默认收起态包含底部文字的高 */
-  padding: 12px 12px 0 12px; /* 预留 12px 的侧边距 */
+  width: 100%;
+  height: token-utils.slot(nav-rail-item-button-collapsed-height, $fallbacks);
+  padding: token-utils.slot(nav-rail-item-button-collapsed-padding, $fallbacks);
   background: transparent;
   border: none;
   cursor: pointer;
-  outline: none;
-  color: var(--mat-sys-on-surface-variant, #49454F);
-  transition: height $duration-medium1 $easing-standard,
-              padding $duration-medium1 $easing-standard;
+  color: token-utils.slot(nav-rail-item-text-color, $fallbacks, #49454f);
+  transition:
+    height $duration-medium1 $easing-standard,
+    padding $duration-medium1 $easing-standard;
   box-sizing: border-box;
 }
 
-/* 展开态：按钮变矮，文字移入胶囊内 */
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button {
-  height: 56px;
-  padding: 0 12px;
+  height: token-utils.slot(nav-rail-item-button-expanded-height, $fallbacks);
+  padding: token-utils.slot(nav-rail-item-button-expanded-padding, $fallbacks);
 }
 
-/* ================== 胶囊指示器 (Indicator) ================== */
 .mat-nav-rail-indicator {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: 32px;
-  width: 56px; /* 56px 正好填满 (80 - 12 - 12) 达成居中 */
-  border-radius: 16px;
+  height: token-utils.slot(nav-rail-indicator-height, $fallbacks);
+  width: token-utils.slot(nav-rail-indicator-width, $fallbacks);
+  border-radius: token-utils.slot(nav-rail-indicator-shape, $fallbacks);
   background-color: transparent;
-  transition: height $duration-medium1 $easing-standard,
-              border-radius $duration-medium1 $easing-standard,
-              background-color $duration-medium1 $easing-standard;
+  transition:
+    height $duration-medium1 $easing-standard,
+    border-radius $duration-medium1 $easing-standard,
+    background-color $duration-medium1 $easing-standard;
   z-index: 1;
 }
 
 .mat-nav-rail-indicator.indicator-hug {
-  width: max-content; /* 依然保持随内容自适应撑开 */
+  width: max-content;
   padding-inline-end: 16px;
 }
 
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator {
-  height: 56px;
-  border-radius: 28px;
+  height: token-utils.slot(nav-rail-indicator-expanded-height, $fallbacks);
+  border-radius: token-utils.slot(nav-rail-indicator-expanded-shape, $fallbacks);
 }
 
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator.indicator-hug {
   width: max-content;
-  min-width: 56px;
+  min-width: token-utils.slot(nav-rail-indicator-width, $fallbacks);
   padding-inline-end: 16px;
 }
 
@@ -85,36 +87,42 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 .mat-nav-rail-icon-box {
   position: relative;
-  width: 24px;
-  height: 24px;
-  margin-inline-start: 16px;
+  width: token-utils.slot(nav-rail-icon-box-size, $fallbacks);
+  height: token-utils.slot(nav-rail-icon-box-size, $fallbacks);
+  margin-inline-start: token-utils.slot(nav-rail-icon-box-margin-start, $fallbacks);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.icon-default, .icon-active {
+.icon-default,
+.icon-active {
   position: absolute;
   transition: opacity $duration-medium1 $easing-standard;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.icon-default { opacity: 1; }
-.icon-active { opacity: 0; }
+.icon-default {
+  opacity: 1;
+}
+.icon-active {
+  opacity: 0;
+}
 
 .mat-nav-rail-label-side {
   display: grid;
   grid-template-columns: 0fr;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: token-utils.slot(nav-rail-label-side-font-size, $fallbacks);
+  font-weight: token-utils.slot(nav-rail-label-side-font-weight, $fallbacks);
   pointer-events: none;
   padding-inline-start: 0;
   opacity: 0;
-  transition: grid-template-columns $duration-medium1 $easing-standard,
-              padding-inline-start $duration-medium1 $easing-standard,
-              opacity $duration-medium1 $easing-standard;
+  transition:
+    grid-template-columns $duration-medium1 $easing-standard,
+    padding-inline-start $duration-medium1 $easing-standard,
+    opacity $duration-medium1 $easing-standard;
 }
 
 .mat-nav-rail-label-inner {
@@ -124,25 +132,30 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-label-side {
   grid-template-columns: 1fr;
-  padding-inline-start: 12px;
+  padding-inline-start: token-utils.slot(nav-rail-label-side-padding-start, $fallbacks);
   opacity: 1;
 }
 
-.mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-side { transform: translateX(8px); }
-:host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-side { transform: translateX(0); }
+.mat-nav-rail-item-button[dir='rtl'] .mat-nav-rail-label-side {
+  transform: translateX(8px);
+}
+:host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button[dir='rtl'] .mat-nav-rail-label-side {
+  transform: translateX(0);
+}
 
 .mat-nav-rail-label-bottom {
   position: absolute;
-  top: 48px;
-  left: 40px;
+  top: token-utils.slot(nav-rail-label-bottom-top, $fallbacks);
+  left: token-utils.slot(nav-rail-label-bottom-left, $fallbacks);
   transform: translateX(-50%);
   width: max-content;
-  max-width: 76px;
+  max-width: token-utils.slot(nav-rail-label-bottom-max-width, $fallbacks);
   display: grid;
   grid-template-rows: 1fr;
   opacity: 1;
-  transition: grid-template-rows $duration-medium1 $easing-standard,
-              opacity $duration-medium1 $easing-standard;
+  transition:
+    grid-template-rows $duration-medium1 $easing-standard,
+    opacity $duration-medium1 $easing-standard;
 }
 
 .mat-nav-rail-label-bottom-inner {
@@ -150,9 +163,9 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 16px;
+  font-size: token-utils.slot(nav-rail-label-bottom-font-size, $fallbacks);
+  font-weight: token-utils.slot(nav-rail-label-bottom-font-weight, $fallbacks);
+  line-height: token-utils.slot(nav-rail-label-bottom-line-height, $fallbacks);
   white-space: nowrap;
   pointer-events: none;
 }
@@ -162,22 +175,45 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   opacity: 0;
 }
 
-.mat-nav-rail-item-button[dir="rtl"] .mat-nav-rail-label-bottom {
+.mat-nav-rail-item-button[dir='rtl'] .mat-nav-rail-label-bottom {
   left: auto;
-  right: 40px;
+  right: token-utils.slot(nav-rail-label-bottom-left, $fallbacks);
   transform: translateX(50%);
 }
 
 .mat-nav-rail-item-button.active {
-  color: var(--mat-sys-on-secondary-container);
+  color: token-utils.slot(nav-rail-item-active-text-color, $fallbacks);
   .mat-nav-rail-indicator {
-    background-color: var(--mat-sys-secondary-container);
+    background-color: token-utils.slot(nav-rail-indicator-color, $fallbacks);
   }
-  .icon-default { opacity: 0; }
-  .icon-active { opacity: 1; }
+  .icon-default {
+    opacity: 0;
+  }
+  .icon-active {
+    opacity: 1;
+  }
+}
 
+.mat-nav-rail-item-button:focus-visible {
+  outline: 2px solid var(--mat-sys-primary, #6750a4);
+  outline-offset: 2px;
+}
 
-  // .mat-nav-rail-label-bottom, .mat-nav-rail-label-side {
-  //   font-weight: 700;
-  // }
+:host:focus-visible {
+  outline: none;
+}
+
+@include cdk.high-contrast {
+  .mat-nav-rail-item-button {
+    outline: solid 1px currentColor;
+
+    &.active {
+      outline: solid 2px currentColor;
+    }
+
+    &:disabled {
+      outline: none;
+      color: GrayText;
+    }
+  }
 }

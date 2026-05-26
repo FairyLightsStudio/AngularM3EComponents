@@ -1,0 +1,27 @@
+@use 'sass:map';
+
+$_system: (
+  surface: --mat-sys-surface,
+  surface-container: --mat-sys-surface-container,
+  surface-container-low: --mat-sys-surface-container-low,
+  on-surface: --mat-sys-on-surface,
+  on-surface-variant: --mat-sys-on-surface-variant,
+  on-secondary-container: --mat-sys-on-secondary-container,
+  secondary-container: --mat-sys-secondary-container,
+  outline-variant: --mat-sys-outline-variant,
+  background: --mat-sys-background,
+  on-background: --mat-sys-on-background,
+  corner-large: --mat-sys-corner-large,
+  typescale-label-large-font: --mat-sys-typescale-label-large-font,
+  typescale-label-large-size: --mat-sys-typescale-label-large-size,
+  typescale-label-large-weight: --mat-sys-typescale-label-large-weight,
+  typescale-label-large-line-height: --mat-sys-typescale-label-large-line-height,
+  typescale-label-large-letter-spacing: --mat-sys-typescale-label-large-letter-spacing,
+  duration-medium1: --mat-sys-duration-medium1,
+  duration-medium2: --mat-sys-duration-medium2,
+  easing-standard: --mat-sys-easing-standard,
+);
+
+$sys-theme: (
+  _mat-system: $_system,
+);

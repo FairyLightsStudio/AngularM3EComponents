@@ -1,0 +1,44 @@
+@use 'sass:map';
+@use '@fairylights-studio/navigation-common/m3-utils' as m3-utils;
+@use '@fairylights-studio/navigation-common/m3-system' as m3;
+
+@function get-tokens($theme: m3.$sys-theme) {
+  $system: m3-utils.get-system($theme);
+
+  @return (
+    base: (
+      nav-rail-container-collapsed-width: 80px,
+      nav-rail-container-expanded-max-width: 360px,
+      nav-rail-container-z-index: 100,
+      nav-rail-item-button-collapsed-height: 72px,
+      nav-rail-item-button-expanded-height: 56px,
+      nav-rail-item-button-collapsed-padding: 12px 12px 0 12px,
+      nav-rail-item-button-expanded-padding: 0 12px,
+      nav-rail-indicator-width: 56px,
+      nav-rail-indicator-height: 32px,
+      nav-rail-indicator-shape: 16px,
+      nav-rail-indicator-expanded-height: 56px,
+      nav-rail-indicator-expanded-shape: 28px,
+      nav-rail-icon-box-size: 24px,
+      nav-rail-icon-box-margin-start: 16px,
+      nav-rail-label-side-font-size: 14px,
+      nav-rail-label-side-font-weight: 500,
+      nav-rail-label-side-padding-start: 12px,
+      nav-rail-label-bottom-font-size: 12px,
+      nav-rail-label-bottom-font-weight: 500,
+      nav-rail-label-bottom-max-width: 76px,
+      nav-rail-label-bottom-line-height: 16px,
+      nav-rail-label-bottom-top: 48px,
+      nav-rail-label-bottom-left: 40px,
+    ),
+    color: (
+      nav-rail-container-background-color: map.get($system, surface),
+      nav-rail-container-divider-color: map.get($system, outline-variant),
+      nav-rail-item-text-color: map.get($system, on-surface-variant),
+      nav-rail-item-active-text-color: map.get($system, on-secondary-container),
+      nav-rail-indicator-color: map.get($system, secondary-container),
+    ),
+    typography: (),
+    density: ()
+  );
+}
