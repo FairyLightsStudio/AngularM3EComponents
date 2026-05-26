@@ -52,7 +52,7 @@ export const Basic: Story = {
             [layout]="layout"
             (click)="selectedIndex = 0"
           >
-            <mat-icon matNavigationIcon aria-hidden="true">home</mat-icon>
+            <mat-icon matNavigationIcon>home</mat-icon>
             <ng-template matNavigationLabel>Home</ng-template>
           </mat-navigation-bar-item>
 
@@ -62,7 +62,7 @@ export const Basic: Story = {
             [layout]="layout"
             (click)="selectedIndex = 1"
           >
-            <mat-icon matNavigationIcon aria-hidden="true">search</mat-icon>
+            <mat-icon matNavigationIcon>search</mat-icon>
             <ng-template matNavigationLabel>Search</ng-template>
           </mat-navigation-bar-item>
 
@@ -74,7 +74,7 @@ export const Basic: Story = {
             badgeDescription="3 unread notifications"
             (click)="selectedIndex = 2"
           >
-            <mat-icon matNavigationIcon aria-hidden="true">notifications</mat-icon>
+            <mat-icon matNavigationIcon>notifications</mat-icon>
             <ng-template matNavigationLabel>Alerts</ng-template>
           </mat-navigation-bar-item>
 
@@ -84,7 +84,7 @@ export const Basic: Story = {
             [layout]="layout"
             (click)="selectedIndex = 3"
           >
-            <mat-icon matNavigationIcon aria-hidden="true">person</mat-icon>
+            <mat-icon matNavigationIcon>person</mat-icon>
             <ng-template matNavigationLabel>Profile</ng-template>
           </mat-navigation-bar-item>
         </mat-navigation-bar>

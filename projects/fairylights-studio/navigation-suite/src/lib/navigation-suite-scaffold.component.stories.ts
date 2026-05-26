@@ -100,8 +100,8 @@ const renderSuite: Story['render'] = (args) => ({
           [active]="selectedIndex === 0"
           (selected)="selectedIndex = 0"
         >
-          <mat-icon *matNavigationIcon aria-hidden="true">dashboard</mat-icon>
-          <mat-icon *matNavigationActiveIcon aria-hidden="true">space_dashboard</mat-icon>
+          <mat-icon *matNavigationIcon>dashboard</mat-icon>
+          <mat-icon *matNavigationActiveIcon>space_dashboard</mat-icon>
           <ng-template matNavigationLabel>Dashboard</ng-template>
         </mat-navigation-suite-item>
 
@@ -111,8 +111,8 @@ const renderSuite: Story['render'] = (args) => ({
           badgeDescription="5 active tasks"
           (selected)="selectedIndex = 1"
         >
-          <mat-icon *matNavigationIcon aria-hidden="true">task_alt</mat-icon>
-          <mat-icon *matNavigationActiveIcon aria-hidden="true">assignment_turned_in</mat-icon>
+          <mat-icon *matNavigationIcon>task_alt</mat-icon>
+          <mat-icon *matNavigationActiveIcon>assignment_turned_in</mat-icon>
           <ng-template matNavigationLabel>Tasks</ng-template>
         </mat-navigation-suite-item>
 
@@ -120,8 +120,8 @@ const renderSuite: Story['render'] = (args) => ({
           [active]="selectedIndex === 2"
           (selected)="selectedIndex = 2"
         >
-          <mat-icon *matNavigationIcon aria-hidden="true">analytics</mat-icon>
-          <mat-icon *matNavigationActiveIcon aria-hidden="true">monitoring</mat-icon>
+          <mat-icon *matNavigationIcon>analytics</mat-icon>
+          <mat-icon *matNavigationActiveIcon>monitoring</mat-icon>
           <ng-template matNavigationLabel>Reports</ng-template>
         </mat-navigation-suite-item>
 
@@ -129,7 +129,7 @@ const renderSuite: Story['render'] = (args) => ({
           [active]="selectedIndex === 3"
           (selected)="selectedIndex = 3"
         >
-          <mat-icon *matNavigationIcon aria-hidden="true">admin_panel_settings</mat-icon>
+          <mat-icon *matNavigationIcon>admin_panel_settings</mat-icon>
           <ng-template matNavigationLabel>Admin</ng-template>
         </mat-navigation-suite-item>
 
