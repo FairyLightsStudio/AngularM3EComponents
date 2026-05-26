@@ -14,11 +14,6 @@ $fallbacks: m3-nav-bar.get-tokens();
   --_animation-progress: 0;
 }
 
-:host(.mat-navigation-bar-item-disabled) {
-  cursor: default;
-  opacity: token-utils.slot(nav-bar-item-disabled-opacity, $fallbacks);
-}
-
 :host(.mat-navigation-bar-item-horizontal) {
   flex: 0 0 token-utils.slot(nav-bar-item-horizontal-width, $fallbacks);
   min-width: token-utils.slot(nav-bar-item-horizontal-width, $fallbacks);
@@ -181,10 +176,5 @@ $fallbacks: m3-nav-bar.get-tokens();
 
   :host(.mat-navigation-bar-item-selected) {
     outline: solid 2px currentColor;
-  }
-
-  :host(.mat-navigation-bar-item-disabled) {
-    outline: none;
-    color: GrayText;
   }
 }

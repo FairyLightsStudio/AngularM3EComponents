@@ -127,7 +127,6 @@ const renderSuite: Story['render'] = (args) => ({
 
         <mat-navigation-suite-item
           [active]="selectedIndex === 3"
-          [disabled]="true"
         >
           <mat-icon *matNavigationIcon aria-hidden="true">admin_panel_settings</mat-icon>
           <ng-template matNavigationLabel>Admin</ng-template>

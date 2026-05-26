@@ -30,12 +30,10 @@ import {
     '[class.mat-navigation-bar-item-selected]': 'active()',
     '[class.mat-navigation-bar-item-always-show-label]':
       'alwaysShowLabel() || layout() === "horizontal"',
-    '[class.mat-navigation-bar-item-disabled]': 'disabled()',
     '[class.mat-navigation-bar-item-horizontal]': 'layout() === "horizontal"',
-    '[attr.tabindex]': 'disabled() ? -1 : _tabIndex',
+    '[attr.tabindex]': '_tabIndex',
     '[attr.role]': 'role()',
     '[attr.aria-selected]': 'active()',
-    '[attr.aria-disabled]': 'disabled() || null',
     '[attr.aria-current]': 'active() ? "page" : null',
   },
 })

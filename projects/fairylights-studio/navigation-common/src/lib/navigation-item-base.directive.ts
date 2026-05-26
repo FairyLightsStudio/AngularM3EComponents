@@ -1,22 +1,14 @@
 import { Directive, ContentChild, input } from '@angular/core';
-import {
-  MatNavigationIcon,
-  MatNavigationActiveIcon,
-  MatNavigationLabel,
-} from './directives';
+import { MatNavigationIcon, MatNavigationActiveIcon, MatNavigationLabel } from './directives';
 import { ThemePalette } from '@angular/material/core';
 import { MatBadgePosition, MatBadgeSize } from '@angular/material/badge';
 
-const booleanTransform = (v: string | boolean) =>
-  v === '' || v === true || v === 'true';
+const booleanTransform = (v: string | boolean) => v === '' || v === true || v === 'true';
 
 @Directive()
 export class MatNavigationItemBase {
   /** Whether the navigation item is active/selected. */
   active = input<boolean>(false);
-
-  /** Whether the item is disabled. */
-  disabled = input<boolean>(false);
 
   /** Content query for the default icon. */
   @ContentChild(MatNavigationIcon) icon?: MatNavigationIcon;

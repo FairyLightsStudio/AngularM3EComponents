@@ -30,7 +30,6 @@
       nav-bar-item-label-color: map.get($system, on-surface-variant),
       nav-bar-item-active-label-color: map.get($system, on-surface),
       nav-bar-item-indicator-color: map.get($system, secondary-container),
-      nav-bar-item-disabled-opacity: 0.38,
     ),
     typography: (
       nav-bar-item-label-font: map.get($system, typescale-label-large-font),

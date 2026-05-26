@@ -63,3 +63,6 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the `inject()` function instead of constructor injection
 
 使用 bun 而非npm作为依赖项管理
+
+
+现阶段，不需要AI修改后build，修改完毕后直接告诉主人修改完了就好了。不需要自己 BUILD， BUILD 的流水线还没搭建好

@@ -1,4 +1,3 @@
-
 import { MatIconModule } from '@angular/material/icon';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
@@ -15,10 +14,7 @@ const meta: Meta<NavigationBarStoryArgs> = {
   title: 'Navigation/Navigation Bar',
   decorators: [
     moduleMetadata({
-      imports: [
-        MatIconModule,
-        ...MAT_NAVIGATION_BAR_MODULES,
-      ],
+      imports: [MatIconModule, ...MAT_NAVIGATION_BAR_MODULES],
     }),
   ],
   argTypes: {
@@ -57,7 +53,6 @@ export const Basic: Story = {
             (click)="selectedIndex = 0"
           >
             <mat-icon matNavigationIcon aria-hidden="true">home</mat-icon>
-            <mat-icon matNavigationActiveIcon aria-hidden="true">home</mat-icon>
             <ng-template matNavigationLabel>Home</ng-template>
           </mat-navigation-bar-item>
 
@@ -68,7 +63,6 @@ export const Basic: Story = {
             (click)="selectedIndex = 1"
           >
             <mat-icon matNavigationIcon aria-hidden="true">search</mat-icon>
-            <mat-icon matNavigationActiveIcon aria-hidden="true">saved_search</mat-icon>
             <ng-template matNavigationLabel>Search</ng-template>
           </mat-navigation-bar-item>
 
@@ -81,7 +75,6 @@ export const Basic: Story = {
             (click)="selectedIndex = 2"
           >
             <mat-icon matNavigationIcon aria-hidden="true">notifications</mat-icon>
-            <mat-icon matNavigationActiveIcon aria-hidden="true">notifications_active</mat-icon>
             <ng-template matNavigationLabel>Alerts</ng-template>
           </mat-navigation-bar-item>
 
@@ -89,7 +82,7 @@ export const Basic: Story = {
             [active]="selectedIndex === 3"
             [alwaysShowLabel]="alwaysShowLabel"
             [layout]="layout"
-            [disabled]="true"
+            (click)="selectedIndex = 3"
           >
             <mat-icon matNavigationIcon aria-hidden="true">person</mat-icon>
             <ng-template matNavigationLabel>Profile</ng-template>

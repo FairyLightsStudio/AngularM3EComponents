@@ -75,7 +75,7 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
         const index = this._keyManager.activeItemIndex;
         if (index != null) {
           const item = this._items.get(index);
-          if (item && !item.disabled()) {
+          if (item) {
             item._getHostElement().click();
           }
         }

@@ -210,10 +210,5 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
     &.active {
       outline: solid 2px currentColor;
     }
-
-    &:disabled {
-      outline: none;
-      color: GrayText;
-    }
   }
 }

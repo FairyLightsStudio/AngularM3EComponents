@@ -13,9 +13,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatNavigationRailComponent } from './navigation-rail.component';
-import {
-  MatNavigationItemBase,
-} from '@fairylights-studio/navigation-common';
+import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
 
 @Component({
   selector: 'mat-navigation-rail-item',
@@ -27,19 +25,13 @@ import {
       [class.active]="active()"
       [attr.dir]="dir.value"
       #buttonEl
-      [disabled]="disabled()"
     >
       <div
         class="mat-nav-rail-indicator"
         [class.indicator-fill]="rail?.indicatorShape === 'fill'"
         [class.indicator-hug]="rail?.indicatorShape === 'hug'"
       >
-        <div
-          class="mat-nav-rail-ripple"
-          matRipple
-          [matRippleTrigger]="buttonEl"
-          [matRippleDisabled]="disabled()"
-        ></div>
+        <div class="mat-nav-rail-ripple" matRipple [matRippleTrigger]="buttonEl"></div>
 
         <div
           class="mat-nav-rail-icon-box"
@@ -76,12 +68,10 @@ import {
   styleUrl: './navigation-rail-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[class.mat-nav-rail-item-disabled]': 'disabled()',
     '[class.mat-nav-rail-item-expanded]': 'rail?.expanded',
-    '[attr.tabindex]': 'disabled() ? -1 : _tabIndex',
+    '[attr.tabindex]': '_tabIndex',
     '[attr.role]': '"tab"',
     '[attr.aria-selected]': 'active()',
-    '[attr.aria-disabled]': 'disabled() || null',
     '[attr.aria-current]': 'active() ? "page" : null',
   },
 })
