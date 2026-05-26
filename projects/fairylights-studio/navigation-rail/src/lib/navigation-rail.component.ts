@@ -2,23 +2,19 @@ import {
   AfterContentInit,
   Component,
   ContentChildren,
-  inject,
   Input,
   input,
   OnDestroy,
   QueryList,
 } from '@angular/core';
-import { FocusKeyManager } from '@angular/cdk/a11y';
+import { FocusKeyManager, type FocusableOption } from '@angular/cdk/a11y';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { MatNavigationRailItemComponent } from './navigation-rail-item.component';
 
 export type MatNavRailIndicatorShape = 'hug' | 'fill';
 
 @Component({
   selector: 'mat-navigation-rail',
-  standalone: true,
   imports: [],
   template: `
     <div class="mat-nav-rail-container">
@@ -49,41 +45,32 @@ export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
   @ContentChildren(MatNavigationRailItemComponent, { descendants: true })
   _items!: QueryList<MatNavigationRailItemComponent>;
 
-  private _keyManager!: FocusKeyManager<any>;
-  private _destroyed = new Subject<void>();
+  private _keyManager!: FocusKeyManager<MatNavigationRailItemComponent>;
 
   ngAfterContentInit() {
-    this._keyManager = new FocusKeyManager(this._items as any)
+    this._keyManager = new FocusKeyManager<MatNavigationRailItemComponent>(
+      this._items as unknown as QueryList<MatNavigationRailItemComponent & FocusableOption>,
+    )
       .withVerticalOrientation()
       .withHomeAndEnd()
-      .withWrap();
+      .withWrap()
+      .withTypeAhead();
 
-    this._keyManager.change.pipe(takeUntil(this._destroyed)).subscribe((index) => {
-      this._items.forEach((item, i) => {
-        item._tabIndex = i === index ? 0 : -1;
-      });
-    });
-
-    this._items.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
-      const activeIndex = this._keyManager.activeItemIndex ?? 0;
-      this._keyManager.updateActiveItem(activeIndex);
-    });
+    this._setInitialActiveItem();
   }
 
   _handleKeydown(event: KeyboardEvent) {
     if (hasModifierKey(event)) return;
 
+    const item = this._getEventItem(event);
+    if (!item) return;
+    this._updateActiveItem(item);
+
     switch (event.keyCode) {
       case ENTER:
       case SPACE:
         event.preventDefault();
-        const index = this._keyManager.activeItemIndex;
-        if (index != null) {
-          const item = this._items.get(index);
-          if (item) {
-            item._getHostElement().click();
-          }
-        }
+        item._getButtonElement().click();
         break;
       default:
         this._keyManager.onKeydown(event);
@@ -91,7 +78,31 @@ export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._destroyed.next();
-    this._destroyed.complete();
+    this._keyManager?.destroy();
+  }
+
+  private _getEventItem(event: KeyboardEvent): MatNavigationRailItemComponent | undefined {
+    const target = event.target;
+    if (!(target instanceof Node)) return undefined;
+
+    return this._items.find((item) => item._getHostElement().contains(target));
+  }
+
+  private _setInitialActiveItem(): void {
+    const items = this._items.toArray();
+    const activeIndex = items.findIndex((item) => item.active());
+    const firstEnabledIndex = items.length > 0 ? 0 : -1;
+    const initialIndex = activeIndex >= 0 ? activeIndex : firstEnabledIndex;
+
+    if (initialIndex >= 0) {
+      this._keyManager.updateActiveItem(initialIndex);
+    }
+  }
+
+  private _updateActiveItem(item: MatNavigationRailItemComponent): void {
+    const index = this._items.toArray().indexOf(item);
+    if (index >= 0 && index !== this._keyManager.activeItemIndex) {
+      this._keyManager.updateActiveItem(index);
+    }
   }
 }

@@ -6,6 +6,7 @@ import {
   forwardRef,
   ChangeDetectionStrategy,
   OnDestroy,
+  viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
@@ -17,13 +18,15 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
 
 @Component({
   selector: 'mat-navigation-rail-item',
-  standalone: true,
   imports: [CommonModule, MatRippleModule, MatBadgeModule],
   template: `
     <button
       class="mat-nav-rail-item-button"
       [class.active]="active()"
       [attr.dir]="dir.value"
+      [attr.role]="'tab'"
+      [attr.aria-selected]="active()"
+      [attr.aria-current]="active() ? 'page' : null"
       #buttonEl
     >
       <div
@@ -68,10 +71,6 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '[class.mat-nav-rail-item-expanded]': 'rail?.expanded',
-    '[attr.tabindex]': '_tabIndex',
-    '[attr.role]': '"tab"',
-    '[attr.aria-selected]': 'active()',
-    '[attr.aria-current]': 'active() ? "page" : null',
   },
 })
 export class MatNavigationRailItemComponent
@@ -86,12 +85,11 @@ export class MatNavigationRailItemComponent
   );
   private _focusMonitor = inject(FocusMonitor);
   private _el = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _button = viewChild.required<ElementRef<HTMLButtonElement>>('buttonEl');
   dir = inject(Directionality, { optional: true }) || { value: 'ltr' };
 
-  _tabIndex = -1;
-
   focus(origin?: FocusOrigin): void {
-    this._el.nativeElement.focus({
+    this._button().nativeElement.focus({
       preventScroll: origin === 'keyboard',
     });
   }
@@ -100,11 +98,19 @@ export class MatNavigationRailItemComponent
     return this._el.nativeElement;
   }
 
+  _getButtonElement(): HTMLButtonElement {
+    return this._button().nativeElement;
+  }
+
+  getLabel(): string {
+    return this._button().nativeElement.textContent?.trim() ?? '';
+  }
+
   ngAfterViewInit() {
-    this._focusMonitor.monitor(this._el, true);
+    this._focusMonitor.monitor(this._button(), true);
   }
 
   ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this._el);
+    this._focusMonitor.stopMonitoring(this._button());
   }
 }
