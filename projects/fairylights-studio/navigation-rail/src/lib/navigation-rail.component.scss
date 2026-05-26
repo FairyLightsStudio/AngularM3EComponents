@@ -28,7 +28,9 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 :host(.mat-nav-rail-expanded) {
   max-width: token-utils.slot(nav-rail-container-expanded-max-width, $fallbacks);
 }
-
+:host([data-indicator-shape='fill']) {
+  width: token-utils.slot(nav-rail-container-fill-expanded-width, $fallbacks);
+}
 :host(.mat-nav-rail-has-divider) {
   border-inline-end-color: token-utils.slot(nav-rail-container-divider-color, $fallbacks);
 }
