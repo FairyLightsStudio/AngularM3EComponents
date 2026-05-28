@@ -122,7 +122,7 @@ export const Expanded: Story = {
   args: {
     selectedIndex: 1,
     expanded: true,
-    indicatorShape: 'fill',
+    indicatorShape: 'hug',
     showDivider: true,
     verticalArrangement: 'center',
   },
