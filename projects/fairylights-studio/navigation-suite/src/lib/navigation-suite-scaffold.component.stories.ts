@@ -138,6 +138,9 @@ const renderProjectedSuite: Story['render'] = (args) => ({
 
 export const RailCollapsed: Story = {
   render: renderProjectedSuite,
+  globals: {
+    viewport: { value: 'tablet', isRotated: false },
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByLabelText('Create document')).toBeInTheDocument();
@@ -151,6 +154,9 @@ export const RailExpanded: Story = {
     selectedIndex: 1,
     navSuiteType: 'RailExpanded',
     verticalArrangement: 'center',
+  },
+  globals: {
+    viewport: { value: 'desktop', isRotated: false },
   },
   render: renderProjectedSuite,
   play: async ({ canvasElement }) => {
@@ -166,6 +172,9 @@ export const BarCompact: Story = {
     navSuiteType: 'BarCompact',
     primaryActionAlignment: 'center',
   },
+    globals: {
+    viewport: { value: 'mobile2', isRotated: false },
+  },
   render: renderProjectedSuite,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -179,6 +188,9 @@ export const BarMedium: Story = {
     selectedIndex: 0,
     navSuiteType: 'BarMedium',
     primaryActionAlignment: 'start',
+  },
+  globals: {
+    viewport: { value: 'tablet', isRotated: true },
   },
   render: renderProjectedSuite,
   play: async ({ canvasElement }) => {
