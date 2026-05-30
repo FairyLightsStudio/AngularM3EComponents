@@ -31,13 +31,11 @@ const navItems: readonly NavigationSuiteStoryItem[] = [
     id: 'dashboard',
     label: 'Dashboard',
     icon: 'dashboard',
-    activeIcon: 'space_dashboard',
   },
   {
     id: 'tasks',
     label: 'Tasks',
     icon: 'task_alt',
-    activeIcon: 'assignment_turned_in',
     badge: '5',
     badgeDescription: '5 active tasks',
   },
@@ -45,7 +43,6 @@ const navItems: readonly NavigationSuiteStoryItem[] = [
     id: 'reports',
     label: 'Reports',
     icon: 'analytics',
-    activeIcon: 'monitoring',
   },
   {
     id: 'admin',
@@ -182,6 +179,19 @@ export const BarMedium: Story = {
     selectedIndex: 0,
     navSuiteType: 'BarMedium',
     primaryActionAlignment: 'start',
+  },
+  render: renderProjectedSuite,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Tasks')).toBeInTheDocument();
+  },
+};
+
+
+export const AutoSuiteType: Story = {
+  args: {
+    selectedIndex: 0,
+    navSuiteType: undefined,
   },
   render: renderProjectedSuite,
   play: async ({ canvasElement }) => {
