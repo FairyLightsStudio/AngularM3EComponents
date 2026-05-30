@@ -77,7 +77,7 @@ export const Collapsed: Story = {
             [active]="selectedIndex === 0"
             (click)="selectedIndex = 0"
           >
-            <mat-icon matNavigationIcon>inbox</mat-icon>
+            <mat-icon *matNavigationIcon>inbox</mat-icon>
             <ng-template matNavigationLabel>Inbox</ng-template>
           </mat-navigation-rail-item>
 
@@ -87,7 +87,7 @@ export const Collapsed: Story = {
             badgeDescription="8 unread messages"
             (click)="selectedIndex = 1"
           >
-            <mat-icon matNavigationIcon>chat_bubble</mat-icon>
+            <mat-icon *matNavigationIcon>chat_bubble</mat-icon>
             <ng-template matNavigationLabel>Messages</ng-template>
           </mat-navigation-rail-item>
 
@@ -95,7 +95,7 @@ export const Collapsed: Story = {
             [active]="selectedIndex === 2"
             (click)="selectedIndex = 2"
           >
-            <mat-icon matNavigationIcon>calendar_month</mat-icon>
+            <mat-icon *matNavigationIcon>calendar_month</mat-icon>
             <ng-template matNavigationLabel>Calendar</ng-template>
           </mat-navigation-rail-item>
 
@@ -103,7 +103,7 @@ export const Collapsed: Story = {
             [active]="selectedIndex === 3"
             (click)="selectedIndex = 3"
           >
-            <mat-icon matNavigationIcon>settings</mat-icon>
+            <mat-icon *matNavigationIcon>settings</mat-icon>
             <ng-template matNavigationLabel>Settings</ng-template>
           </mat-navigation-rail-item>
         </mat-navigation-rail>
