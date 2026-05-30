@@ -1,140 +1,115 @@
 import {
-  Component,
   ChangeDetectionStrategy,
-  input,
-  contentChildren,
-  contentChild,
-  TemplateRef,
-  Directive,
-  inject,
-  output,
+  Component,
   computed,
+  contentChild,
+  forwardRef,
+  inject,
+  input,
+  signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
+import { MatNavigationSuiteComponent } from './navigation-suite.component';
+import { MatNavigationSuitePrimaryAction } from './navigation-suite-primary-action.directive';
+import { MatNavigationSuiteScaffoldDefaults } from './navigation-suite-scaffold-defaults';
+import { MatNavigationSuiteScaffoldState } from './navigation-suite-scaffold-state';
 import {
-  MatNavigationBarComponent,
-  MatNavigationBarItemComponent,
-} from '@fairylights-studio/navigation-bar';
-import {
-  MatNavigationRailComponent,
-  MatNavigationRailItemComponent,
-  MatNavigationRailHeaderComponent,
-} from '@fairylights-studio/navigation-rail';
-import {
-  MatNavigationItemBase,
-  MatNavigationIcon,
-  MatNavigationActiveIcon,
-  MatNavigationLabel,
-} from '@fairylights-studio/navigation-common';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs/operators';
-
-@Directive({
-  selector: 'mat-navigation-suite-item',
-  standalone: true,
-})
-export class MatNavigationSuiteItem extends MatNavigationItemBase {
-  selected = output<void>();
-}
-
-@Directive({
-  selector: '[matNavigationSuitePrimaryAction]',
-  standalone: true,
-})
-export class MatNavigationSuitePrimaryAction {
-  templateRef = inject(TemplateRef<any>, { optional: true });
-}
-
-export type NavigationSuiteLayoutType =
-  | 'navigation-bar'
-  | 'navigation-rail'
-  | 'navigation-bar-horizontal'
-  | 'none';
+  MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT,
+  MatNavigationSuitePrimaryActionAlignment,
+  MatNavigationSuiteScaffoldContext,
+  MatNavigationSuiteType,
+  MatNavigationSuiteVerticalArrangement,
+} from './navigation-suite.types';
 
 @Component({
   selector: 'mat-navigation-suite-scaffold',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatNavigationBarComponent,
-    MatNavigationBarItemComponent,
-    MatNavigationRailComponent,
-    MatNavigationRailItemComponent,
-    MatNavigationRailHeaderComponent,
-    MatNavigationIcon,
-    MatNavigationActiveIcon,
-    MatNavigationLabel,
+  imports: [NgTemplateOutlet, MatNavigationSuiteComponent, MatNavigationSuitePrimaryAction],
+  providers: [
+    {
+      provide: MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT,
+      useExisting: forwardRef(() => MatNavigationSuiteScaffoldComponent),
+    },
   ],
   templateUrl: './navigation-suite-scaffold.component.html',
   styleUrl: './navigation-suite-scaffold.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'mat-navigation-suite-scaffold',
-    '[class.mat-nav-suite-hide-nav]': 'currentLayout() === "none"',
+    '[class.mat-navigation-suite-scaffold--bar-compact]':
+      'currentNavSuiteType() === "BarCompact"',
+    '[class.mat-navigation-suite-scaffold--bar-medium]':
+      'currentNavSuiteType() === "BarMedium"',
+    '[class.mat-navigation-suite-scaffold--rail-collapsed]':
+      'currentNavSuiteType() === "RailCollapsed"',
+    '[class.mat-navigation-suite-scaffold--rail-expanded]':
+      'currentNavSuiteType() === "RailExpanded"',
+    '[class.mat-navigation-suite-scaffold--navigation-hidden]':
+      'currentState().targetValue() === "hidden"',
+    '[class.mat-navigation-suite-scaffold--navigation-animating]':
+      'currentState().isAnimating()',
   },
 })
-export class MatNavigationSuiteScaffoldComponent {
-  layout = input<'auto' | NavigationSuiteLayoutType>('auto');
-  navigationItemVerticalArrangement = input<'top' | 'center'>('top');
-  primaryActionContentHorizontal = input<'start' | 'center' | 'end'>('end');
-  expanded = input<boolean>(false);
-  indicatorShape = input<'hug' | 'fill'>('hug');
-  showDivider = input<boolean>(false);
+export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteScaffoldContext {
+  navSuiteType = input<MatNavigationSuiteType | null>(null);
+  state = input<MatNavigationSuiteScaffoldState | null>(null);
+  containerColor = input('surface');
+  verticalArrangement = input<MatNavigationSuiteVerticalArrangement>('top');
+  primaryActionAlignment = input<MatNavigationSuitePrimaryActionAlignment>('end');
 
-  items = contentChildren(MatNavigationSuiteItem);
-  primaryAction = contentChild(MatNavigationSuitePrimaryAction);
+  private readonly defaults = inject(MatNavigationSuiteScaffoldDefaults);
+  private readonly defaultNavSuiteType = this.defaults.navSuiteType();
+  private readonly fallbackState = new MatNavigationSuiteScaffoldState();
+  private readonly primaryAction = contentChild(MatNavigationSuitePrimaryAction);
+  private readonly requestedRailType = signal<'Collapsed' | 'Expanded' | null>(null);
 
-  private breakpointObserver = inject(BreakpointObserver);
+  currentNavSuiteType = computed(() => {
+    const navSuiteType = this.navSuiteType() ?? this.defaultNavSuiteType();
+    const requestedRailType = this.requestedRailType();
 
-  private isCompact = toSignal(
-    this.breakpointObserver
-      .observe(['(max-width: 599.98px)'])
-      .pipe(map((result) => result.matches)),
-    { initialValue: false },
-  );
-
-  private isTabletop = toSignal(
-    this.breakpointObserver
-      .observe(['(horizontal-viewport-segments: 2)'])
-      .pipe(map((result) => result.matches)),
-    { initialValue: false },
-  );
-
-  private isHeightCompact = toSignal(
-    this.breakpointObserver
-      .observe(['(max-height: 479.98px)'])
-      .pipe(map((result) => result.matches)),
-    { initialValue: false },
-  );
-
-  currentLayout = computed(() => {
-    const requested = this.layout();
-    if (requested !== 'auto') {
-      return requested;
+    if (navSuiteType.startsWith('Rail') && requestedRailType !== null) {
+      return requestedRailType === 'Expanded' ? 'RailExpanded' : 'RailCollapsed';
     }
 
-    // M3: width < 600dp → ShortNavigationBarCompact
-    if (this.isCompact()) {
-      return 'navigation-bar';
-    }
-    // M3: isTabletop or height < 480dp → ShortNavigationBarMedium
-    if (this.isTabletop() || this.isHeightCompact()) {
-      return 'navigation-bar-horizontal';
-    }
-    // M3: width >= 600dp and height >= 480dp → WideNavigationRailCollapsed
-    return 'navigation-rail';
+    return navSuiteType;
   });
-
-  alwaysShowLabel = computed(() => {
-    const count = this.items().length;
-    const layout = this.currentLayout();
-    if (layout === 'navigation-bar-horizontal') {
-      return true;
-    }
-    if (layout === 'navigation-bar') {
-      return count <= 3;
-    }
-    return true;
+  currentState = computed(() => this.state() ?? this.fallbackState);
+  isBar = computed(() => {
+    const navSuiteType = this.currentNavSuiteType();
+    return navSuiteType === 'BarCompact' || navSuiteType === 'BarMedium';
   });
+  isRailExpanded = computed(() => this.currentNavSuiteType() === 'RailExpanded');
+  barLayout = computed<'vertical' | 'horizontal'>(() =>
+    this.currentNavSuiteType() === 'BarMedium' ? 'horizontal' : 'vertical',
+  );
+  primaryActionTemplate = computed(() => this.primaryAction()?.templateRef ?? null);
+
+  containerColorValue = computed(() => this.toCssColor(this.containerColor()));
+
+  toggleRailExpanded(): void {
+    if (!this.currentNavSuiteType().startsWith('Rail')) {
+      return;
+    }
+
+    this.requestedRailType.set(this.isRailExpanded() ? 'Collapsed' : 'Expanded');
+  }
+
+  private toCssColor(color: string): string {
+    const trimmed = color.trim();
+
+    if (
+      trimmed.startsWith('var(') ||
+      trimmed.startsWith('#') ||
+      trimmed.startsWith('rgb') ||
+      trimmed.startsWith('hsl') ||
+      trimmed === 'transparent'
+    ) {
+      return trimmed;
+    }
+
+    if (trimmed.startsWith('--')) {
+      return `var(${trimmed})`;
+    }
+
+    return `var(--mat-sys-${trimmed}, ${trimmed})`;
+  }
 }

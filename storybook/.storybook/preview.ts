@@ -1,4 +1,4 @@
-// projects/demo-app/.storybook/preview.ts
+
 import { Preview, applicationConfig, componentWrapperDecorator } from '@storybook/angular';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 

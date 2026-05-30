@@ -47,9 +47,9 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
           [matBadgeOverlap]="badgeOverlap()"
         >
           @if (active() && activeIcon) {
-            <ng-content select="[matNavigationActiveIcon], [matNavActiveIcon]"></ng-content>
+            <ng-container *ngTemplateOutlet="activeIcon?.templateRef || null"></ng-container>
           } @else {
-            <ng-content select="[matNavigationIcon], [matNavIcon]"></ng-content>
+            <ng-container *ngTemplateOutlet="icon?.templateRef || null"></ng-container>
           }
         </div>
 

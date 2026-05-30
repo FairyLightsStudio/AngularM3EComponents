@@ -1,0 +1,48 @@
+import { InjectionToken, Signal, TemplateRef } from '@angular/core';
+
+export type MatNavigationSuiteType =
+  | 'BarCompact'
+  | 'BarMedium'
+  | 'RailCollapsed'
+  | 'RailExpanded';
+
+export type MatNavigationSuiteVerticalArrangement = 'top' | 'center';
+
+export type MatNavigationSuitePrimaryActionAlignment = 'start' | 'center' | 'end';
+
+export type MatNavigationSuiteVisibility = 'visible' | 'hidden';
+
+export type MatNavigationSuiteItemContent = string | TemplateRef<unknown>;
+
+export interface MatNavigationSuiteScaffoldDefaultOptions {
+  navSuiteType?: MatNavigationSuiteType | Signal<MatNavigationSuiteType>;
+}
+
+/**
+ * Navigation suite state is owned by `mat-navigation-suite-scaffold`.
+ * `mat-navigation-suite` requires this context and must not reimplement
+ * fallback navigation type or rail expansion state.
+ */
+export interface MatNavigationSuiteScaffoldContext {
+  currentNavSuiteType: Signal<MatNavigationSuiteType>;
+  isBar: Signal<boolean>;
+  isRailExpanded: Signal<boolean>;
+  barLayout: Signal<'vertical' | 'horizontal'>;
+  verticalArrangement: Signal<MatNavigationSuiteVerticalArrangement>;
+  primaryActionTemplate: Signal<TemplateRef<unknown> | null>;
+  toggleRailExpanded(): void;
+}
+
+export const MAT_NAVIGATION_SUITE_SCAFFOLD_DEFAULTS =
+  new InjectionToken<MatNavigationSuiteScaffoldDefaultOptions>(
+    'MAT_NAVIGATION_SUITE_SCAFFOLD_DEFAULTS',
+    {
+      providedIn: 'root',
+      factory: () => ({}),
+    },
+  );
+
+export const MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT =
+  new InjectionToken<MatNavigationSuiteScaffoldContext>(
+    'MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT',
+  );
