@@ -170,9 +170,9 @@ export const BarCompact: Story = {
   args: {
     selectedIndex: 2,
     navSuiteType: 'BarCompact',
-    primaryActionAlignment: 'center',
+    primaryActionAlignment: 'end',
   },
-    globals: {
+  globals: {
     viewport: { value: 'mobile2', isRotated: false },
   },
   render: renderProjectedSuite,
@@ -187,7 +187,7 @@ export const BarMedium: Story = {
   args: {
     selectedIndex: 0,
     navSuiteType: 'BarMedium',
-    primaryActionAlignment: 'start',
+    primaryActionAlignment: 'end',
   },
   globals: {
     viewport: { value: 'tablet', isRotated: true },
@@ -198,7 +198,6 @@ export const BarMedium: Story = {
     await expect(canvas.getByText('Tasks')).toBeInTheDocument();
   },
 };
-
 
 export const AutoSuiteType: Story = {
   args: {
