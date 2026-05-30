@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
 
+/** Bottom navigation container for compact and medium screen layouts. */
 @Component({
   selector: 'mat-navigation-bar',
   template: `
@@ -31,6 +32,7 @@ import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
   },
 })
 export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
+  /** Accessible label for the navigation landmark. */
   ariaLabel = input<string>('');
 
   @ContentChildren(MatNavigationBarItemComponent, { descendants: true })

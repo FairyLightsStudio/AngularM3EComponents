@@ -3,6 +3,8 @@ import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 
 import { MAT_NAVIGATION_BAR_MODULES } from '@fairylights-studio/navigation-bar';
+import { MatNavigationBarComponent } from './navigation-bar.component';
+import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
 
 type NavigationBarStoryArgs = {
   selectedIndex: number;
@@ -12,6 +14,10 @@ type NavigationBarStoryArgs = {
 
 const meta: Meta<NavigationBarStoryArgs> = {
   title: 'Navigation/Navigation Bar',
+  component: MatNavigationBarComponent,
+  subcomponents: {
+    MatNavigationBarItemComponent,
+  },
   decorators: [
     moduleMetadata({
       imports: [MatIconModule, ...MAT_NAVIGATION_BAR_MODULES],

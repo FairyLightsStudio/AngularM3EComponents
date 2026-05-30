@@ -37,8 +37,13 @@ export class MatNavigationBarItemComponent
   extends MatNavigationItemBase
   implements AfterViewInit, OnDestroy
 {
+  /** Whether the text label remains visible when the item is inactive. */
   alwaysShowLabel = input<boolean>(true);
+
+  /** Item layout used by compact and medium navigation bar variants. */
   layout = input<'vertical' | 'horizontal'>('vertical');
+
+  /** ARIA role applied to the internal interactive element. */
   role = input<string>('tab');
 
   private _focusMonitor = inject(FocusMonitor);

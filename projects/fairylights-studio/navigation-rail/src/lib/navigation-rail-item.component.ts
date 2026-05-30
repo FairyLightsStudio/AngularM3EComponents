@@ -77,6 +77,7 @@ export class MatNavigationRailItemComponent
   extends MatNavigationItemBase
   implements AfterViewInit, OnDestroy
 {
+  /** Owning rail instance used to inherit expanded and indicator state. */
   rail = inject(
     forwardRef(() => MatNavigationRailComponent),
     {

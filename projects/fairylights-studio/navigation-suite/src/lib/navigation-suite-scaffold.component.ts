@@ -21,6 +21,7 @@ import {
   MatNavigationSuiteVerticalArrangement,
 } from './navigation-suite.types';
 
+/** Responsive scaffold that switches between navigation bar and navigation rail layouts. */
 @Component({
   selector: 'mat-navigation-suite-scaffold',
   imports: [NgTemplateOutlet, MatNavigationSuiteComponent, MatNavigationSuitePrimaryAction],
@@ -50,10 +51,19 @@ import {
   },
 })
 export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteScaffoldContext {
+  /** Explicit navigation layout, or `null` to use the responsive default. */
   navSuiteType = input<MatNavigationSuiteType | null>(null);
+
+  /** External visibility/animation state controller. */
   state = input<MatNavigationSuiteScaffoldState | null>(null);
+
+  /** Container background color token, CSS custom property, or raw CSS color. */
   containerColor = input('surface');
+
+  /** Vertical placement of rail navigation items. */
   verticalArrangement = input<MatNavigationSuiteVerticalArrangement>('top');
+
+  /** Placement of the primary action in bar layouts. */
   primaryActionAlignment = input<MatNavigationSuitePrimaryActionAlignment>('end');
 
   private readonly defaults = inject(MatNavigationSuiteScaffoldDefaults);

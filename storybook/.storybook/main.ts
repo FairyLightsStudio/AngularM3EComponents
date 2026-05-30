@@ -2,10 +2,13 @@ import type { StorybookConfig } from '@storybook/angular';
 
 const config: StorybookConfig = {
   stories: ['../../projects/fairylights-studio/**/*.stories.@(ts|tsx|mdx)'],
-  addons: [],
+  addons: ['@storybook/addon-docs'],
   framework: {
     name: '@storybook/angular',
     options: {},
+  },
+  docs: {
+    defaultName: 'Docs',
   },
 };
 

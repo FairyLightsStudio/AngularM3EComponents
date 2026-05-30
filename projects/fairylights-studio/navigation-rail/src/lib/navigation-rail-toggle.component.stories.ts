@@ -10,6 +10,7 @@ type NavigationRailToggleStoryArgs = {
 
 const meta: Meta<NavigationRailToggleStoryArgs> = {
   title: 'Navigation/Navigation Rail/Toggle',
+  component: MatNavigationRailToggleComponent,
   decorators: [
     moduleMetadata({
       imports: [MatButtonModule, MatIconModule, MatNavigationRailToggleComponent],

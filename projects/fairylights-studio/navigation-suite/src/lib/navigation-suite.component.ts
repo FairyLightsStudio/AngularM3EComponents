@@ -54,7 +54,10 @@ import {
   },
 })
 export class MatNavigationSuiteComponent {
+  /** Whether bar item labels remain visible when inactive. */
   readonly alwaysShowLabel = input(true);
+
+  /** Accessible label passed to the active navigation landmark. */
   readonly ariaLabel = input('');
 
   readonly projectedItems = contentChildren(MatNavigationSuiteItemComponent);

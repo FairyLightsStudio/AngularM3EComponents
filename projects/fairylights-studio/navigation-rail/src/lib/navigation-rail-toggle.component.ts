@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
+/** Icon button that toggles a navigation rail between collapsed and expanded states. */
 @Component({
   selector: 'mat-navigation-rail-toggle',
   standalone: true,
@@ -23,6 +24,9 @@ import { MatIconModule } from '@angular/material/icon';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MatNavigationRailToggleComponent {
+  /** Whether the controlled rail is currently expanded. */
   expanded = input<boolean>(false);
+
+  /** Custom accessible label for the toggle button. */
   ariaLabel = input<string>('');
 }

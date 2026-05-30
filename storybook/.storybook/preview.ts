@@ -1,8 +1,13 @@
-
-import { Preview, applicationConfig, componentWrapperDecorator } from '@storybook/angular';
+import type { Preview } from '@storybook/angular';
+import { setCompodocJson } from '@storybook/addon-docs/angular';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 
+import docJson from '../documentation.json';
+
+setCompodocJson(docJson);
+
 const preview: Preview = {
+  tags: ['autodocs'],
   parameters: {
     controls: {
       matchers: {
@@ -14,6 +19,9 @@ const preview: Preview = {
       },
     },
     layout: 'fullscreen',
+    docs: {
+      toc: true,
+    },
   },
   initialGlobals: {
     viewport: { value: 'mobile1', isRotated: false },

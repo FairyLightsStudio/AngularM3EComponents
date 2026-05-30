@@ -8,6 +8,10 @@ import {
   MatNavigationSuiteScaffoldState,
   type MatNavigationSuiteType,
 } from '@fairylights-studio/navigation-suite';
+import { MatNavigationSuiteScaffoldComponent } from './navigation-suite-scaffold.component';
+import { MatNavigationSuiteComponent } from './navigation-suite.component';
+import { MatNavigationSuiteItemComponent } from './navigation-suite-item.component';
+import { MatNavigationSuitePrimaryAction } from './navigation-suite-primary-action.directive';
 
 type NavigationSuiteStoryArgs = {
   selectedIndex: number;
@@ -53,6 +57,12 @@ const navItems: readonly NavigationSuiteStoryItem[] = [
 
 const meta: Meta<NavigationSuiteStoryArgs> = {
   title: 'Navigation/Navigation Suite Scaffold',
+  component: MatNavigationSuiteScaffoldComponent,
+  subcomponents: {
+    MatNavigationSuiteComponent,
+    MatNavigationSuiteItemComponent,
+    MatNavigationSuitePrimaryAction,
+  },
   decorators: [
     moduleMetadata({
       imports: [CommonModule, MatButtonModule, MatIconModule, ...MAT_NAVIGATION_SUITE_MODULES],

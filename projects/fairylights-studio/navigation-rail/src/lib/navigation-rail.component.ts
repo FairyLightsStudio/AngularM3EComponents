@@ -13,6 +13,7 @@ import { MatNavigationRailItemComponent } from './navigation-rail-item.component
 
 export type MatNavRailIndicatorShape = 'hug' | 'fill';
 
+/** Side navigation container for medium and expanded layouts. */
 @Component({
   selector: 'mat-navigation-rail',
   imports: [],
@@ -36,10 +37,19 @@ export type MatNavRailIndicatorShape = 'hug' | 'fill';
   },
 })
 export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
+  /** Whether the rail shows expanded labels and expanded width. */
   @Input() expanded = false;
+
+  /** Shape used for each active item indicator. */
   @Input() indicatorShape: MatNavRailIndicatorShape = 'hug';
+
+  /** Whether to draw the divider along the rail edge. */
   @Input() showDivider = false;
+
+  /** Vertical alignment for the rail item group. */
   @Input() verticalArrangement: 'top' | 'center' = 'top';
+
+  /** Accessible label for the navigation landmark. */
   ariaLabel = input<string>('');
 
   @ContentChildren(MatNavigationRailItemComponent, { descendants: true })

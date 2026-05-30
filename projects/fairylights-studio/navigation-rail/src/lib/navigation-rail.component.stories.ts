@@ -6,6 +6,10 @@ import {
   MAT_NAVIGATION_RAIL_MODULES,
   MatNavRailIndicatorShape,
 } from '@fairylights-studio/navigation-rail';
+import { MatNavigationRailComponent } from './navigation-rail.component';
+import { MatNavigationRailHeaderComponent } from './navigation-rail-header.component';
+import { MatNavigationRailItemComponent } from './navigation-rail-item.component';
+import { MatNavigationRailToggleComponent } from './navigation-rail-toggle.component';
 
 type NavigationRailStoryArgs = {
   selectedIndex: number;
@@ -17,6 +21,12 @@ type NavigationRailStoryArgs = {
 
 const meta: Meta<NavigationRailStoryArgs> = {
   title: 'Navigation/Navigation Rail/Rail',
+  component: MatNavigationRailComponent,
+  subcomponents: {
+    MatNavigationRailHeaderComponent,
+    MatNavigationRailItemComponent,
+    MatNavigationRailToggleComponent,
+  },
   decorators: [
     moduleMetadata({
       imports: [MatButtonModule, MatIconModule, ...MAT_NAVIGATION_RAIL_MODULES],
