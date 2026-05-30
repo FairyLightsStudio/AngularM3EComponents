@@ -51,6 +51,7 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   padding-bottom: 24px;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior-y: contain;
   scrollbar-width: none;
   &::-webkit-scrollbar {
     display: none;
