@@ -41,6 +41,10 @@ testem.log
 __screenshots__/
 /storybook/documentation.json
 
+# Wrangler / Cloudflare
+.wrangler/
+.dev.vars
+
 # System files
 .DS_Store
 Thumbs.db
