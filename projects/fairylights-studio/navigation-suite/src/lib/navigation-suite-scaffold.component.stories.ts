@@ -140,6 +140,19 @@ const renderProjectedSuite: Story['render'] = (args) => ({
   `,
 });
 
+
+export const AutoSuiteType: Story = {
+  args: {
+    selectedIndex: 0,
+    navSuiteType: undefined,
+  },
+  render: renderProjectedSuite,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText('Tasks')).toBeInTheDocument();
+  },
+};
+
 export const RailCollapsed: Story = {
   render: renderProjectedSuite,
   globals: {
@@ -195,18 +208,6 @@ export const BarMedium: Story = {
   },
   globals: {
     viewport: { value: 'tablet', isRotated: true },
-  },
-  render: renderProjectedSuite,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Tasks')).toBeInTheDocument();
-  },
-};
-
-export const AutoSuiteType: Story = {
-  args: {
-    selectedIndex: 0,
-    navSuiteType: undefined,
   },
   render: renderProjectedSuite,
   play: async ({ canvasElement }) => {
