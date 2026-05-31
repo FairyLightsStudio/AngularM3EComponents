@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../../dist/fairylights-studio/navigation-common",
+  "dest": "../../../dist/components/navigation/navigation-common",
   "lib": {
     "entryFile": "src/public-api.ts"
   },

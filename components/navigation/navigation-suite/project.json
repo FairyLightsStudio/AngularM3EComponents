@@ -1,18 +1,18 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "@fairylights-studio/navigation-common",
+  "name": "@fairylights-studio/navigation-suite",
   "projectType": "library",
-  "sourceRoot": "projects/fairylights-studio/navigation-common/src",
+  "sourceRoot": "components/navigation/navigation-suite/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@angular/build:ng-packagr",
       "configurations": {
         "production": {
-          "tsConfig": "projects/fairylights-studio/navigation-common/tsconfig.lib.prod.json"
+          "tsConfig": "components/navigation/navigation-suite/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "projects/fairylights-studio/navigation-common/tsconfig.lib.json"
+          "tsConfig": "components/navigation/navigation-suite/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -20,7 +20,7 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "tsConfig": "projects/fairylights-studio/navigation-common/tsconfig.spec.json"
+        "tsConfig": "components/navigation/navigation-suite/tsconfig.spec.json"
       }
     }
   }

@@ -7,11 +7,11 @@
   },
   "exclude": ["../**/*.spec.ts"],
   "include": [
-    "../../projects/fairylights-studio/**/*.stories.ts",
-    "../../projects/fairylights-studio/**/*.stories.js",
-    "../../projects/fairylights-studio/**/*.stories.jsx",
-    "../../projects/fairylights-studio/**/*.stories.tsx",
-    "../../projects/fairylights-studio/**/*.stories.mdx",
+    "../../components/navigation/**/*.stories.ts",
+    "../../components/navigation/**/*.stories.js",
+    "../../components/navigation/**/*.stories.jsx",
+    "../../components/navigation/**/*.stories.tsx",
+    "../../components/navigation/**/*.stories.mdx",
     "./*.js",
     "./*.ts"
   ]

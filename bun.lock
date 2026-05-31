@@ -48,7 +48,7 @@
         "wrangler": "^4.95.0",
       },
     },
-    "projects/fairylights-studio/navigation-bar": {
+    "components/navigation/navigation-bar": {
       "name": "@fairylights-studio/navigation-bar",
       "version": "0.0.1",
       "dependencies": {
@@ -62,7 +62,7 @@
         "@fairylights-studio/navigation-common": "0.0.1",
       },
     },
-    "projects/fairylights-studio/navigation-common": {
+    "components/navigation/navigation-common": {
       "name": "@fairylights-studio/navigation-common",
       "version": "0.0.1",
       "dependencies": {
@@ -75,7 +75,7 @@
         "@angular/material": "^21",
       },
     },
-    "projects/fairylights-studio/navigation-rail": {
+    "components/navigation/navigation-rail": {
       "name": "@fairylights-studio/navigation-rail",
       "version": "0.0.1",
       "dependencies": {
@@ -89,7 +89,7 @@
         "@fairylights-studio/navigation-common": "0.0.1",
       },
     },
-    "projects/fairylights-studio/navigation-suite": {
+    "components/navigation/navigation-suite": {
       "name": "@fairylights-studio/navigation-suite",
       "version": "0.0.1",
       "dependencies": {
@@ -515,13 +515,13 @@
 
     "@exodus/bytes": ["@exodus/bytes@1.15.0", "", { "peerDependencies": { "@noble/hashes": "^1.8.0 || ^2.0.0" }, "optionalPeers": ["@noble/hashes"] }, "sha512-UY0nlA+feH81UGSHv92sLEPLCeZFjXOuHhrIo0HQydScuQc8s0A7kL/UdgwgDq8g8ilksmuoF35YVTNphV2aBQ=="],
 
-    "@fairylights-studio/navigation-bar": ["@fairylights-studio/navigation-bar@workspace:projects/fairylights-studio/navigation-bar"],
+    "@fairylights-studio/navigation-bar": ["@fairylights-studio/navigation-bar@workspace:components/navigation/navigation-bar"],
 
-    "@fairylights-studio/navigation-common": ["@fairylights-studio/navigation-common@workspace:projects/fairylights-studio/navigation-common"],
+    "@fairylights-studio/navigation-common": ["@fairylights-studio/navigation-common@workspace:components/navigation/navigation-common"],
 
-    "@fairylights-studio/navigation-rail": ["@fairylights-studio/navigation-rail@workspace:projects/fairylights-studio/navigation-rail"],
+    "@fairylights-studio/navigation-rail": ["@fairylights-studio/navigation-rail@workspace:components/navigation/navigation-rail"],
 
-    "@fairylights-studio/navigation-suite": ["@fairylights-studio/navigation-suite@workspace:projects/fairylights-studio/navigation-suite"],
+    "@fairylights-studio/navigation-suite": ["@fairylights-studio/navigation-suite@workspace:components/navigation/navigation-suite"],
 
     "@gar/promise-retry": ["@gar/promise-retry@1.0.3", "", {}, "sha512-GmzA9ckNokPypTg10pgpeHNQe7ph+iIKKmhKu3Ob9ANkswreCx7R3cKmY781K8QK3AqVL3xVh9A42JvIAbkkSA=="],
 

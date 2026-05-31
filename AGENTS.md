@@ -1,6 +1,6 @@
 本项目旨在补齐 Angular 官方目前在 Angular Material UI Component Library 没有提供的一些 Material 3 Expressive 组件。
 
-本项目目前已实现 `projects/fairylights-studio` 下的 4 个包（组件）：
+本项目目前已实现 `components/navigation` 下的 4 个包（组件）：
 
 1. **navigation-common** — 共享基类与指令：`MatNavigationItemBase`（active/disabled/badge/label 状态管理）、`MatNavigationIcon`、`MatNavigationActiveIcon`、`MatNavigationLabel`（内容投影指令），供 bar/rail 复用。
 2. **navigation-bar** — 底部导航栏（`MatNavigationBarComponent` + `MatNavigationBarItemComponent`），适用于手机/小屏横向导航，支持 active/disabled/badge/label 显示与 vertical/horizontal 布局切换。
@@ -63,6 +63,5 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - Use the `inject()` function instead of constructor injection
 
 使用 bun 而非npm作为依赖项管理
-
 
 现阶段，不需要AI修改后 自己编译/build，修改完毕后直接告诉主人修改完了就好了。不要AI自己 BUILD， BUILD 的流水线还没搭建好

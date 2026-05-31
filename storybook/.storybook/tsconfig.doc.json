@@ -4,8 +4,8 @@
     "emitDecoratorMetadata": true
   },
   "exclude": [
-    "../../projects/fairylights-studio/**/*.spec.ts",
-    "../../projects/fairylights-studio/**/*.stories.ts"
+    "../../components/navigation/**/*.spec.ts",
+    "../../components/navigation/**/*.stories.ts"
   ],
-  "include": ["../../projects/fairylights-studio/**/*.ts"]
+  "include": ["../../components/navigation/**/*.ts"]
 }

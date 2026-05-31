@@ -2,17 +2,17 @@
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "name": "@fairylights-studio/navigation-bar",
   "projectType": "library",
-  "sourceRoot": "projects/fairylights-studio/navigation-bar/src",
+  "sourceRoot": "components/navigation/navigation-bar/src",
   "prefix": "lib",
   "targets": {
     "build": {
       "executor": "@angular/build:ng-packagr",
       "configurations": {
         "production": {
-          "tsConfig": "projects/fairylights-studio/navigation-bar/tsconfig.lib.prod.json"
+          "tsConfig": "components/navigation/navigation-bar/tsconfig.lib.prod.json"
         },
         "development": {
-          "tsConfig": "projects/fairylights-studio/navigation-bar/tsconfig.lib.json"
+          "tsConfig": "components/navigation/navigation-bar/tsconfig.lib.json"
         }
       },
       "defaultConfiguration": "production"
@@ -20,7 +20,7 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "tsConfig": "projects/fairylights-studio/navigation-bar/tsconfig.spec.json"
+        "tsConfig": "components/navigation/navigation-bar/tsconfig.spec.json"
       }
     }
   }
