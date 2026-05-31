@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
-import { MatBadgePosition, MatBadgeSize } from '@angular/material/badge';
 import { MatNavigationSuiteItemContent } from './navigation-suite.types';
 const booleanTransform = (value: unknown) => value === '' || value === true || value === 'true';
 
@@ -27,30 +25,6 @@ export class MatNavigationSuiteItemComponent {
 
   /** Item label content, either text or projected template content. */
   label = input.required<MatNavigationSuiteItemContent>();
-
-  /** Badge content displayed on the item icon. */
-  badge = input<string | number | undefined | null>(undefined);
-
-  /** Theme color of the badge. */
-  badgeColor = input<ThemePalette>(undefined);
-
-  /** Position of the badge relative to the icon. */
-  badgePosition = input<MatBadgePosition>('above after');
-
-  /** Size of the badge. */
-  badgeSize = input<MatBadgeSize>('medium');
-
-  /** Whether the badge is hidden. */
-  badgeHidden = input(false, { transform: booleanTransform });
-
-  /** Whether the badge is disabled. */
-  badgeDisabled = input(false, { transform: booleanTransform });
-
-  /** Whether the badge overlaps the icon. */
-  badgeOverlap = input(true, { transform: booleanTransform });
-
-  /** Message used to describe the badge for assistive technology. */
-  badgeDescription = input<string | undefined>(undefined);
 
   /** Emits when the rendered navigation item is clicked. */
   clicked = output<MouseEvent>({ alias: 'click' });

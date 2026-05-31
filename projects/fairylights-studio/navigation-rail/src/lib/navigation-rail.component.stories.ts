@@ -1,5 +1,6 @@
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 import {
@@ -29,7 +30,7 @@ const meta: Meta<NavigationRailStoryArgs> = {
   },
   decorators: [
     moduleMetadata({
-      imports: [MatButtonModule, MatIconModule, ...MAT_NAVIGATION_RAIL_MODULES],
+      imports: [MatButtonModule, MatIconModule, MatBadgeModule, ...MAT_NAVIGATION_RAIL_MODULES],
     }),
   ],
   argTypes: {
@@ -93,11 +94,9 @@ export const Collapsed: Story = {
 
           <mat-navigation-rail-item
             [active]="selectedIndex === 1"
-            badge="8"
-            badgeDescription="8 unread messages"
             (click)="selectedIndex = 1"
           >
-            <mat-icon *matNavigationIcon>chat_bubble</mat-icon>
+            <mat-icon *matNavigationIcon matBadge="8" matBadgeDescription="8 unread messages">chat_bubble</mat-icon>
             <ng-template matNavigationLabel>Messages</ng-template>
           </mat-navigation-rail-item>
 

@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
-import { MatBadgeModule } from '@angular/material/badge';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatNavigationRailComponent } from './navigation-rail.component';
@@ -18,7 +17,7 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
 
 @Component({
   selector: 'mat-navigation-rail-item',
-  imports: [CommonModule, MatRippleModule, MatBadgeModule],
+  imports: [CommonModule, MatRippleModule],
   template: `
     <button
       class="mat-nav-rail-item-button"
@@ -36,16 +35,7 @@ import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
       >
         <div class="mat-nav-rail-ripple" matRipple [matRippleTrigger]="buttonEl"></div>
 
-        <div
-          class="mat-nav-rail-icon-box"
-          [matBadge]="badge()"
-          [matBadgeColor]="badgeColor()"
-          [matBadgePosition]="badgePosition()"
-          [matBadgeSize]="badgeSize()"
-          [matBadgeHidden]="badgeHidden()"
-          [matBadgeDisabled]="badgeDisabled()"
-          [matBadgeOverlap]="badgeOverlap()"
-        >
+        <div class="mat-nav-rail-icon-box">
           @if (active() && activeIcon) {
             <ng-container *ngTemplateOutlet="activeIcon?.templateRef || null"></ng-container>
           } @else {

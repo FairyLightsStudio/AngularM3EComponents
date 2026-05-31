@@ -26,8 +26,6 @@ type NavigationSuiteStoryItem = {
   label: string;
   icon: string;
   activeIcon?: string;
-  badge?: string;
-  badgeDescription?: string;
 };
 
 const navItems: readonly NavigationSuiteStoryItem[] = [
@@ -40,8 +38,6 @@ const navItems: readonly NavigationSuiteStoryItem[] = [
     id: 'tasks',
     label: 'Tasks',
     icon: 'task_alt',
-    badge: '5',
-    badgeDescription: '5 active tasks',
   },
   {
     id: 'reports',
@@ -129,8 +125,6 @@ const renderProjectedSuite: Story['render'] = (args) => ({
               [icon]="item.icon"
               [activeIcon]="item.activeIcon ?? null"
               [label]="item.label"
-              [badge]="item.badge"
-              [badgeDescription]="item.badgeDescription"
               (click)="selectedIndex = index"
             />
           }

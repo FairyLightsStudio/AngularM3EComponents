@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
-import { MatBadgeModule } from '@angular/material/badge';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
   MatNavigationItemBase,
@@ -21,7 +20,7 @@ import {
 
 @Component({
   selector: 'mat-navigation-bar-item',
-  imports: [CommonModule, MatRippleModule, MatBadgeModule],
+  imports: [CommonModule, MatRippleModule],
   templateUrl: './navigation-bar-item.component.html',
   styleUrl: './navigation-bar-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

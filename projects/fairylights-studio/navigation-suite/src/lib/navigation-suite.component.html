@@ -5,14 +5,6 @@
         [active]="item.selected()"
         [alwaysShowLabel]="currentAlwaysShowLabel()"
         [layout]="barLayout()"
-        [badge]="item.badge()"
-        [badgeColor]="item.badgeColor()"
-        [badgePosition]="item.badgePosition()"
-        [badgeSize]="item.badgeSize()"
-        [badgeHidden]="item.badgeHidden()"
-        [badgeDisabled]="item.badgeDisabled()"
-        [badgeOverlap]="item.badgeOverlap()"
-        [badgeDescription]="item.badgeDescription()"
         (click)="emitProjectedItemClick(item, $event)"
       >
         <ng-template matNavigationIcon>
@@ -49,10 +41,7 @@
     [ariaLabel]="ariaLabel()"
   >
     <mat-navigation-rail-header>
-      <mat-navigation-rail-toggle
-        [expanded]="isRailExpanded()"
-        (click)="toggleRailExpanded()"
-      />
+      <mat-navigation-rail-toggle [expanded]="isRailExpanded()" (click)="toggleRailExpanded()" />
       @if (primaryActionTemplate(); as primaryAction) {
         <ng-container [ngTemplateOutlet]="primaryAction"></ng-container>
       }
@@ -60,14 +49,6 @@
     @for (item of projectedItems(); track item) {
       <mat-navigation-rail-item
         [active]="item.selected()"
-        [badge]="item.badge()"
-        [badgeColor]="item.badgeColor()"
-        [badgePosition]="item.badgePosition()"
-        [badgeSize]="item.badgeSize()"
-        [badgeHidden]="item.badgeHidden()"
-        [badgeDisabled]="item.badgeDisabled()"
-        [badgeOverlap]="item.badgeOverlap()"
-        [badgeDescription]="item.badgeDescription()"
         (click)="emitProjectedItemClick(item, $event)"
       >
         <ng-template matNavigationIcon>

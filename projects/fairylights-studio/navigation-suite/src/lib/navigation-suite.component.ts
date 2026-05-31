@@ -13,9 +13,7 @@ import {
   MatNavigationBarComponent,
   MatNavigationBarItemComponent,
 } from '@fairylights-studio/navigation-bar';
-import {
-  MAT_NAVIGATION_RAIL_MODULES
-} from '@fairylights-studio/navigation-rail';
+import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/navigation-rail';
 import {
   MatNavigationActiveIcon,
   MatNavigationIcon,
@@ -77,7 +75,9 @@ export class MatNavigationSuiteComponent {
     this.scaffold.toggleRailExpanded();
   }
 
-  asTemplateRef(value: MatNavigationSuiteItemContent | null | undefined): TemplateRef<unknown> | null {
+  asTemplateRef(
+    value: MatNavigationSuiteItemContent | null | undefined,
+  ): TemplateRef<unknown> | null {
     return value instanceof TemplateRef ? value : null;
   }
 

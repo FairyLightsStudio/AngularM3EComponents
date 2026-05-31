@@ -1,4 +1,5 @@
 import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 
@@ -20,7 +21,7 @@ const meta: Meta<NavigationBarStoryArgs> = {
   },
   decorators: [
     moduleMetadata({
-      imports: [MatIconModule, ...MAT_NAVIGATION_BAR_MODULES],
+      imports: [MatIconModule, MatBadgeModule, ...MAT_NAVIGATION_BAR_MODULES],
     }),
   ],
   argTypes: {
@@ -76,11 +77,9 @@ export const Basic: Story = {
             [active]="selectedIndex === 2"
             [alwaysShowLabel]="alwaysShowLabel"
             [layout]="layout"
-            badge="3"
-            badgeDescription="3 unread notifications"
             (click)="selectedIndex = 2"
           >
-            <mat-icon *matNavigationIcon>notifications</mat-icon>
+            <mat-icon *matNavigationIcon matBadge="3" matBadgeDescription="3 unread notifications">notifications</mat-icon>
             <ng-template matNavigationLabel>Alerts</ng-template>
           </mat-navigation-bar-item>
 
