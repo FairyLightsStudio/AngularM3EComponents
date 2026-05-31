@@ -32,9 +32,6 @@ const meta: Meta<NavigationBarStoryArgs> = {
       control: 'radio',
       options: ['vertical', 'horizontal'],
     },
-    alwaysShowLabel: {
-      control: 'boolean',
-    },
   },
   args: {
     selectedIndex: 0,
