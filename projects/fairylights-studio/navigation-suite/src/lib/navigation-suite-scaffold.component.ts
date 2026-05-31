@@ -36,18 +36,15 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'mat-navigation-suite-scaffold',
-    '[class.mat-navigation-suite-scaffold--bar-compact]':
-      'currentNavSuiteType() === "BarCompact"',
-    '[class.mat-navigation-suite-scaffold--bar-medium]':
-      'currentNavSuiteType() === "BarMedium"',
+    '[class.mat-navigation-suite-scaffold--bar-compact]': 'currentNavSuiteType() === "BarCompact"',
+    '[class.mat-navigation-suite-scaffold--bar-medium]': 'currentNavSuiteType() === "BarMedium"',
     '[class.mat-navigation-suite-scaffold--rail-collapsed]':
       'currentNavSuiteType() === "RailCollapsed"',
     '[class.mat-navigation-suite-scaffold--rail-expanded]':
       'currentNavSuiteType() === "RailExpanded"',
     '[class.mat-navigation-suite-scaffold--navigation-hidden]':
       'currentState().targetValue() === "hidden"',
-    '[class.mat-navigation-suite-scaffold--navigation-animating]':
-      'currentState().isAnimating()',
+    '[class.mat-navigation-suite-scaffold--navigation-animating]': 'currentState().isAnimating()',
   },
 })
 export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteScaffoldContext {
@@ -65,6 +62,9 @@ export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteSc
 
   /** Placement of the primary action in bar layouts. */
   primaryActionAlignment = input<MatNavigationSuitePrimaryActionAlignment>('end');
+
+  /** Whether the scaffold auto manages a rail expand/collapse toggle. Set to false to hide it. */
+  showRailToggle = input(true);
 
   private readonly defaults = inject(MatNavigationSuiteScaffoldDefaults);
   private readonly defaultNavSuiteType = this.defaults.navSuiteType();

@@ -1,10 +1,6 @@
 import { InjectionToken, Signal, TemplateRef } from '@angular/core';
 
-export type MatNavigationSuiteType =
-  | 'BarCompact'
-  | 'BarMedium'
-  | 'RailCollapsed'
-  | 'RailExpanded';
+export type MatNavigationSuiteType = 'BarCompact' | 'BarMedium' | 'RailCollapsed' | 'RailExpanded';
 
 export type MatNavigationSuiteVerticalArrangement = 'top' | 'center';
 
@@ -31,6 +27,7 @@ export interface MatNavigationSuiteScaffoldContext {
   verticalArrangement: Signal<MatNavigationSuiteVerticalArrangement>;
   primaryActionTemplate: Signal<TemplateRef<unknown> | null>;
   toggleRailExpanded(): void;
+  showRailToggle: Signal<boolean>;
 }
 
 export const MAT_NAVIGATION_SUITE_SCAFFOLD_DEFAULTS =
@@ -43,6 +40,4 @@ export const MAT_NAVIGATION_SUITE_SCAFFOLD_DEFAULTS =
   );
 
 export const MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT =
-  new InjectionToken<MatNavigationSuiteScaffoldContext>(
-    'MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT',
-  );
+  new InjectionToken<MatNavigationSuiteScaffoldContext>('MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT');

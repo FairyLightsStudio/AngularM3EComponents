@@ -67,6 +67,7 @@ export class MatNavigationSuiteComponent {
   readonly isBar = this.scaffold.isBar;
   readonly barLayout = this.scaffold.barLayout;
   readonly isRailExpanded = this.scaffold.isRailExpanded;
+  readonly showRailToggle = this.scaffold.showRailToggle;
   readonly currentAlwaysShowLabel = computed(
     () => this.barLayout() === 'horizontal' || this.alwaysShowLabel(),
   );

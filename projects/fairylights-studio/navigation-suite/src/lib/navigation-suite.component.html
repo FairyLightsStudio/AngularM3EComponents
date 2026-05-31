@@ -41,7 +41,9 @@
     [ariaLabel]="ariaLabel()"
   >
     <mat-navigation-rail-header>
-      <mat-navigation-rail-toggle [expanded]="isRailExpanded()" (click)="toggleRailExpanded()" />
+      @if (showRailToggle()) {
+        <mat-navigation-rail-toggle [expanded]="isRailExpanded()" (click)="toggleRailExpanded()" />
+      }
       @if (primaryActionTemplate(); as primaryAction) {
         <ng-container [ngTemplateOutlet]="primaryAction"></ng-container>
       }
