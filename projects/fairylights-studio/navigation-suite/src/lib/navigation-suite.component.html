@@ -3,7 +3,7 @@
     @for (item of projectedItems(); track item) {
       <mat-navigation-bar-item
         [active]="item.selected()"
-        [alwaysShowLabel]="currentAlwaysShowLabel()"
+        [alwaysShowLabel]="currentAlwaysShowItemLabel()"
         [layout]="barLayout()"
         (click)="emitProjectedItemClick(item, $event)"
       >
@@ -41,7 +41,7 @@
     [ariaLabel]="ariaLabel()"
   >
     <mat-navigation-rail-header>
-      @if (showRailToggle()) {
+      @if (railShowToggle()) {
         <mat-navigation-rail-toggle [expanded]="isRailExpanded()" (click)="toggleRailExpanded()" />
       }
       @if (primaryActionTemplate(); as primaryAction) {

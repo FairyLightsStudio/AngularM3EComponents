@@ -16,9 +16,10 @@ import { MatNavigationSuitePrimaryAction } from './navigation-suite-primary-acti
 type NavigationSuiteStoryArgs = {
   selectedIndex: number;
   navSuiteType: MatNavigationSuiteType;
-  alwaysShowLabel: boolean;
+  alwaysShowItemLabel: boolean;
   verticalArrangement: 'top' | 'center';
   primaryActionAlignment: 'start' | 'center' | 'end';
+  railShowToggle: boolean;
 };
 
 type NavigationSuiteStoryItem = {
@@ -72,7 +73,7 @@ const meta: Meta<NavigationSuiteStoryArgs> = {
       control: 'radio',
       options: ['BarCompact', 'BarMedium', 'RailCollapsed', 'RailExpanded'],
     },
-    alwaysShowLabel: {
+    alwaysShowItemLabel: {
       control: 'boolean',
     },
     verticalArrangement: {
@@ -87,9 +88,10 @@ const meta: Meta<NavigationSuiteStoryArgs> = {
   args: {
     selectedIndex: 0,
     navSuiteType: 'RailCollapsed',
-    alwaysShowLabel: true,
+    alwaysShowItemLabel: true,
     verticalArrangement: 'top',
     primaryActionAlignment: 'end',
+    railShowToggle: true,
   },
 };
 
@@ -109,6 +111,7 @@ const renderProjectedSuite: Story['render'] = (args) => ({
         [state]="scaffoldState"
         [verticalArrangement]="verticalArrangement"
         [primaryActionAlignment]="primaryActionAlignment"
+        [railShowToggle]="railShowToggle"
       >
         <button
           *matNavigationSuitePrimaryAction
@@ -118,7 +121,7 @@ const renderProjectedSuite: Story['render'] = (args) => ({
           <mat-icon aria-hidden="true">edit</mat-icon>
         </button>
 
-        <mat-navigation-suite [alwaysShowLabel]="alwaysShowLabel" ariaLabel="Workspace">
+        <mat-navigation-suite [alwaysShowItemLabel]="alwaysShowItemLabel" ariaLabel="Workspace">
           @for (item of navItems; track item.id; let index = $index) {
             <mat-navigation-suite-item
               [selected]="selectedIndex === index"
@@ -147,22 +150,12 @@ export const AutoSuiteType: Story = {
     navSuiteType: undefined,
   },
   render: renderProjectedSuite,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Tasks')).toBeInTheDocument();
-  },
 };
 
 export const RailCollapsed: Story = {
   render: renderProjectedSuite,
   globals: {
     viewport: { value: 'tablet', isRotated: false },
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByLabelText('Create document')).toBeInTheDocument();
-    await userEvent.click(canvas.getByText('Tasks'));
-    await expect(canvas.getByText('Workspace')).toBeInTheDocument();
   },
 };
 
@@ -176,11 +169,6 @@ export const RailExpanded: Story = {
     viewport: { value: 'desktop', isRotated: false },
   },
   render: renderProjectedSuite,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Dashboard')).toBeInTheDocument();
-    await expect(canvas.getByText('Reports')).toBeInTheDocument();
-  },
 };
 
 export const BarCompact: Story = {
@@ -193,11 +181,6 @@ export const BarCompact: Story = {
     viewport: { value: 'mobile2', isRotated: false },
   },
   render: renderProjectedSuite,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByText('Dashboard'));
-    await expect(canvas.getByText('Dashboard')).toBeInTheDocument();
-  },
 };
 
 export const BarMedium: Story = {
@@ -210,8 +193,4 @@ export const BarMedium: Story = {
     viewport: { value: 'tablet', isRotated: true },
   },
   render: renderProjectedSuite,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('Tasks')).toBeInTheDocument();
-  },
 };

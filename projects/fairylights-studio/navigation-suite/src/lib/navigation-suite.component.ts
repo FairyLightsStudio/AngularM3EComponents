@@ -53,7 +53,7 @@ import {
 })
 export class MatNavigationSuiteComponent {
   /** Whether bar item labels remain visible when inactive. */
-  readonly alwaysShowLabel = input(true);
+  readonly alwaysShowItemLabel = input(true);
 
   /** Accessible label passed to the active navigation landmark. */
   readonly ariaLabel = input('');
@@ -67,9 +67,9 @@ export class MatNavigationSuiteComponent {
   readonly isBar = this.scaffold.isBar;
   readonly barLayout = this.scaffold.barLayout;
   readonly isRailExpanded = this.scaffold.isRailExpanded;
-  readonly showRailToggle = this.scaffold.showRailToggle;
-  readonly currentAlwaysShowLabel = computed(
-    () => this.barLayout() === 'horizontal' || this.alwaysShowLabel(),
+  readonly railShowToggle = this.scaffold.railShowToggle;
+  readonly currentAlwaysShowItemLabel = computed(
+    () => this.barLayout() === 'horizontal' || this.alwaysShowItemLabel(),
   );
 
   toggleRailExpanded(): void {

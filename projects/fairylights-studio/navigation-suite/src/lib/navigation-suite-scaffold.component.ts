@@ -64,7 +64,7 @@ export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteSc
   primaryActionAlignment = input<MatNavigationSuitePrimaryActionAlignment>('end');
 
   /** Whether the scaffold auto manages a rail expand/collapse toggle. Set to false to hide it. */
-  showRailToggle = input(true);
+  railShowToggle = input(true);
 
   private readonly defaults = inject(MatNavigationSuiteScaffoldDefaults);
   private readonly defaultNavSuiteType = this.defaults.navSuiteType();

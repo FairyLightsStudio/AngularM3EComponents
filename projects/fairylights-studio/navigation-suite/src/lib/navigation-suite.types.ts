@@ -27,7 +27,7 @@ export interface MatNavigationSuiteScaffoldContext {
   verticalArrangement: Signal<MatNavigationSuiteVerticalArrangement>;
   primaryActionTemplate: Signal<TemplateRef<unknown> | null>;
   toggleRailExpanded(): void;
-  showRailToggle: Signal<boolean>;
+  railShowToggle: Signal<boolean>;
 }
 
 export const MAT_NAVIGATION_SUITE_SCAFFOLD_DEFAULTS =
