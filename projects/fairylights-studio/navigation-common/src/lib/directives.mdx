@@ -1,0 +1,101 @@
+import {
+  Meta,
+  Canvas,
+  ArgTypes,
+  Stories,
+  Source,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+} from '@storybook/addon-docs/blocks';
+import * as DirectiveStories from './directives.stories';
+
+<Meta of={DirectiveStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+
+## Getting Started
+
+### 1. Import the module
+
+<Source
+  language="ts"
+  code={`import {
+  MatNavigationIcon,
+  MatNavigationActiveIcon,
+  MatNavigationLabel,
+} from '@fairylights-studio/navigation-common';`}
+/>
+
+### 2. TypeScript — component class
+
+<Source
+  language="ts"
+  code={`import { Component } from '@angular/core';
+import { MAT_NAVIGATION_BAR_MODULES } from '@fairylights-studio/navigation-bar';
+import { MatIconModule } from '@angular/material/icon';
+
+@Component({
+selector: 'app-my-page',
+standalone: true,
+imports: [MAT_NAVIGATION_BAR_MODULES, MatIconModule],
+templateUrl: './my-page.component.html',
+})
+export class MyPageComponent {
+selectedIndex = 0;
+}`}
+/>
+
+### 3. HTML — template
+
+<Source
+  language="html"
+  code={`<mat-navigation-bar aria-label="Primary navigation">
+  <mat-navigation-bar-item
+    [active]="selectedIndex === 0"
+    (click)="selectedIndex = 0"
+  >
+    <mat-icon *matNavigationIcon>home</mat-icon>
+    <mat-icon *matNavigationActiveIcon>home_filled</mat-icon>
+    <ng-template matNavigationLabel>Home</ng-template>
+  </mat-navigation-bar-item>
+</mat-navigation-bar>`}
+/>
+
+---
+
+<Stories title="Use Cases" />
+
+---
+
+## Directive Reference
+
+### `*matNavigationIcon`
+
+Marks projected icon content as the default icon for a navigation item. Used by `mat-navigation-bar-item`, `mat-navigation-rail-item`, and `mat-navigation-suite-item`.
+
+| Property | Type                                | Description                   |
+| -------- | ----------------------------------- | ----------------------------- |
+| Selector | `[matNavigationIcon], [matNavIcon]` | Structural directive selector |
+
+### `*matNavigationActiveIcon`
+
+Marks projected icon content as the alternative icon shown when the navigation item is active/selected.
+
+| Property | Type                                            | Description                   |
+| -------- | ----------------------------------------------- | ----------------------------- |
+| Selector | `[matNavigationActiveIcon], [matNavActiveIcon]` | Structural directive selector |
+
+### `matNavigationLabel`
+
+Marks projected template content as the text label for a navigation item.
+
+| Property | Type                                  | Description                   |
+| -------- | ------------------------------------- | ----------------------------- |
+| Selector | `[matNavigationLabel], [matNavLabel]` | Structural directive selector |

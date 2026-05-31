@@ -1,0 +1,150 @@
+import {
+  Meta,
+  Canvas,
+  ArgTypes,
+  Stories,
+  Source,
+  Title,
+  Subtitle,
+  Description,
+  Primary,
+  Controls,
+} from '@storybook/addon-docs/blocks';
+import * as RailStories from './navigation-rail.component.stories';
+
+<Meta of={RailStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+
+## Getting Started
+
+### 1. Import the module
+
+<Source
+  language="ts"
+  code={`import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/navigation-rail';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';`}
+/>
+
+### 2. TypeScript — component class
+
+<Source
+  language="ts"
+  code={`import { Component } from '@angular/core';
+import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/navigation-rail';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
+@Component({
+selector: 'app-my-page',
+standalone: true,
+imports: [MAT_NAVIGATION_RAIL_MODULES, MatIconModule, MatButtonModule],
+templateUrl: './my-page.component.html',
+styleUrl: './my-page.component.scss',
+})
+export class MyPageComponent {
+selectedIndex = 0;
+expanded = false;
+}`}
+/>
+
+### 3. HTML — template
+
+<Source
+  language="html"
+  code={`<mat-navigation-rail
+  [expanded]="expanded"
+  [indicatorShape]="'hug'"
+  [showDivider]="true"
+  [verticalArrangement]="'top'"
+  aria-label="Primary navigation"
+>
+  <mat-navigation-rail-header>
+    <mat-navigation-rail-toggle
+      [expanded]="expanded"
+      (click)="expanded = !expanded"
+    ></mat-navigation-rail-toggle>
+    <button mat-fab aria-label="Create item">
+      <mat-icon aria-hidden="true">add</mat-icon>
+    </button>
+  </mat-navigation-rail-header>
+
+<mat-navigation-rail-item
+[active]="selectedIndex === 0"
+(click)="selectedIndex = 0"
+
+>
+
+    <mat-icon *matNavigationIcon>inbox</mat-icon>
+    <ng-template matNavigationLabel>Inbox</ng-template>
+
+  </mat-navigation-rail-item>
+
+<mat-navigation-rail-item
+[active]="selectedIndex === 1"
+(click)="selectedIndex = 1"
+
+>
+
+    <mat-icon *matNavigationIcon matBadge="8">chat_bubble</mat-icon>
+    <ng-template matNavigationLabel>Messages</ng-template>
+
+  </mat-navigation-rail-item>
+
+<mat-navigation-rail-item
+[active]="selectedIndex === 2"
+(click)="selectedIndex = 2"
+
+>
+
+    <mat-icon *matNavigationIcon>calendar_month</mat-icon>
+    <ng-template matNavigationLabel>Calendar</ng-template>
+
+  </mat-navigation-rail-item>
+
+<mat-navigation-rail-item
+[active]="selectedIndex === 3"
+(click)="selectedIndex = 3"
+
+>
+
+    <mat-icon *matNavigationIcon>settings</mat-icon>
+    <ng-template matNavigationLabel>Settings</ng-template>
+
+  </mat-navigation-rail-item>
+</mat-navigation-rail>`}
+/>
+
+### 4. SCSS — custom styles
+
+<Source
+  language="css"
+  code={`/* my-page.component.scss */
+
+mat-navigation-rail {
+background: var(--mat-sys-surface);
+height: 100%;
+}`}
+/>
+
+---
+
+<Stories title="Use Cases" />
+
+---
+
+## Content Projection Directives
+
+These structural directives control what gets projected into each `mat-navigation-rail-item`.
+
+| Directive                  | Selector                    | Purpose                               |
+| -------------------------- | --------------------------- | ------------------------------------- |
+| `*matNavigationIcon`       | `[MatNavigationIcon]`       | Primary icon displayed in the item.   |
+| `*matNavigationActiveIcon` | `[MatNavigationActiveIcon]` | Alternative icon shown when `active`. |
+| `matNavigationLabel`       | `[MatNavigationLabel]`      | Label text for the item.              |

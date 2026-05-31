@@ -1,0 +1,124 @@
+import { Meta, Canvas, ArgTypes, Stories, Source,Title,Subtitle,Description,Primary,Controls } from '@storybook/addon-docs/blocks';
+import * as NavBarStories from './navigation-bar.component.stories';
+
+<Meta of={NavBarStories} />
+
+<Title />
+<Subtitle />
+<Description />
+<Primary />
+<Controls />
+
+## Getting Started
+
+### 1. Import the module
+
+<Source
+  language="ts"
+  code={`import { MAT_NAVIGATION_BAR_MODULES } from '@fairylights-studio/navigation-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';`}
+/>
+
+### 2. TypeScript — component class
+
+<Source
+  language="ts"
+  code={`import { Component } from '@angular/core';
+import { MAT_NAVIGATION_BAR_MODULES } from '@fairylights-studio/navigation-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
+
+@Component({
+selector: 'app-my-page',
+standalone: true,
+imports: [MAT_NAVIGATION_BAR_MODULES, MatIconModule, MatBadgeModule],
+templateUrl: './my-page.component.html',
+styleUrl: './my-page.component.scss',
+})
+export class MyPageComponent {
+selectedIndex = 0;
+}`}
+/>
+
+### 3. HTML — template
+
+<Source
+  language="html"
+  code={`<mat-navigation-bar aria-label="Primary navigation">
+  <mat-navigation-bar-item
+    [active]="selectedIndex === 0"
+    [alwaysShowLabel]="true"
+    [layout]="'vertical'"
+    (click)="selectedIndex = 0"
+  >
+    <mat-icon *matNavigationIcon>home</mat-icon>
+    <ng-template matNavigationLabel>Home</ng-template>
+  </mat-navigation-bar-item>
+
+<mat-navigation-bar-item
+[active]="selectedIndex === 1"
+[alwaysShowLabel]="true"
+(click)="selectedIndex = 1"
+
+>
+
+    <mat-icon *matNavigationIcon>search</mat-icon>
+    <ng-template matNavigationLabel>Search</ng-template>
+
+  </mat-navigation-bar-item>
+
+<mat-navigation-bar-item
+[active]="selectedIndex === 2"
+(click)="selectedIndex = 2"
+
+>
+
+    <mat-icon
+      *matNavigationIcon
+      matBadge="3"
+      matBadgeDescription="3 unread notifications"
+    >notifications</mat-icon>
+    <ng-template matNavigationLabel>Alerts</ng-template>
+
+  </mat-navigation-bar-item>
+
+<mat-navigation-bar-item
+[active]="selectedIndex === 3"
+(click)="selectedIndex = 3"
+
+>
+
+    <mat-icon *matNavigationIcon>person</mat-icon>
+    <ng-template matNavigationLabel>Profile</ng-template>
+
+  </mat-navigation-bar-item>
+</mat-navigation-bar>`}
+/>
+
+### 4. SCSS — custom styles
+
+<Source
+  language="css"
+  code={`/* my-page.component.scss */
+
+mat-navigation-bar {
+background: var(--mat-sys-surface);
+}`}
+/>
+
+---
+
+<Stories title="Use Cases" />
+
+---
+
+## Content Projection Directives
+
+These structural directives control what gets projected into each `mat-navigation-bar-item`.
+
+| Directive                  | Selector                    | Purpose                               |
+| -------------------------- | --------------------------- | ------------------------------------- |
+| `*matNavigationIcon`       | `[MatNavigationIcon]`       | Primary icon displayed in the item.   |
+| `*matNavigationActiveIcon` | `[MatNavigationActiveIcon]` | Alternative icon shown when `active`. |
+| `matNavigationLabel`       | `[MatNavigationLabel]`      | Label text for the item.              |

@@ -1,8 +1,24 @@
 import type { StorybookConfig } from '@storybook/angular';
+import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
-  stories: ['../../projects/fairylights-studio/**/*.stories.@(ts|tsx|mdx)'],
-  addons: ['@storybook/addon-docs'],
+  stories: [
+    '../../projects/fairylights-studio/**/*.stories.@(ts|tsx)',
+    '../../projects/fairylights-studio/**/*.mdx',
+  ],
+  addons: [
+    // Other addons go here
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
+  ],
   framework: {
     name: '@storybook/angular',
     options: {},
