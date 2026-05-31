@@ -53,11 +53,11 @@ export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
   ariaLabel = input<string>('');
 
   @ContentChildren(MatNavigationRailItemComponent, { descendants: true })
-  _items!: QueryList<MatNavigationRailItemComponent>;
+  protected _items!: QueryList<MatNavigationRailItemComponent>;
 
   private _keyManager!: FocusKeyManager<MatNavigationRailItemComponent>;
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this._keyManager = new FocusKeyManager<MatNavigationRailItemComponent>(
       this._items as unknown as QueryList<MatNavigationRailItemComponent & FocusableOption>,
     )
@@ -69,7 +69,7 @@ export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
     this._setInitialActiveItem();
   }
 
-  _handleKeydown(event: KeyboardEvent) {
+  protected _handleKeydown(event: KeyboardEvent): void {
     if (hasModifierKey(event)) return;
 
     const item = this._getEventItem(event);
@@ -87,7 +87,7 @@ export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._keyManager?.destroy();
   }
 

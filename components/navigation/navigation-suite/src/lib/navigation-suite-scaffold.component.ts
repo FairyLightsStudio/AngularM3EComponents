@@ -93,7 +93,7 @@ export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteSc
   );
   primaryActionTemplate = computed(() => this.primaryAction()?.templateRef ?? null);
 
-  containerColorValue = computed(() => this.toCssColor(this.containerColor()));
+  protected containerColorValue = computed(() => this.toCssColor(this.containerColor()));
 
   toggleRailExpanded(): void {
     if (!this.currentNavSuiteType().startsWith('Rail')) {

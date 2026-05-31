@@ -65,11 +65,11 @@ export class MatNavigationBarItemComponent
     return this._button().nativeElement.textContent?.trim() ?? '';
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._focusMonitor.monitor(this._button(), true);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._button());
   }
 }

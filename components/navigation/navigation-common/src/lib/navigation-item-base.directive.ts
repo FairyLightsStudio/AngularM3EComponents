@@ -7,11 +7,11 @@ export class MatNavigationItemBase {
   active = input<boolean>(false);
 
   /** Content query for the default icon. */
-  @ContentChild(MatNavigationIcon) icon?: MatNavigationIcon;
+  @ContentChild(MatNavigationIcon) protected icon?: MatNavigationIcon;
 
   /** Content query for the active/selected icon. */
-  @ContentChild(MatNavigationActiveIcon) activeIcon?: MatNavigationActiveIcon;
+  @ContentChild(MatNavigationActiveIcon) protected activeIcon?: MatNavigationActiveIcon;
 
   /** Content query for the label. */
-  @ContentChild(MatNavigationLabel) label?: MatNavigationLabel;
+  @ContentChild(MatNavigationLabel) protected label?: MatNavigationLabel;
 }

@@ -68,7 +68,7 @@ export class MatNavigationRailItemComponent
   implements AfterViewInit, OnDestroy
 {
   /** Owning rail instance used to inherit expanded and indicator state. */
-  rail = inject(
+  protected rail = inject(
     forwardRef(() => MatNavigationRailComponent),
     {
       optional: true,
@@ -77,7 +77,7 @@ export class MatNavigationRailItemComponent
   private _focusMonitor = inject(FocusMonitor);
   private _el = inject<ElementRef<HTMLElement>>(ElementRef);
   private _button = viewChild.required<ElementRef<HTMLButtonElement>>('buttonEl');
-  dir = inject(Directionality, { optional: true }) || { value: 'ltr' };
+  protected dir = inject(Directionality, { optional: true }) || { value: 'ltr' };
 
   focus(origin?: FocusOrigin): void {
     this._button().nativeElement.focus({
@@ -97,11 +97,11 @@ export class MatNavigationRailItemComponent
     return this._button().nativeElement.textContent?.trim() ?? '';
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._focusMonitor.monitor(this._button(), true);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._button());
   }
 }

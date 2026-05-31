@@ -58,35 +58,35 @@ export class MatNavigationSuiteComponent {
   /** Accessible label passed to the active navigation landmark. */
   readonly ariaLabel = input('');
 
-  readonly projectedItems = contentChildren(MatNavigationSuiteItemComponent);
+  protected readonly projectedItems = contentChildren(MatNavigationSuiteItemComponent);
 
   private readonly scaffold = inject(MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT);
 
-  readonly currentVerticalArrangement = this.scaffold.verticalArrangement;
-  readonly primaryActionTemplate = this.scaffold.primaryActionTemplate;
-  readonly isBar = this.scaffold.isBar;
-  readonly barLayout = this.scaffold.barLayout;
-  readonly isRailExpanded = this.scaffold.isRailExpanded;
-  readonly railShowToggle = this.scaffold.railShowToggle;
-  readonly currentAlwaysShowItemLabel = computed(
+  protected readonly currentVerticalArrangement = this.scaffold.verticalArrangement;
+  protected readonly primaryActionTemplate = this.scaffold.primaryActionTemplate;
+  protected readonly isBar = this.scaffold.isBar;
+  protected readonly barLayout = this.scaffold.barLayout;
+  protected readonly isRailExpanded = this.scaffold.isRailExpanded;
+  protected readonly railShowToggle = this.scaffold.railShowToggle;
+  protected readonly currentAlwaysShowItemLabel = computed(
     () => this.barLayout() === 'horizontal' || this.alwaysShowItemLabel(),
   );
 
-  toggleRailExpanded(): void {
+  protected toggleRailExpanded(): void {
     this.scaffold.toggleRailExpanded();
   }
 
-  asTemplateRef(
+  protected asTemplateRef(
     value: MatNavigationSuiteItemContent | null | undefined,
   ): TemplateRef<unknown> | null {
     return value instanceof TemplateRef ? value : null;
   }
 
-  asText(value: MatNavigationSuiteItemContent | null | undefined): string {
+  protected asText(value: MatNavigationSuiteItemContent | null | undefined): string {
     return typeof value === 'string' ? value : '';
   }
 
-  emitProjectedItemClick(item: MatNavigationSuiteItemComponent, event: Event): void {
+  protected emitProjectedItemClick(item: MatNavigationSuiteItemComponent, event: Event): void {
     item.clicked.emit(event as MouseEvent);
   }
 }

@@ -36,13 +36,13 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
   ariaLabel = input<string>('');
 
   @ContentChildren(MatNavigationBarItemComponent, { descendants: true })
-  _items!: QueryList<MatNavigationBarItemComponent>;
+  protected _items!: QueryList<MatNavigationBarItemComponent>;
 
   private _keyManager!: FocusKeyManager<MatNavigationBarItemComponent>;
   private _dir = inject(Directionality, { optional: true });
   private _destroyed = new Subject<void>();
 
-  ngAfterContentInit() {
+  ngAfterContentInit(): void {
     this._keyManager = new FocusKeyManager<MatNavigationBarItemComponent>(
       this._items as unknown as QueryList<MatNavigationBarItemComponent & FocusableOption>,
     )
@@ -60,7 +60,7 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  _handleKeydown(event: KeyboardEvent) {
+  protected _handleKeydown(event: KeyboardEvent): void {
     if (hasModifierKey(event)) return;
 
     const item = this._getEventItem(event);
@@ -78,7 +78,7 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._keyManager?.destroy();
     this._destroyed.next();
     this._destroyed.complete();
