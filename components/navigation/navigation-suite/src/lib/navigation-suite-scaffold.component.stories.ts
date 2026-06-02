@@ -152,6 +152,68 @@ export const AutoSuiteType: Story = {
   render: renderProjectedSuite,
 };
 
+/** Demonstrates restricting the PAB to only show when a specific destination
+ *  (e.g, Dashboard) is active, rather than globally across all destinations. */
+export const BarCompactPabConditional: Story = {
+  args: {
+    selectedIndex: 0,
+    navSuiteType: 'BarCompact',
+    primaryActionAlignment: 'end',
+  },
+  globals: {
+    viewport: { value: 'mobile2', isRotated: false },
+  },
+  render: (args) => ({
+    props: {
+      ...args,
+      navItems,
+      scaffoldState: new MatNavigationSuiteScaffoldState(),
+    },
+    template: `
+      <mat-navigation-suite-scaffold
+        [navSuiteType]="navSuiteType"
+        [state]="scaffoldState"
+        [verticalArrangement]="verticalArrangement"
+        [primaryActionAlignment]="primaryActionAlignment"
+        [railShowToggle]="railShowToggle"
+      >
+        @if (selectedIndex === 0) {
+          <button
+            *matNavigationSuitePrimaryAction
+            mat-fab
+            aria-label="Create document"
+          >
+            <mat-icon aria-hidden="true">edit</mat-icon>
+          </button>
+        }
+
+        <mat-navigation-suite [alwaysShowItemLabel]="alwaysShowItemLabel" ariaLabel="Workspace">
+          @for (item of navItems; track item.id; let index = $index) {
+            <mat-navigation-suite-item
+              [selected]="selectedIndex === index"
+              [icon]="item.icon"
+              [activeIcon]="item.activeIcon ?? null"
+              [label]="item.label"
+              (click)="selectedIndex = index"
+            />
+          }
+        </mat-navigation-suite>
+
+        <section style="padding: 32px 16px">
+          <h2 style="margin: 0 0 8px">{{ navItems[selectedIndex].label }}</h2>
+          <p style="margin: 0; max-width: 52ch" data-testid="pab-status">
+            @if (selectedIndex === 0) {
+              PAB is visible: only the Dashboard destination shows the compose button.
+            } @else {
+              Navigate back to Dashboard to reveal the PAB.
+            }
+          </p>
+        </section>
+      </mat-navigation-suite-scaffold>
+    `,
+  }),
+};
+
 export const RailCollapsed: Story = {
   render: renderProjectedSuite,
   globals: {
