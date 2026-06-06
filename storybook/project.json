@@ -16,7 +16,7 @@
         "configDir": "storybook/.storybook",
         "browserTarget": "storybook:build-storybook",
         "compodoc": true,
-        "compodocArgs": [ "--disableLifeCycleHooks", "--disableProtected" , "--disableInternal","--disablePrivate" ],
+        "compodocArgs": [ "-d", "storybook", "--disableLifeCycleHooks", "--disableProtected" , "--disableInternal","--disablePrivate" ],
         "styles": [
           "storybook/src/material-theme.scss",
           "storybook/src/styles.sass"
@@ -36,7 +36,7 @@
         "configDir": "storybook/.storybook",
         "browserTarget": "storybook:build-storybook",
         "compodoc": true,
-        "compodocArgs": [ "--disableLifeCycleHooks", "--disableProtected" , "--disableInternal","--disablePrivate" ],
+        "compodocArgs": [ "-d", "storybook", "--disableLifeCycleHooks", "--disableProtected" , "--disableInternal","--disablePrivate" ],
         "styles": [
           "storybook/src/material-theme.scss",
           "storybook/src/styles.sass"

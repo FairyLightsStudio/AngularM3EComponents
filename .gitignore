@@ -39,7 +39,6 @@ yarn-error.log
 testem.log
 /typings
 __screenshots__/
-/storybook/documentation.json
 
 # Wrangler / Cloudflare
 .wrangler/
