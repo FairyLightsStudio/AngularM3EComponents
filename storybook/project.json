@@ -15,12 +15,19 @@
         "port": 4400,
         "configDir": "storybook/.storybook",
         "browserTarget": "storybook:build-storybook",
-        "compodoc": true,
-        "compodocArgs": [ "-d", "storybook", "--disableLifeCycleHooks", "--disableProtected" , "--disableInternal","--disablePrivate" ],
-        "styles": [
-          "storybook/src/material-theme.scss",
-          "storybook/src/styles.sass"
-        ]
+        "compodoc": false,
+        "compodocArgs": [
+          "-d",
+          "storybook",
+          "--disableLifeCycleHooks",
+          "--disableProtected",
+          "--disableInternal",
+          "--disablePrivate"
+        ],
+        "styles": ["storybook/src/material-theme.scss", "storybook/src/styles.sass"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["node_modules"]
+        }
       },
       "configurations": {
         "ci": {
@@ -35,12 +42,19 @@
         "outputDir": "dist/storybook/storybook",
         "configDir": "storybook/.storybook",
         "browserTarget": "storybook:build-storybook",
-        "compodoc": true,
-        "compodocArgs": [ "-d", "storybook", "--disableLifeCycleHooks", "--disableProtected" , "--disableInternal","--disablePrivate" ],
-        "styles": [
-          "storybook/src/material-theme.scss",
-          "storybook/src/styles.sass"
-        ]
+        "compodoc": false,
+        "compodocArgs": [
+          "-d",
+          "storybook",
+          "--disableLifeCycleHooks",
+          "--disableProtected",
+          "--disableInternal",
+          "--disablePrivate"
+        ],
+        "styles": ["storybook/src/material-theme.scss", "storybook/src/styles.sass"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["node_modules"]
+        }
       },
       "configurations": {
         "ci": {

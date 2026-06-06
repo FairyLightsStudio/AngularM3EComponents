@@ -1,10 +1,3 @@
-@use 'sass:map';
-@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
-
-$m3-motion-tokens: m3-motion.md-sys-motion-values();
-$duration-medium1: map.get($m3-motion-tokens, duration-medium1);
-$easing-standard: map.get($m3-motion-tokens, easing-standard);
-
 :host {
   display: inline-flex;
   align-items: center;
@@ -23,8 +16,9 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 mat-icon {
   /* 让所有 icon 在 grid 中占据同一个单元格从而完美重叠 */
   grid-area: 1 / 1;
-  transition: transform $duration-medium1 $easing-standard,
-              opacity $duration-medium1 $easing-standard;
+  transition:
+    transform var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out),
+    opacity var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out);
 }
 
 .menu-icon {

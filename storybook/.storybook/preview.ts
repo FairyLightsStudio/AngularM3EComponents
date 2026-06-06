@@ -2,9 +2,9 @@ import type { Preview } from '@storybook/angular';
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import { INITIAL_VIEWPORTS } from 'storybook/viewport';
 
-import docJson from '../documentation.json';
+// import docJson from '../documentation.json';
 
-setCompodocJson(docJson);
+// setCompodocJson(docJson);
 
 const preview: Preview = {
   tags: ['autodocs'],
