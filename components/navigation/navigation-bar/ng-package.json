@@ -3,6 +3,5 @@
   "dest": "../../../dist/components/navigation/navigation-bar",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "assets": ["_index.scss", "_m3-navigation-bar.scss", "_navigation-bar-theme.scss"]
+  }
 }

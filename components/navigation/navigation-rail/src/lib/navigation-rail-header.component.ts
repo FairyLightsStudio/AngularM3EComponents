@@ -55,7 +55,6 @@ import { Component, ElementRef, AfterViewInit, OnDestroy, inject } from '@angula
  */
 @Component({
   selector: 'mat-navigation-rail-header',
-  standalone: true,
   template: `<ng-content></ng-content>`,
   styleUrls: ['./navigation-rail-header.component.scss']
 })

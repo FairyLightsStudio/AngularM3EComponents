@@ -1,12 +1,4 @@
-@use '@fairylights-studio/navigation-common/token-utils' as token-utils;
-@use '../../m3-navigation-rail' as m3-nav-rail;
-@use 'sass:map';
-@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
 @use '@angular/cdk' as cdk;
-$fallbacks: m3-nav-rail.get-tokens();
-$m3-motion-tokens: m3-motion.md-sys-motion-values();
-$duration-medium1: map.get($m3-motion-tokens, duration-medium1);
-$easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 :host {
   display: block;
@@ -20,21 +12,21 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   align-items: flex-start;
   justify-content: flex-start;
   width: 100%;
-  height: token-utils.slot(nav-rail-item-button-collapsed-height, $fallbacks);
-  padding: token-utils.slot(nav-rail-item-button-collapsed-padding, $fallbacks);
+  height: var(--flight-nav-rail-item-button-collapsed-height, 72px);
+  padding: var(--flight-nav-rail-item-button-collapsed-padding, 12px 12px 0 12px);
   background: transparent;
   border: none;
   cursor: pointer;
-  color: token-utils.slot(nav-rail-item-text-color, $fallbacks, #49454f);
+  color: var(--mat-sys-on-surface-variant, #49454f);
   transition:
-    height $duration-medium1 $easing-standard,
-    padding $duration-medium1 $easing-standard;
+    height var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    padding var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
   box-sizing: border-box;
 }
 
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-item-button {
-  height: token-utils.slot(nav-rail-item-button-expanded-height, $fallbacks);
-  padding: token-utils.slot(nav-rail-item-button-expanded-padding, $fallbacks);
+  height: var(--flight-nav-rail-item-button-expanded-height, 56px);
+  padding: var(--flight-nav-rail-item-button-expanded-padding, 0 12px);
 }
 
 .mat-nav-rail-indicator {
@@ -42,14 +34,14 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  height: token-utils.slot(nav-rail-indicator-height, $fallbacks);
-  width: token-utils.slot(nav-rail-indicator-width, $fallbacks);
-  border-radius: token-utils.slot(nav-rail-indicator-shape, $fallbacks);
+  height: var(--flight-nav-rail-indicator-height, 32px);
+  width: var(--flight-nav-rail-indicator-width, 56px);
+  border-radius: var(--flight-nav-rail-indicator-shape, 16px);
   background-color: transparent;
   transition:
-    height $duration-medium1 $easing-standard,
-    border-radius $duration-medium1 $easing-standard,
-    background-color $duration-medium1 $easing-standard;
+    height var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-radius var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    background-color var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
   z-index: 1;
 }
 
@@ -59,13 +51,13 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 }
 
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator {
-  height: token-utils.slot(nav-rail-indicator-expanded-height, $fallbacks);
-  border-radius: token-utils.slot(nav-rail-indicator-expanded-shape, $fallbacks);
+  height: var(--flight-nav-rail-indicator-expanded-height, 56px);
+  border-radius: var(--flight-nav-rail-indicator-expanded-shape, 28px);
 }
 
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-indicator.indicator-hug {
   width: max-content;
-  min-width: token-utils.slot(nav-rail-indicator-width, $fallbacks);
+  min-width: var(--flight-nav-rail-indicator-width, 56px);
   padding-inline-end: 16px;
 }
 
@@ -87,9 +79,9 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 .mat-nav-rail-icon-box {
   position: relative;
-  width: token-utils.slot(nav-rail-icon-box-size, $fallbacks);
-  height: token-utils.slot(nav-rail-icon-box-size, $fallbacks);
-  margin-inline-start: token-utils.slot(nav-rail-icon-box-margin-start, $fallbacks);
+  width: var(--flight-nav-rail-icon-box-size, 24px);
+  height: var(--flight-nav-rail-icon-box-size, 24px);
+  margin-inline-start: var(--flight-nav-rail-icon-box-margin-start, 16px);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -99,15 +91,18 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 .mat-nav-rail-label-side {
   display: grid;
   grid-template-columns: 0fr;
-  font-size: token-utils.slot(nav-rail-label-side-font-size, $fallbacks);
-  font-weight: token-utils.slot(nav-rail-label-side-font-weight, $fallbacks);
+  font-family: var(--mat-sys-label-large-font, Roboto, sans-serif);
+  font-size: var(--mat-sys-label-large-size, 0.875rem);
+  font-weight: var(--mat-sys-label-large-weight, 500);
+  line-height: var(--mat-sys-label-large-line-height, 1.25rem);
+  letter-spacing: var(--mat-sys-label-large-tracking, 0.006rem);
   pointer-events: none;
   padding-inline-start: 0;
   opacity: 0;
   transition:
-    grid-template-columns $duration-medium1 $easing-standard,
-    padding-inline-start $duration-medium1 $easing-standard,
-    opacity $duration-medium1 $easing-standard;
+    grid-template-columns var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    padding-inline-start var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    opacity var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .mat-nav-rail-label-inner {
@@ -117,7 +112,7 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 :host(.mat-nav-rail-item-expanded) .mat-nav-rail-label-side {
   grid-template-columns: 1fr;
-  padding-inline-start: token-utils.slot(nav-rail-label-side-padding-start, $fallbacks);
+  padding-inline-start: var(--flight-nav-rail-label-side-padding-start, 12px);
   opacity: 1;
 }
 
@@ -130,17 +125,17 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 .mat-nav-rail-label-bottom {
   position: absolute;
-  top: token-utils.slot(nav-rail-label-bottom-top, $fallbacks);
-  left: token-utils.slot(nav-rail-label-bottom-left, $fallbacks);
+  top: var(--flight-nav-rail-label-bottom-top, 48px);
+  left: var(--flight-nav-rail-label-bottom-left, 40px);
   transform: translateX(-50%);
   width: max-content;
-  max-width: token-utils.slot(nav-rail-label-bottom-max-width, $fallbacks);
+  max-width: var(--flight-nav-rail-label-bottom-max-width, 76px);
   display: grid;
   grid-template-rows: 1fr;
   opacity: 1;
   transition:
-    grid-template-rows $duration-medium1 $easing-standard,
-    opacity $duration-medium1 $easing-standard;
+    grid-template-rows var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    opacity var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .mat-nav-rail-label-bottom-inner {
@@ -148,9 +143,11 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
-  font-size: token-utils.slot(nav-rail-label-bottom-font-size, $fallbacks);
-  font-weight: token-utils.slot(nav-rail-label-bottom-font-weight, $fallbacks);
-  line-height: token-utils.slot(nav-rail-label-bottom-line-height, $fallbacks);
+  font-family: var(--mat-sys-label-medium-font, Roboto, sans-serif);
+  font-size: var(--mat-sys-label-medium-size, 0.75rem);
+  font-weight: var(--mat-sys-label-medium-weight, 500);
+  line-height: var(--mat-sys-label-medium-line-height, 1rem);
+  letter-spacing: var(--mat-sys-label-medium-tracking, 0.031rem);
   white-space: nowrap;
   pointer-events: none;
 }
@@ -162,14 +159,14 @@ $easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 .mat-nav-rail-item-button[dir='rtl'] .mat-nav-rail-label-bottom {
   left: auto;
-  right: token-utils.slot(nav-rail-label-bottom-left, $fallbacks);
+  right: var(--flight-nav-rail-label-bottom-left, 40px);
   transform: translateX(50%);
 }
 
 .mat-nav-rail-item-button.active {
-  color: token-utils.slot(nav-rail-item-active-text-color, $fallbacks);
+  color: var(--mat-sys-on-secondary-container, #1d192b);
   .mat-nav-rail-indicator {
-    background-color: token-utils.slot(nav-rail-indicator-color, $fallbacks);
+    background-color: var(--mat-sys-secondary-container, #e8def8);
   }
 }
 

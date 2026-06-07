@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 /** Icon button that toggles a navigation rail between collapsed and expanded states. */
 @Component({
   selector: 'mat-navigation-rail-toggle',
-  standalone: true,
   imports: [MatButtonModule, MatIconModule],
   template: `
     <button

@@ -9,7 +9,7 @@ html {
   height: 100%;
   @include mat.theme(
     (
-      color: mat.$rose-palette,
+      color: mat.$azure-palette,
       typography: Roboto,
       density: 0,
     )

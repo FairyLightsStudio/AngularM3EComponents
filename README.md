@@ -1,76 +1,46 @@
-# ComponentWorkspace
+# Angular M3 Expressive Components
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) and is now supercharged with [Nx](https://nx.dev/).
+Material 3 Expressive navigation components for Angular applications that already use Angular Material.
 
-## Development server
+The navigation packages do not expose Sass theme mixins. Configure Angular Material once, then customize these components with runtime CSS variables.
 
-To start a local development server for the demo app, run:
+```scss
+@use '@angular/material' as mat;
 
-```bash
-nx serve demo-app
+html {
+  @include mat.theme(
+    (
+      color: mat.$rose-palette,
+      typography: Roboto,
+    )
+  );
+}
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Runtime Variables
 
-## Code scaffolding
+`--flight-*` variables are owned by this library and are safe to override. `--mat-sys-*` variables are owned by Angular Material; the navigation components only consume them for color, typography, and motion.
 
-Nx uses Angular CLI's powerful code scaffolding tools under the hood. To generate a new component in a specific project, run:
+| Package | Public `--flight-*` variables | Angular Material system variables consumed |
+| --- | --- | --- |
+| `@fairylights-studio/navigation-bar` | Bar height, horizontal height, item width, indicator size/shape, label spacing, z-index | `--mat-sys-surface-container`, `--mat-sys-on-surface(-variant)`, `--mat-sys-secondary-container`, `--mat-sys-label-large-*`, motion tokens |
+| `@fairylights-studio/navigation-rail` | Rail widths, item heights/padding, indicator size/shape, icon box, collapsed label positioning, z-index | `--mat-sys-surface`, `--mat-sys-outline-variant`, `--mat-sys-on-surface-variant`, `--mat-sys-on-secondary-container`, `--mat-sys-secondary-container`, `--mat-sys-label-*`, motion tokens |
+| `@fairylights-studio/navigation-suite` | Scaffold min height, container color, bar row heights | `--mat-sys-surface`, motion tokens, plus the bar/rail variables above |
 
-```bash
-nx generate component component-name --project=demo-app
+Example local override:
+
+```css
+.workspace-shell {
+  --flight-nav-rail-container-collapsed-width: 88px;
+  --flight-nav-bar-container-height: 84px;
+}
 ```
 
-For a complete list of available schematics, run:
+## Development
+
+Use Bun for dependency management. Do not run library builds until the build pipeline is ready.
 
 ```bash
-nx generate --help
+bun install
+bun nx test @fairylights-studio/navigation-rail
 ```
-
-## Building
-
-To build the application or the component library, run:
-
-```bash
-nx build demo-app
-# or
-nx build @fairylights-studio/navigation-rail
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. Nx uses computation caching, making subsequent builds nearly instantaneous if the code hasn't changed.
-
-## Running unit tests
-
-To execute unit tests, use the following command:
-
-```bash
-nx test demo-app
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-nx e2e demo-app
-```
-
-## Affected Commands
-
-When working in this monorepo, you can run tasks only on the projects affected by your changes:
-
-```bash
-nx affected -t build
-nx affected -t test
-```
-
-## Dependency Graph
-
-To view a visual representation of your dependencies, run:
-
-```bash
-nx graph
-```
-
-## Additional Resources
-
-For more information on using Nx with Angular, visit the [Nx Angular Documentation](https://nx.dev/angular).

@@ -1,5 +1,0 @@
-@use 'sass:map';
-
-@function get-system($theme) {
-  @return map.get($theme, _mat-system);
-}

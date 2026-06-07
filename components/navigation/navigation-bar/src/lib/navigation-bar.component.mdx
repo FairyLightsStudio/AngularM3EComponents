@@ -11,7 +11,11 @@ import * as NavBarStories from './navigation-bar.component.stories';
 
 ## Getting Started
 
-### 1. Import the module
+### 1. Configure Angular Material
+
+Configure Angular Material in your application styles. Navigation bar consumes the generated `--mat-sys-*` runtime variables and does not provide a Sass theme mixin.
+
+### 2. Import the module
 
 <Source
   language="ts"
@@ -20,7 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';`}
 />
 
-### 2. TypeScript — component class
+### 3. TypeScript — component class
 
 <Source
   language="ts"
@@ -31,7 +35,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 
 @Component({
 selector: 'app-my-page',
-standalone: true,
 imports: [MAT_NAVIGATION_BAR_MODULES, MatIconModule, MatBadgeModule],
 templateUrl: './my-page.component.html',
 styleUrl: './my-page.component.scss',
@@ -41,7 +44,7 @@ selectedIndex = 0;
 }`}
 />
 
-### 3. HTML — template
+### 4. HTML — template
 
 <Source
   language="html"
@@ -96,16 +99,39 @@ selectedIndex = 0;
 </mat-navigation-bar>`}
 />
 
-### 4. SCSS — custom styles
+### 5. CSS — custom styles
 
 <Source
   language="css"
   code={`/* my-page.component.scss */
 
 mat-navigation-bar {
-background: var(--mat-sys-surface);
+  --flight-nav-bar-container-height: 84px;
+  --flight-nav-bar-item-label-spacing: 6px;
 }`}
 />
+
+## Runtime CSS Variables
+
+`--flight-*` variables are public customization hooks owned by this library. Color, typography, and motion come from Angular Material `--mat-sys-*` variables.
+
+| CSS variable | Default | Used for | Override example |
+| --- | --- | --- | --- |
+| `--flight-nav-bar-container-height` | `80px` | Vertical bottom bar height | `.shell { --flight-nav-bar-container-height: 84px; }` |
+| `--flight-nav-bar-container-horizontal-height` | `64px` | Horizontal bar height | `.shell { --flight-nav-bar-container-horizontal-height: 72px; }` |
+| `--flight-nav-bar-item-container-z-index` | `100` | Bar host stacking | `.shell { --flight-nav-bar-item-container-z-index: 10; }` |
+| `--flight-nav-bar-item-min-width` | `88px` | Vertical item minimum width | `.shell { --flight-nav-bar-item-min-width: 96px; }` |
+| `--flight-nav-bar-item-horizontal-width` | `168px` | Horizontal item width | `.shell { --flight-nav-bar-item-horizontal-width: 184px; }` |
+| `--flight-nav-bar-item-horizontal-height` | `64px` | Horizontal item height | `.shell { --flight-nav-bar-item-horizontal-height: 72px; }` |
+| `--flight-nav-bar-item-icon-wrapper-width` | `56px` | Vertical indicator width | `.shell { --flight-nav-bar-item-icon-wrapper-width: 64px; }` |
+| `--flight-nav-bar-item-icon-wrapper-height` | `32px` | Vertical indicator height | `.shell { --flight-nav-bar-item-icon-wrapper-height: 36px; }` |
+| `--flight-nav-bar-item-icon-wrapper-shape` | `16px` | Vertical indicator radius | `.shell { --flight-nav-bar-item-icon-wrapper-shape: 18px; }` |
+| `--flight-nav-bar-item-horizontal-indicator-height` | `40px` | Horizontal indicator height | `.shell { --flight-nav-bar-item-horizontal-indicator-height: 44px; }` |
+| `--flight-nav-bar-item-horizontal-indicator-shape` | `20px` | Horizontal indicator radius | `.shell { --flight-nav-bar-item-horizontal-indicator-shape: 22px; }` |
+| `--flight-nav-bar-item-horizontal-padding` | `0 20px` | Horizontal item indicator padding | `.shell { --flight-nav-bar-item-horizontal-padding: 0 24px; }` |
+| `--flight-nav-bar-item-label-spacing` | `4px` | Icon-to-label spacing | `.shell { --flight-nav-bar-item-label-spacing: 6px; }` |
+| `--flight-nav-bar-item-label-max-width` | `150px` | Horizontal label max width | `.shell { --flight-nav-bar-item-label-max-width: 180px; }` |
+| `--flight-nav-bar-item-label-container-height` | `16px` | Vertical label row height | `.shell { --flight-nav-bar-item-label-container-height: 20px; }` |
 
 ---
 

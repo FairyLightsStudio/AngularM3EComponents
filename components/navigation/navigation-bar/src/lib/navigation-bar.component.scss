@@ -1,18 +1,15 @@
-@use '@fairylights-studio/navigation-common/token-utils' as token-utils;
-@use '../../m3-navigation-bar' as m3-nav-bar;
 @use '@angular/cdk' as cdk;
-$fallbacks: m3-nav-bar.get-tokens();
 
 :host {
   display: block;
   width: 100%;
-  height: token-utils.slot(nav-bar-container-height, $fallbacks);
-  background-color: token-utils.slot(nav-bar-container-background-color, $fallbacks, #f3edf7);
-  z-index: token-utils.slot(nav-bar-item-container-z-index, $fallbacks);
+  height: var(--flight-nav-bar-container-height, 80px);
+  background-color: var(--mat-sys-surface-container, #f3edf7);
+  z-index: var(--flight-nav-bar-item-container-z-index, 100);
 }
 
 :host:has(.mat-navigation-bar-item-horizontal) {
-  height: token-utils.slot(nav-bar-container-horizontal-height, $fallbacks);
+  height: var(--flight-nav-bar-container-horizontal-height, 64px);
 }
 
 .mat-nav-bar-content {

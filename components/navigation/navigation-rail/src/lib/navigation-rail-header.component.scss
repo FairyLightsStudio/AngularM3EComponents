@@ -11,7 +11,7 @@
   --mat-fab-pressed-container-elevation-shadow: var(--mat-sys-level3);
 
   // Fixed rail width in collapsed state — used to compute center offset
-  --_rail-collapsed-width: 80px;
+  --_rail-collapsed-width: var(--flight-nav-rail-container-collapsed-width, 80px);
 
   // Known M3 FAB compact widths (icon-only sizes)
   --_fab-compact-width: 56px;

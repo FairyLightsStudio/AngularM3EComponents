@@ -3,6 +3,5 @@
   "dest": "../../../dist/components/navigation/navigation-rail",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "assets": ["_index.scss", "_m3-navigation-rail.scss", "_navigation-rail-theme.scss"]
+  }
 }

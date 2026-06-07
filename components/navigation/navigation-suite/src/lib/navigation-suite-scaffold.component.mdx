@@ -22,7 +22,11 @@ import * as SuiteStories from './navigation-suite-scaffold.component.stories';
 
 ## Getting Started
 
-### 1. Import the module
+### 1. Configure Angular Material
+
+Configure Angular Material in your application styles. Navigation suite consumes the generated `--mat-sys-*` runtime variables and does not provide a Sass theme mixin.
+
+### 2. Import the module
 
 <Source
   language="ts"
@@ -31,7 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';`}
 />
 
-### 2. TypeScript — component class
+### 3. TypeScript — component class
 
 <Source
   language="ts"
@@ -42,7 +46,6 @@ import { MatButtonModule } from '@angular/material/button';
 
 @Component({
 selector: 'app-my-page',
-standalone: true,
 imports: [MAT_NAVIGATION_SUITE_MODULES, MatIconModule, MatButtonModule],
 templateUrl: './my-page.component.html',
 styleUrl: './my-page.component.scss',
@@ -53,7 +56,7 @@ scaffoldState = new MatNavigationSuiteScaffoldState();
 }`}
 />
 
-### 3. HTML — template
+### 4. HTML — template
 
 <Source
   language="html"
@@ -110,17 +113,29 @@ ariaLabel="Workspace"
 </mat-navigation-suite-scaffold>`}
 />
 
-### 4. SCSS — custom styles
+### 5. CSS — custom styles
 
 <Source
   language="css"
   code={`/* my-page.component.scss */
 
 mat-navigation-suite-scaffold {
-display: block;
-height: 100vh;
+  display: block;
+  height: 100vh;
+  --flight-nav-suite-scaffold-bar-compact-height: 84px;
 }`}
 />
+
+## Runtime CSS Variables
+
+`--flight-*` variables are public customization hooks owned by this library. Color, typography, and motion come from Angular Material `--mat-sys-*` variables. The suite also forwards bar and rail components, so their runtime variables can be set on the scaffold host.
+
+| CSS variable | Default | Used for | Override example |
+| --- | --- | --- | --- |
+| `--flight-nav-suite-scaffold-min-height` | `100dvh` | Scaffold minimum height | `.shell { --flight-nav-suite-scaffold-min-height: 100vh; }` |
+| `--flight-nav-suite-scaffold-container-color` | `var(--mat-sys-surface, #fffbfe)` | Scaffold content background; also set by `containerColor` | `.shell { --flight-nav-suite-scaffold-container-color: var(--mat-sys-surface-container); }` |
+| `--flight-nav-suite-scaffold-bar-compact-height` | `var(--flight-nav-bar-container-height, 80px)` | Compact bottom navigation row height | `.shell { --flight-nav-suite-scaffold-bar-compact-height: 84px; }` |
+| `--flight-nav-suite-scaffold-bar-medium-height` | `var(--flight-nav-bar-container-horizontal-height, 64px)` | Medium bottom navigation row height | `.shell { --flight-nav-suite-scaffold-bar-medium-height: 72px; }` |
 
 ---
 

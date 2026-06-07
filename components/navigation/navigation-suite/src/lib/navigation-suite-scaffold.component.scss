@@ -2,12 +2,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  min-height: var(--mat-navigation-suite-scaffold-min-height);
-  --mat-navigation-suite-scaffold-min-height: 100dvh;
-  --mat-navigation-suite-scaffold-container-color: var(--mat-sys-surface, #fffbfe);
-  --mat-navigation-suite-scaffold-bar-compact-height: 80px;
-  --mat-navigation-suite-scaffold-bar-medium-height: 64px;
-  --mat-navigation-suite-scaffold-motion: 300ms ease;
+  min-height: var(--flight-nav-suite-scaffold-min-height, 100dvh);
 }
 
 .mat-navigation-suite-scaffold__layout {
@@ -15,12 +10,12 @@
   display: grid;
   width: 100%;
   height: 100%;
-  min-height: var(--mat-navigation-suite-scaffold-min-height);
+  min-height: var(--flight-nav-suite-scaffold-min-height, 100dvh);
   overflow: hidden;
-  background: var(--mat-navigation-suite-scaffold-container-color);
+  background: var(--flight-nav-suite-scaffold-container-color, var(--mat-sys-surface, #fffbfe));
   transition:
-    grid-template-columns var(--mat-navigation-suite-scaffold-motion),
-    grid-template-rows var(--mat-navigation-suite-scaffold-motion);
+    grid-template-columns var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    grid-template-rows var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 :host(.mat-navigation-suite-scaffold--bar-compact) .mat-navigation-suite-scaffold__layout {
@@ -28,7 +23,7 @@
     'content'
     'navigation';
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) var(--mat-navigation-suite-scaffold-bar-compact-height);
+  grid-template-rows: minmax(0, 1fr) var(--flight-nav-suite-scaffold-bar-compact-height, var(--flight-nav-bar-container-height, 80px));
 }
 
 :host(.mat-navigation-suite-scaffold--bar-medium) .mat-navigation-suite-scaffold__layout {
@@ -36,7 +31,7 @@
     'content'
     'navigation';
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) var(--mat-navigation-suite-scaffold-bar-medium-height);
+  grid-template-rows: minmax(0, 1fr) var(--flight-nav-suite-scaffold-bar-medium-height, var(--flight-nav-bar-container-horizontal-height, 64px));
 }
 
 :host(.mat-navigation-suite-scaffold--rail-collapsed) .mat-navigation-suite-scaffold__layout {
@@ -85,8 +80,8 @@
   min-width: 0;
   min-height: 0;
   transition:
-    opacity var(--mat-navigation-suite-scaffold-motion),
-    transform var(--mat-navigation-suite-scaffold-motion);
+    opacity var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .mat-navigation-suite-scaffold__content {
@@ -140,8 +135,8 @@
 .mat-navigation-suite-scaffold__primary-action {
   pointer-events: auto;
   transition:
-    opacity var(--mat-navigation-suite-scaffold-motion),
-    transform var(--mat-navigation-suite-scaffold-motion);
+    opacity var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 :host(.mat-navigation-suite-scaffold--bar-compact)

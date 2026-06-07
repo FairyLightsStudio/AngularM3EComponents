@@ -3,6 +3,5 @@
   "dest": "../../../dist/components/navigation/navigation-suite",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "assets": ["_index.scss", "_navigation-suite-theme.scss"]
+  }
 }

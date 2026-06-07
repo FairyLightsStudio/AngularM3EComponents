@@ -1,38 +1,30 @@
-@use '@fairylights-studio/navigation-common/token-utils' as token-utils;
-@use '../../m3-navigation-rail' as m3-nav-rail;
-@use 'sass:map';
-@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
 @use '@angular/cdk' as cdk;
-$fallbacks: m3-nav-rail.get-tokens();
-$m3-motion-tokens: m3-motion.md-sys-motion-values();
-$duration-medium1: map.get($m3-motion-tokens, duration-medium1);
-$easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 :host {
   display: block;
   height: 100vh;
   width: max-content;
-  min-width: token-utils.slot(nav-rail-container-collapsed-width, $fallbacks);
-  max-width: token-utils.slot(nav-rail-container-collapsed-width, $fallbacks);
-  background-color: token-utils.slot(nav-rail-container-background-color, $fallbacks);
+  min-width: var(--flight-nav-rail-container-collapsed-width, 80px);
+  max-width: var(--flight-nav-rail-container-collapsed-width, 80px);
+  background-color: var(--mat-sys-surface, #fffbfe);
   border-inline-end: 1px solid transparent;
   transition:
-    max-width $duration-medium1 $easing-standard,
-    border-color $duration-medium1 $easing-standard;
+    max-width var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
   overflow: hidden;
   position: relative;
-  z-index: token-utils.slot(nav-rail-container-z-index, $fallbacks);
+  z-index: var(--flight-nav-rail-container-z-index, 100);
   white-space: nowrap;
 }
 
 :host(.mat-nav-rail-expanded) {
-  max-width: token-utils.slot(nav-rail-container-expanded-max-width, $fallbacks);
+  max-width: var(--flight-nav-rail-container-expanded-max-width, 360px);
 }
 :host([data-indicator-shape='fill']) {
-  width: token-utils.slot(nav-rail-container-fill-expanded-width, $fallbacks);
+  width: var(--flight-nav-rail-container-fill-expanded-width, 256px);
 }
 :host(.mat-nav-rail-has-divider) {
-  border-inline-end-color: token-utils.slot(nav-rail-container-divider-color, $fallbacks);
+  border-inline-end-color: var(--mat-sys-outline-variant, #cac4d0);
 }
 
 .mat-nav-rail-container {
