@@ -7,6 +7,9 @@
 3. **navigation-rail** — 侧边导航栏（`MatNavigationRailComponent` + `Item` + `Header` + `Toggle`），适用于大屏竖向导航，支持展开/折叠、双图标（默认/激活态）、徽标、分割线、垂直排列方式、指示器形状（hug/fill）。
 4. **navigation-suite** — 导航套件脚手架（`MatNavigationSuiteScaffoldComponent`），根据 Material 3 断点自动在 navigation-bar 和 navigation-rail 之间切换响应式布局，并包含 `MatNavigationSuiteItem` 和 `MatNavigationSuitePrimaryAction` 辅助组件。
 
+本项目强依赖Angular Material，不要考虑单独使用 Navigation 包的情况。
+
+
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
 ## TypeScript Best Practices
