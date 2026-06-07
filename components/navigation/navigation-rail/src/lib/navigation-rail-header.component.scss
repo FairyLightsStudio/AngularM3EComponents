@@ -1,4 +1,15 @@
 :host {
+  // Override M3 FAB shadows to match the spec
+  --mat-fab-extended-container-elevation-shadow: none;
+  --mat-fab-extended-hover-container-elevation-shadow: var(--mat-sys-level2);
+  --mat-fab-extended-focus-container-elevation-shadow: var(--mat-sys-level2);
+  --mat-fab-extended-pressed-container-elevation-shadow: var(--mat-sys-level3);
+
+  --mat-fab-container-elevation-shadow: none;
+  --mat-fab-hover-container-elevation-shadow: var(--mat-sys-level2);
+  --mat-fab-focus-container-elevation-shadow: var(--mat-sys-level2);
+  --mat-fab-pressed-container-elevation-shadow: var(--mat-sys-level3);
+
   // Fixed rail width in collapsed state — used to compute center offset
   --_rail-collapsed-width: 80px;
 
