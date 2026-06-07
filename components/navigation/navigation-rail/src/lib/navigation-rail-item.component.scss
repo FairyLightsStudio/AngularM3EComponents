@@ -1,7 +1,12 @@
 @use '@fairylights-studio/navigation-common/token-utils' as token-utils;
 @use '../../m3-navigation-rail' as m3-nav-rail;
+@use 'sass:map';
+@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion;
 @use '@angular/cdk' as cdk;
 $fallbacks: m3-nav-rail.get-tokens();
+$m3-motion-tokens: m3-motion.md-sys-motion-values();
+$duration-medium1: map.get($m3-motion-tokens, duration-medium1);
+$easing-standard: map.get($m3-motion-tokens, easing-standard);
 
 :host {
   display: block;
@@ -22,8 +27,8 @@ $fallbacks: m3-nav-rail.get-tokens();
   cursor: pointer;
   color: token-utils.slot(nav-rail-item-text-color, $fallbacks, #49454f);
   transition:
-    height var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out),
-    padding var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out);
+    height $duration-medium1 $easing-standard,
+    padding $duration-medium1 $easing-standard;
   box-sizing: border-box;
 }
 
@@ -42,9 +47,9 @@ $fallbacks: m3-nav-rail.get-tokens();
   border-radius: token-utils.slot(nav-rail-indicator-shape, $fallbacks);
   background-color: transparent;
   transition:
-    height var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out),
-    border-radius var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out),
-    background-color var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out);
+    height $duration-medium1 $easing-standard,
+    border-radius $duration-medium1 $easing-standard,
+    background-color $duration-medium1 $easing-standard;
   z-index: 1;
 }
 
@@ -100,11 +105,9 @@ $fallbacks: m3-nav-rail.get-tokens();
   padding-inline-start: 0;
   opacity: 0;
   transition:
-    grid-template-columns var(--mat-sys-duration-medium1, 200ms)
-      var(--mat-sys-easing-standard, ease-out),
-    padding-inline-start var(--mat-sys-duration-medium1, 200ms)
-      var(--mat-sys-easing-standard, ease-out),
-    opacity var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out);
+    grid-template-columns $duration-medium1 $easing-standard,
+    padding-inline-start $duration-medium1 $easing-standard,
+    opacity $duration-medium1 $easing-standard;
 }
 
 .mat-nav-rail-label-inner {
@@ -136,9 +139,8 @@ $fallbacks: m3-nav-rail.get-tokens();
   grid-template-rows: 1fr;
   opacity: 1;
   transition:
-    grid-template-rows var(--mat-sys-duration-medium1, 200ms)
-      var(--mat-sys-easing-standard, ease-out),
-    opacity var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, ease-out);
+    grid-template-rows $duration-medium1 $easing-standard,
+    opacity $duration-medium1 $easing-standard;
 }
 
 .mat-nav-rail-label-bottom-inner {
