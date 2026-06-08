@@ -1,0 +1,27 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@fairylights-studio/button",
+  "projectType": "library",
+  "sourceRoot": "components/button/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:ng-packagr",
+      "configurations": {
+        "production": {
+          "tsConfig": "components/button/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "components/button/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "@angular/build:unit-test",
+      "options": {
+        "tsConfig": "components/button/tsconfig.spec.json"
+      }
+    }
+  }
+}

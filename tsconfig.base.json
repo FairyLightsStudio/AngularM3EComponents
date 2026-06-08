@@ -7,6 +7,12 @@
     "module": "preserve",
     "skipLibCheck": true,
     "paths": {
+      "@fairylights-studio/button": [
+        "./components/button/src/public-api.ts"
+      ],
+      "@fairylights-studio/button/styles": [
+        "./components/button/styles.scss"
+      ],
       "@fairylights-studio/navigation-rail": [
         "./components/navigation/navigation-rail/src/public-api.ts"
       ],

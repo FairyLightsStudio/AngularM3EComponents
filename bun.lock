@@ -48,6 +48,19 @@
         "wrangler": "^4.95.0",
       },
     },
+    "components/button": {
+      "name": "@fairylights-studio/button",
+      "version": "0.0.1",
+      "dependencies": {
+        "tslib": "^2.3.0",
+      },
+      "peerDependencies": {
+        "@angular/cdk": "^21",
+        "@angular/common": "^21.2.0",
+        "@angular/core": "^21.2.0",
+        "@angular/material": "^21",
+      },
+    },
     "components/navigation/navigation-bar": {
       "name": "@fairylights-studio/navigation-bar",
       "version": "0.0.1",
@@ -518,6 +531,8 @@
     "@eslint/plugin-kit": ["@eslint/plugin-kit@0.7.2", "", { "dependencies": { "@eslint/core": "^1.2.1", "levn": "^0.4.1" } }, "sha512-+CNAzxglkrpNf/kKywqQfk74QjtceuOE7Qm+AF8miRvPF/wmmK5+OJOgVh3AVTT3RP2mH3+FOaxlE5v72owk0A=="],
 
     "@exodus/bytes": ["@exodus/bytes@1.15.1", "", { "peerDependencies": { "@noble/hashes": "^1.8.0 || ^2.0.0" }, "optionalPeers": ["@noble/hashes"] }, "sha512-S6mL0yNB/Abt9Ei4tq8gDhcczc4S3+vQ4ra7vxnAf+YHC02srtqxKKZghx2Dq6p0e66THKwR6r8N6P95wEty7Q=="],
+
+    "@fairylights-studio/button": ["@fairylights-studio/button@workspace:components/button"],
 
     "@fairylights-studio/navigation-bar": ["@fairylights-studio/navigation-bar@workspace:components/navigation/navigation-bar"],
 

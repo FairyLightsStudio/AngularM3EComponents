@@ -4,6 +4,12 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@fairylights-studio/button": [
+        "./components/button/src/public-api"
+      ],
+      "@fairylights-studio/button/styles": [
+        "./components/button/styles.scss"
+      ],
       "@fairylights-studio/navigation-rail": [
         "./components/navigation/navigation-rail/src/public-api"
       ],
@@ -37,6 +43,12 @@
   },
   "files": [],
   "references": [
+    {
+      "path": "./components/button/tsconfig.lib.json"
+    },
+    {
+      "path": "./components/button/tsconfig.spec.json"
+    },
     {
       "path": "./components/navigation/navigation-common/tsconfig.lib.json"
     },
