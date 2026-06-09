@@ -56,7 +56,7 @@ import { Component, ElementRef, AfterViewInit, OnDestroy, inject } from '@angula
 @Component({
   selector: 'mat-navigation-rail-header',
   template: `<ng-content></ng-content>`,
-  styleUrls: ['./navigation-rail-header.component.scss']
+  styleUrls: ['./navigation-rail-header.component.scss'],
 })
 export class MatNavigationRailHeaderComponent implements AfterViewInit, OnDestroy {
   private el = inject<ElementRef<HTMLElement>>(ElementRef);
