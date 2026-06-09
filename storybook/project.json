@@ -24,7 +24,11 @@
           "--disableInternal",
           "--disablePrivate"
         ],
-        "styles": ["storybook/src/material-theme.scss", "storybook/src/styles.sass"],
+        "styles": [
+          "storybook/src/material-theme.scss",
+          "storybook/src/styles.sass",
+          "components/button/styles.scss"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": ["node_modules"]
         }
@@ -32,6 +36,9 @@
       "configurations": {
         "ci": {
           "quiet": true
+        },
+        "development": {
+          "sourceMap": true
         }
       }
     },
@@ -51,7 +58,11 @@
           "--disableInternal",
           "--disablePrivate"
         ],
-        "styles": ["storybook/src/material-theme.scss", "storybook/src/styles.sass"],
+        "styles": [
+          "storybook/src/material-theme.scss",
+          "storybook/src/styles.sass",
+          "components/button/styles.scss"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": ["node_modules"]
         }

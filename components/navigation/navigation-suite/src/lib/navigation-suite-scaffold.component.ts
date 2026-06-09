@@ -19,6 +19,7 @@ import {
   MatNavigationSuiteScaffoldContext,
   MatNavigationSuiteType,
   MatNavigationSuiteVerticalArrangement,
+  type MatNavigationSuitePrimaryActionContext,
 } from './navigation-suite.types';
 
 /** Responsive scaffold that switches between navigation bar and navigation rail layouts. */
@@ -92,6 +93,18 @@ export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteSc
     this.currentNavSuiteType() === 'BarMedium' ? 'horizontal' : 'vertical',
   );
   primaryActionTemplate = computed(() => this.primaryAction()?.templateRef ?? null);
+  primaryActionContext = computed<MatNavigationSuitePrimaryActionContext>(() => {
+    const isBar = this.isBar();
+    const isRailExpanded = this.isRailExpanded();
+    const collapsed = isBar ? false : !isRailExpanded;
+
+    return {
+      $implicit: collapsed,
+      collapsed,
+      isBar,
+      isRailExpanded,
+    };
+  });
 
   protected containerColorValue = computed(() => this.toCssColor(this.containerColor()));
 

@@ -1,0 +1,1 @@
+https://github.com/angular/components/pull/33065 我是这里面的jexjws，我要新增一个英文回复并关闭本pr，就说经过我这些天对scss的学习，我觉得当时我使用gemini写的代码质量较低（例如错误地 直接@use '@angular/material/core/tokens/m3/md-sys-motion' as m3-motion; 而不是直接使用 --mat-sys-duration-medium1 ），而且事实上我可以通过scss来实现这个！

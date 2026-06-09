@@ -7,11 +7,11 @@
   },
   "exclude": ["../**/*.spec.ts"],
   "include": [
-    "../../components/navigation/**/*.stories.ts",
-    "../../components/navigation/**/*.stories.js",
-    "../../components/navigation/**/*.stories.jsx",
-    "../../components/navigation/**/*.stories.tsx",
-    "../../components/navigation/**/*.stories.mdx",
+    "../../components/*/**/*.stories.ts",
+    "../../components/*/**/*.stories.js",
+    "../../components/*/**/*.stories.jsx",
+    "../../components/*/**/*.stories.tsx",
+    "../../components/*/**/*.stories.mdx",
     "./*.js",
     "./*.ts"
   ]

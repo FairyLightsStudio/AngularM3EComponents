@@ -21,7 +21,10 @@
             primaryActionAlignment() === 'end'
           "
         >
-          <ng-container [ngTemplateOutlet]="primaryAction"></ng-container>
+          <ng-container
+            [ngTemplateOutlet]="primaryAction"
+            [ngTemplateOutletContext]="primaryActionContext()"
+          ></ng-container>
         </div>
       }
     }

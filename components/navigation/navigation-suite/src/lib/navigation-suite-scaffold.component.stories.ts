@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 import {
@@ -62,7 +63,13 @@ const meta: Meta<NavigationSuiteStoryArgs> = {
   },
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, MatButtonModule, MatIconModule, ...MAT_NAVIGATION_SUITE_MODULES],
+      imports: [
+        CommonModule,
+        MatButtonModule,
+        MatIconModule,
+        MatExtendedFabCollapsedDirective,
+        ...MAT_NAVIGATION_SUITE_MODULES,
+      ],
     }),
   ],
   argTypes: {
@@ -113,13 +120,17 @@ const renderProjectedSuite: Story['render'] = (args) => ({
         [primaryActionAlignment]="primaryActionAlignment"
         [railShowToggle]="railShowToggle"
       >
-        <button
-          *matNavigationSuitePrimaryAction
-          mat-fab
-          aria-label="Create document"
-        >
-          <mat-icon aria-hidden="true">edit</mat-icon>
-        </button>
+        <ng-template matNavigationSuitePrimaryAction let-collapsed="collapsed">
+          <button
+            matFab
+            extended
+            [collapsed]="collapsed"
+            aria-label="Create document"
+          >
+            <mat-icon aria-hidden="true">edit</mat-icon>
+            Compose
+          </button>
+        </ng-template>
 
         <mat-navigation-suite [alwaysShowItemLabel]="alwaysShowItemLabel" ariaLabel="Workspace">
           @for (item of navItems; track item.id; let index = $index) {
@@ -178,13 +189,17 @@ export const BarCompactPabConditional: Story = {
         [railShowToggle]="railShowToggle"
       >
         @if (selectedIndex === 0) {
-          <button
-            *matNavigationSuitePrimaryAction
-            mat-fab
-            aria-label="Create document"
-          >
-            <mat-icon aria-hidden="true">edit</mat-icon>
-          </button>
+          <ng-template matNavigationSuitePrimaryAction let-collapsed="collapsed">
+            <button
+              matFab
+              extended
+              [collapsed]="collapsed"
+              aria-label="Create document"
+            >
+              <mat-icon aria-hidden="true">edit</mat-icon>
+              Compose
+            </button>
+          </ng-template>
         }
 
         <mat-navigation-suite [alwaysShowItemLabel]="alwaysShowItemLabel" ariaLabel="Workspace">

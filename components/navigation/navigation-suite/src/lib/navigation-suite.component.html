@@ -45,7 +45,10 @@
         <mat-navigation-rail-toggle [expanded]="isRailExpanded()" (click)="toggleRailExpanded()" />
       }
       @if (primaryActionTemplate(); as primaryAction) {
-        <ng-container [ngTemplateOutlet]="primaryAction"></ng-container>
+        <ng-container
+          [ngTemplateOutlet]="primaryAction"
+          [ngTemplateOutletContext]="primaryActionContext()"
+        ></ng-container>
       }
     </mat-navigation-rail-header>
     @for (item of projectedItems(); track item) {

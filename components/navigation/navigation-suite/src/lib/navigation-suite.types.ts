@@ -1,4 +1,4 @@
-import { InjectionToken, Signal, TemplateRef } from '@angular/core';
+import { InjectionToken, type Signal, type TemplateRef } from '@angular/core';
 
 export type MatNavigationSuiteType = 'BarCompact' | 'BarMedium' | 'RailCollapsed' | 'RailExpanded';
 
@@ -9,6 +9,13 @@ export type MatNavigationSuitePrimaryActionAlignment = 'start' | 'center' | 'end
 export type MatNavigationSuiteVisibility = 'visible' | 'hidden';
 
 export type MatNavigationSuiteItemContent = string | TemplateRef<unknown>;
+
+export interface MatNavigationSuitePrimaryActionContext {
+  $implicit: boolean;
+  collapsed: boolean;
+  isBar: boolean;
+  isRailExpanded: boolean;
+}
 
 export interface MatNavigationSuiteScaffoldDefaultOptions {
   navSuiteType?: MatNavigationSuiteType | Signal<MatNavigationSuiteType>;
@@ -25,7 +32,8 @@ export interface MatNavigationSuiteScaffoldContext {
   isRailExpanded: Signal<boolean>;
   barLayout: Signal<'vertical' | 'horizontal'>;
   verticalArrangement: Signal<MatNavigationSuiteVerticalArrangement>;
-  primaryActionTemplate: Signal<TemplateRef<unknown> | null>;
+  primaryActionTemplate: Signal<TemplateRef<MatNavigationSuitePrimaryActionContext> | null>;
+  primaryActionContext: Signal<MatNavigationSuitePrimaryActionContext>;
   toggleRailExpanded(): void;
   railShowToggle: Signal<boolean>;
 }

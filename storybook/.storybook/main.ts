@@ -3,8 +3,8 @@ import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
   stories: [
-    '../../components/navigation/**/*.stories.@(ts|tsx)',
-    '../../components/navigation/**/*.mdx',
+    '../../components/*/**/*.stories.@(ts|tsx)',
+    '../../components/*/**/*.mdx',
   ],
   addons: [
     // Other addons go here

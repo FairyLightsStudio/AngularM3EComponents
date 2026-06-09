@@ -50,6 +50,9 @@
       "path": "./components/button/tsconfig.spec.json"
     },
     {
+      "path": "./components/button/tsconfig.storybook.json"
+    },
+    {
       "path": "./components/navigation/navigation-common/tsconfig.lib.json"
     },
     {

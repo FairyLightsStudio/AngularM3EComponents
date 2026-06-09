@@ -64,6 +64,7 @@ export class MatNavigationSuiteComponent {
 
   protected readonly currentVerticalArrangement = this.scaffold.verticalArrangement;
   protected readonly primaryActionTemplate = this.scaffold.primaryActionTemplate;
+  protected readonly primaryActionContext = this.scaffold.primaryActionContext;
   protected readonly isBar = this.scaffold.isBar;
   protected readonly barLayout = this.scaffold.barLayout;
   protected readonly isRailExpanded = this.scaffold.isRailExpanded;

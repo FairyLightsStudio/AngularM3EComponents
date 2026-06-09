@@ -1,6 +1,7 @@
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 import {
@@ -30,7 +31,13 @@ const meta: Meta<NavigationRailStoryArgs> = {
   },
   decorators: [
     moduleMetadata({
-      imports: [MatButtonModule, MatIconModule, MatBadgeModule, ...MAT_NAVIGATION_RAIL_MODULES],
+      imports: [
+        MatButtonModule,
+        MatIconModule,
+        MatBadgeModule,
+        MatExtendedFabCollapsedDirective,
+        ...MAT_NAVIGATION_RAIL_MODULES,
+      ],
     }),
   ],
   argTypes: {
@@ -79,8 +86,9 @@ export const Collapsed: Story = {
         >
           <mat-navigation-rail-header>
             <mat-navigation-rail-toggle [expanded]="expanded" (click)="expanded = !expanded"></mat-navigation-rail-toggle>
-            <button mat-fab aria-label="Create item">
+            <button matFab extended [collapsed]="!expanded" aria-label="Create item">
               <mat-icon aria-hidden="true">add</mat-icon>
+              Create
             </button>
           </mat-navigation-rail-header>
 
