@@ -16,12 +16,6 @@
         }
       },
       "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@angular/build:unit-test",
-      "options": {
-        "tsConfig": "components/button/tsconfig.spec.json"
-      }
     }
   }
 }

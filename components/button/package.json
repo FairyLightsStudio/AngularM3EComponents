@@ -1,14 +1,33 @@
 {
   "name": "@fairylights-studio/button",
   "version": "0.0.1",
+  "description": "Material 3 Expressive extended FAB with collapsed input for Angular Material",
+  "license": "MIT",
+  "author": "FairyLights Studio",
+  "keywords": [
+    "angular",
+    "material",
+    "material-3",
+    "material-design",
+    "button",
+    "fab"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FairyLightsStudio/AngularM3EComponents.git",
+    "directory": "components/button"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
-    "@angular/common": "^21.2.0",
-    "@angular/core": "^21.2.0",
-    "@angular/material": "^21",
-    "@angular/cdk": "^21"
+    "@angular/cdk": "catalog:",
+    "@angular/common": "catalog:",
+    "@angular/core": "catalog:",
+    "@angular/material": "catalog:"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "catalog:"
   },
   "sideEffects": [
     "./styles.scss"

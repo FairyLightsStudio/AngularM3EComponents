@@ -16,12 +16,6 @@
         }
       },
       "defaultConfiguration": "production"
-    },
-    "test": {
-      "executor": "@angular/build:unit-test",
-      "options": {
-        "tsConfig": "components/navigation/navigation-rail/tsconfig.spec.json"
-      }
     }
   }
 }

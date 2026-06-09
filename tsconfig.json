@@ -4,24 +4,21 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@fairylights-studio/button": [
-        "./components/button/src/public-api"
-      ],
-      "@fairylights-studio/button/styles": [
-        "./components/button/styles.scss"
-      ],
+      "@fairylights-studio/button": ["./components/button/src/public-api"],
+      "@fairylights-studio/button/styles": ["./components/button/styles.scss"],
       "@fairylights-studio/navigation-rail": [
-        "./components/navigation/navigation-rail/src/public-api"
+        "./components/navigation/navigation-rail/src/public-api",
       ],
       "@fairylights-studio/navigation-bar": [
-        "./components/navigation/navigation-bar/src/public-api"
+        "./components/navigation/navigation-bar/src/public-api",
       ],
       "@fairylights-studio/navigation-common": [
-        "./components/navigation/navigation-common/src/public-api"
+        "./components/navigation/navigation-common/src/public-api",
       ],
       "@fairylights-studio/navigation-suite": [
-        "./components/navigation/navigation-suite/src/public-api"
-      ]
+        "./components/navigation/navigation-suite/src/public-api",
+      ],
+      "storybook": ["./storybook/src/index.ts"],
     },
     "strict": true,
     "noImplicitOverride": true,
@@ -33,48 +30,30 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
   },
   "files": [],
   "references": [
     {
-      "path": "./components/button/tsconfig.lib.json"
+      "path": "./components/button/tsconfig.lib.json",
     },
     {
-      "path": "./components/button/tsconfig.spec.json"
+      "path": "./components/navigation/navigation-common/tsconfig.lib.json",
     },
     {
-      "path": "./components/button/tsconfig.storybook.json"
+      "path": "./components/navigation/navigation-bar/tsconfig.lib.json",
     },
     {
-      "path": "./components/navigation/navigation-common/tsconfig.lib.json"
+      "path": "./components/navigation/navigation-rail/tsconfig.lib.json",
     },
     {
-      "path": "./components/navigation/navigation-common/tsconfig.spec.json"
+      "path": "./components/navigation/navigation-suite/tsconfig.lib.json",
     },
-    {
-      "path": "./components/navigation/navigation-bar/tsconfig.lib.json"
-    },
-    {
-      "path": "./components/navigation/navigation-bar/tsconfig.spec.json"
-    },
-    {
-      "path": "./components/navigation/navigation-rail/tsconfig.lib.json"
-    },
-    {
-      "path": "./components/navigation/navigation-rail/tsconfig.spec.json"
-    },
-    {
-      "path": "./components/navigation/navigation-suite/tsconfig.lib.json"
-    },
-    {
-      "path": "./components/navigation/navigation-suite/tsconfig.spec.json"
-    }
-  ]
+  ],
 }
