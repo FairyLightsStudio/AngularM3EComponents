@@ -7,11 +7,11 @@ import { expect, userEvent, within } from 'storybook/test';
 import {
   MAT_NAVIGATION_RAIL_MODULES,
   MatNavRailIndicatorShape,
+  MatNavigationRailComponent,
+  MatNavigationRailHeaderComponent,
+  MatNavigationRailItemComponent,
+  MatNavigationRailToggleComponent,
 } from '@fairylights-studio/navigation-rail';
-import { MatNavigationRailComponent } from './navigation-rail.component';
-import { MatNavigationRailHeaderComponent } from './navigation-rail-header.component';
-import { MatNavigationRailItemComponent } from './navigation-rail-item.component';
-import { MatNavigationRailToggleComponent } from './navigation-rail-toggle.component';
 
 type NavigationRailStoryArgs = {
   selectedIndex: number;

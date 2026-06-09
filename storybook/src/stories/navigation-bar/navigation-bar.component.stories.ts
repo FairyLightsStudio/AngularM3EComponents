@@ -3,9 +3,11 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 
-import { MAT_NAVIGATION_BAR_MODULES } from '@fairylights-studio/navigation-bar';
-import { MatNavigationBarComponent } from './navigation-bar.component';
-import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
+import {
+  MAT_NAVIGATION_BAR_MODULES,
+  MatNavigationBarComponent,
+  MatNavigationBarItemComponent,
+} from '@fairylights-studio/navigation-bar';
 
 type NavigationBarStoryArgs = {
   selectedIndex: number;

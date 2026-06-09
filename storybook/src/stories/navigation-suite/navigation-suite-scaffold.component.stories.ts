@@ -6,13 +6,13 @@ import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 import {
   MAT_NAVIGATION_SUITE_MODULES,
+  MatNavigationSuiteComponent,
   MatNavigationSuiteScaffoldState,
+  MatNavigationSuiteScaffoldComponent,
+  MatNavigationSuiteItemComponent,
+  MatNavigationSuitePrimaryAction,
   type MatNavigationSuiteType,
 } from '@fairylights-studio/navigation-suite';
-import { MatNavigationSuiteScaffoldComponent } from './navigation-suite-scaffold.component';
-import { MatNavigationSuiteComponent } from './navigation-suite.component';
-import { MatNavigationSuiteItemComponent } from './navigation-suite-item.component';
-import { MatNavigationSuitePrimaryAction } from './navigation-suite-primary-action.directive';
 
 type NavigationSuiteStoryArgs = {
   selectedIndex: number;
