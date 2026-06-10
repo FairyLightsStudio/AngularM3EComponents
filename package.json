@@ -2,14 +2,10 @@
   "name": "component-workspace",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "nx serve",
     "storybook": "nx run storybook:storybook",
     "storybook:docs": "nx run storybook:storybook --docs",
     "build-storybook": "nx run storybook:build-storybook",
-    "deploy-storybook": "nx run storybook:build-storybook && wrangler pages deploy dist/storybook/storybook --project-name some-angular-m3e-components",
-    "build": "nx build",
-    "watch": "nx build --watch --configuration development"
+    "deploy-storybook": "nx run storybook:build-storybook && wrangler pages deploy dist/storybook/storybook --project-name some-angular-m3e-components"
   },
   "private": true,
   "workspaces": [
