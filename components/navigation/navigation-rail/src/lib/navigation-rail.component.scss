@@ -9,9 +9,11 @@
   background-color: var(--mat-sys-surface, #fffbfe);
   border-inline-end: 1px solid transparent;
   transition:
-    max-width var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
-    border-color var(--mat-sys-duration-medium1, 200ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
-  overflow: hidden;
+    max-width var(--mat-sys-duration-medium1, 200ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    border-color var(--mat-sys-duration-medium1, 200ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+  overflow: clip;
   position: relative;
   z-index: var(--flight-nav-rail-container-z-index, 100);
   white-space: nowrap;
@@ -51,7 +53,7 @@
 }
 
 :host([data-vertical-arrangement='center']) .mat-nav-rail-content {
-  justify-content: center;
+  justify-content: safe center;
 }
 
 @include cdk.high-contrast {
