@@ -16,6 +16,13 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "nx-release-publish": {
+      "executor": "@nx/js:release-publish",
+      "options": {
+        "packageRoot": "{projectRoot}"
+      },
+      "dependsOn": ["^nx-release-publish"]
     }
   }
 }

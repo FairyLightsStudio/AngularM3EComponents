@@ -31,6 +31,21 @@
     ]
   },
   "analytics": true,
+  "release": {
+    "projects": ["components/button", "components/navigation/*"],
+    "projectsRelationship": "independent",
+    "version": {
+      "conventionalCommits": true,
+      "fallbackCurrentVersionResolver": "disk"
+    },
+    "changelog": {
+      "projectChangelogs": true
+    },
+    "git": {
+      "commit": true,
+      "tag": true
+    }
+  },
   "generators": {
     "@nx/angular:library": {
       "linter": "eslint",

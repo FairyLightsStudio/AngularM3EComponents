@@ -30,5 +30,22 @@
   "dependencies": {
     "tslib": "catalog:"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "module": "dist/fesm2022/fairylights-studio-ngx-m3-navigation-bar.mjs",
+  "typings": "dist/types/fairylights-studio-ngx-m3-navigation-bar.d.ts",
+  "type": "module",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./dist/types/fairylights-studio-ngx-m3-navigation-bar.d.ts",
+      "default": "./dist/fesm2022/fairylights-studio-ngx-m3-navigation-bar.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "README.md"
+  ]
 }
