@@ -30,8 +30,8 @@ Configure Angular Material in your application styles. Navigation rail consumes 
 
 <Source
   language="ts"
-  code={`import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/navigation-rail';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+  code={`import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/ngx-m3-navigation-rail';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';`}
@@ -42,8 +42,8 @@ import { MatButtonModule } from '@angular/material/button';`}
 <Source
   language="ts"
   code={`import { Component } from '@angular/core';
-import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/navigation-rail';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/ngx-m3-navigation-rail';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -134,9 +134,9 @@ expanded = false;
   code={`/* my-page.component.scss */
 
 mat-navigation-rail {
-  height: 100%;
-  --flight-nav-rail-container-collapsed-width: 88px;
-  --flight-nav-rail-item-button-collapsed-height: 76px;
+height: 100%;
+--flight-nav-rail-container-collapsed-width: 88px;
+--flight-nav-rail-item-button-collapsed-height: 76px;
 }`}
 />
 
@@ -144,27 +144,27 @@ mat-navigation-rail {
 
 `--flight-*` variables are public customization hooks owned by this library. Color, typography, and motion come from Angular Material `--mat-sys-*` variables.
 
-| CSS variable | Default | Used for | Override example |
-| --- | --- | --- | --- |
-| `--flight-nav-rail-container-collapsed-width` | `80px` | Collapsed rail width | `.shell { --flight-nav-rail-container-collapsed-width: 88px; }` |
-| `--flight-nav-rail-container-expanded-max-width` | `360px` | Expanded rail max width | `.shell { --flight-nav-rail-container-expanded-max-width: 400px; }` |
-| `--flight-nav-rail-container-fill-expanded-width` | `256px` | Fill indicator expanded width | `.shell { --flight-nav-rail-container-fill-expanded-width: 280px; }` |
-| `--flight-nav-rail-container-z-index` | `100` | Rail host stacking | `.shell { --flight-nav-rail-container-z-index: 10; }` |
-| `--flight-nav-rail-item-button-collapsed-height` | `72px` | Collapsed item height | `.shell { --flight-nav-rail-item-button-collapsed-height: 76px; }` |
-| `--flight-nav-rail-item-button-collapsed-padding` | `12px 12px 0 12px` | Collapsed item padding | `.shell { --flight-nav-rail-item-button-collapsed-padding: 14px 12px 0; }` |
-| `--flight-nav-rail-item-button-expanded-height` | `56px` | Expanded item height | `.shell { --flight-nav-rail-item-button-expanded-height: 64px; }` |
-| `--flight-nav-rail-item-button-expanded-padding` | `0 12px` | Expanded item padding | `.shell { --flight-nav-rail-item-button-expanded-padding: 0 16px; }` |
-| `--flight-nav-rail-indicator-width` | `56px` | Indicator width and minimum hug width | `.shell { --flight-nav-rail-indicator-width: 64px; }` |
-| `--flight-nav-rail-indicator-height` | `32px` | Collapsed indicator height | `.shell { --flight-nav-rail-indicator-height: 36px; }` |
-| `--flight-nav-rail-indicator-shape` | `16px` | Collapsed indicator radius | `.shell { --flight-nav-rail-indicator-shape: 18px; }` |
-| `--flight-nav-rail-indicator-expanded-height` | `56px` | Expanded indicator height | `.shell { --flight-nav-rail-indicator-expanded-height: 64px; }` |
-| `--flight-nav-rail-indicator-expanded-shape` | `28px` | Expanded indicator radius | `.shell { --flight-nav-rail-indicator-expanded-shape: 32px; }` |
-| `--flight-nav-rail-icon-box-size` | `24px` | Icon box size | `.shell { --flight-nav-rail-icon-box-size: 28px; }` |
-| `--flight-nav-rail-icon-box-margin-start` | `16px` | Icon start offset | `.shell { --flight-nav-rail-icon-box-margin-start: 20px; }` |
-| `--flight-nav-rail-label-side-padding-start` | `12px` | Expanded side label spacing | `.shell { --flight-nav-rail-label-side-padding-start: 16px; }` |
-| `--flight-nav-rail-label-bottom-top` | `48px` | Collapsed bottom label top offset | `.shell { --flight-nav-rail-label-bottom-top: 52px; }` |
-| `--flight-nav-rail-label-bottom-left` | `40px` | Collapsed bottom label inline center | `.shell { --flight-nav-rail-label-bottom-left: 44px; }` |
-| `--flight-nav-rail-label-bottom-max-width` | `76px` | Collapsed bottom label max width | `.shell { --flight-nav-rail-label-bottom-max-width: 88px; }` |
+| CSS variable                                      | Default            | Used for                              | Override example                                                           |
+| ------------------------------------------------- | ------------------ | ------------------------------------- | -------------------------------------------------------------------------- |
+| `--flight-nav-rail-container-collapsed-width`     | `80px`             | Collapsed rail width                  | `.shell { --flight-nav-rail-container-collapsed-width: 88px; }`            |
+| `--flight-nav-rail-container-expanded-max-width`  | `360px`            | Expanded rail max width               | `.shell { --flight-nav-rail-container-expanded-max-width: 400px; }`        |
+| `--flight-nav-rail-container-fill-expanded-width` | `256px`            | Fill indicator expanded width         | `.shell { --flight-nav-rail-container-fill-expanded-width: 280px; }`       |
+| `--flight-nav-rail-container-z-index`             | `100`              | Rail host stacking                    | `.shell { --flight-nav-rail-container-z-index: 10; }`                      |
+| `--flight-nav-rail-item-button-collapsed-height`  | `72px`             | Collapsed item height                 | `.shell { --flight-nav-rail-item-button-collapsed-height: 76px; }`         |
+| `--flight-nav-rail-item-button-collapsed-padding` | `12px 12px 0 12px` | Collapsed item padding                | `.shell { --flight-nav-rail-item-button-collapsed-padding: 14px 12px 0; }` |
+| `--flight-nav-rail-item-button-expanded-height`   | `56px`             | Expanded item height                  | `.shell { --flight-nav-rail-item-button-expanded-height: 64px; }`          |
+| `--flight-nav-rail-item-button-expanded-padding`  | `0 12px`           | Expanded item padding                 | `.shell { --flight-nav-rail-item-button-expanded-padding: 0 16px; }`       |
+| `--flight-nav-rail-indicator-width`               | `56px`             | Indicator width and minimum hug width | `.shell { --flight-nav-rail-indicator-width: 64px; }`                      |
+| `--flight-nav-rail-indicator-height`              | `32px`             | Collapsed indicator height            | `.shell { --flight-nav-rail-indicator-height: 36px; }`                     |
+| `--flight-nav-rail-indicator-shape`               | `16px`             | Collapsed indicator radius            | `.shell { --flight-nav-rail-indicator-shape: 18px; }`                      |
+| `--flight-nav-rail-indicator-expanded-height`     | `56px`             | Expanded indicator height             | `.shell { --flight-nav-rail-indicator-expanded-height: 64px; }`            |
+| `--flight-nav-rail-indicator-expanded-shape`      | `28px`             | Expanded indicator radius             | `.shell { --flight-nav-rail-indicator-expanded-shape: 32px; }`             |
+| `--flight-nav-rail-icon-box-size`                 | `24px`             | Icon box size                         | `.shell { --flight-nav-rail-icon-box-size: 28px; }`                        |
+| `--flight-nav-rail-icon-box-margin-start`         | `16px`             | Icon start offset                     | `.shell { --flight-nav-rail-icon-box-margin-start: 20px; }`                |
+| `--flight-nav-rail-label-side-padding-start`      | `12px`             | Expanded side label spacing           | `.shell { --flight-nav-rail-label-side-padding-start: 16px; }`             |
+| `--flight-nav-rail-label-bottom-top`              | `48px`             | Collapsed bottom label top offset     | `.shell { --flight-nav-rail-label-bottom-top: 52px; }`                     |
+| `--flight-nav-rail-label-bottom-left`             | `40px`             | Collapsed bottom label inline center  | `.shell { --flight-nav-rail-label-bottom-left: 44px; }`                    |
+| `--flight-nav-rail-label-bottom-max-width`        | `76px`             | Collapsed bottom label max width      | `.shell { --flight-nav-rail-label-bottom-max-width: 88px; }`               |
 
 ---
 

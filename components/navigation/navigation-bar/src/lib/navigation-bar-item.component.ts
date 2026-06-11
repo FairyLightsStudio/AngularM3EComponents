@@ -16,7 +16,7 @@ import {
   MatNavigationActiveIcon,
   MatNavigationIcon,
   MatNavigationLabel,
-} from '@fairylights-studio/navigation-common';
+} from '@fairylights-studio/ngx-m3-navigation-common';
 
 @Component({
   selector: 'mat-navigation-bar-item',

@@ -1,7 +1,7 @@
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 import {
@@ -11,7 +11,7 @@ import {
   MatNavigationRailHeaderComponent,
   MatNavigationRailItemComponent,
   MatNavigationRailToggleComponent,
-} from '@fairylights-studio/navigation-rail';
+} from '@fairylights-studio/ngx-m3-navigation-rail';
 
 type NavigationRailStoryArgs = {
   selectedIndex: number;

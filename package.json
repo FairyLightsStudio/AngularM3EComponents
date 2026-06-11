@@ -9,6 +9,7 @@
   },
   "private": true,
   "workspaces": [
+    "dist/components/*/*",
     "components/button",
     "components/navigation/*",
     "storybook"

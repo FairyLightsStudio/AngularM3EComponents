@@ -1,5 +1,5 @@
 {
-  "name": "@fairylights-studio/button",
+  "name": "@fairylights-studio/ngx-m3-button",
   "version": "0.0.1",
   "description": "Material 3 Expressive extended FAB with collapsed input for Angular Material",
   "license": "MIT",

@@ -7,7 +7,7 @@ type ExtendedFabStoryArgs = {
   disabled: boolean;
 };
 
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 const meta: Meta<ExtendedFabStoryArgs> = {
   title: 'Button/Extended FAB',
   component: MatExtendedFabCollapsedDirective,

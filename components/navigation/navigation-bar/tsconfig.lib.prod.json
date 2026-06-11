@@ -3,7 +3,7 @@
   "compilerOptions": {
     "declarationMap": false,
     "paths": {
-      "@fairylights-studio/navigation-common": [
+      "@fairylights-studio/ngx-m3-navigation-common": [
         "../../../dist/components/navigation/navigation-common"
       ]
     }

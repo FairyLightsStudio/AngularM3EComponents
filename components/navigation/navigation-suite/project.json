@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "@fairylights-studio/navigation-suite",
+  "name": "@fairylights-studio/ngx-m3-navigation-suite",
   "projectType": "library",
   "sourceRoot": "components/navigation/navigation-suite/src",
   "prefix": "lib",

@@ -1,5 +1,5 @@
 {
-  "name": "@fairylights-studio/navigation-common",
+  "name": "@fairylights-studio/ngx-m3-navigation-common",
   "version": "0.0.1",
   "description": "Shared base classes and directives for Angular Material 3 Expressive navigation components",
   "license": "MIT",

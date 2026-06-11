@@ -30,8 +30,8 @@ Configure Angular Material in your application styles. Navigation suite consumes
 
 <Source
   language="ts"
-  code={`import { MAT_NAVIGATION_SUITE_MODULES } from '@fairylights-studio/navigation-suite';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+  code={`import { MAT_NAVIGATION_SUITE_MODULES } from '@fairylights-studio/ngx-m3-navigation-suite';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';`}
 />
@@ -41,8 +41,8 @@ import { MatButtonModule } from '@angular/material/button';`}
 <Source
   language="ts"
   code={`import { Component } from '@angular/core';
-import { MAT_NAVIGATION_SUITE_MODULES, MatNavigationSuiteScaffoldState } from '@fairylights-studio/navigation-suite';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+import { MAT_NAVIGATION_SUITE_MODULES, MatNavigationSuiteScaffoldState } from '@fairylights-studio/ngx-m3-navigation-suite';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -126,9 +126,9 @@ ariaLabel="Workspace"
   code={`/* my-page.component.scss */
 
 mat-navigation-suite-scaffold {
-  display: block;
-  height: 100vh;
-  --flight-nav-suite-scaffold-bar-compact-height: 84px;
+display: block;
+height: 100vh;
+--flight-nav-suite-scaffold-bar-compact-height: 84px;
 }`}
 />
 
@@ -136,12 +136,12 @@ mat-navigation-suite-scaffold {
 
 `--flight-*` variables are public customization hooks owned by this library. Color, typography, and motion come from Angular Material `--mat-sys-*` variables. The suite also forwards bar and rail components, so their runtime variables can be set on the scaffold host.
 
-| CSS variable | Default | Used for | Override example |
-| --- | --- | --- | --- |
-| `--flight-nav-suite-scaffold-min-height` | `100dvh` | Scaffold minimum height | `.shell { --flight-nav-suite-scaffold-min-height: 100vh; }` |
-| `--flight-nav-suite-scaffold-container-color` | `var(--mat-sys-surface, #fffbfe)` | Scaffold content background; also set by `containerColor` | `.shell { --flight-nav-suite-scaffold-container-color: var(--mat-sys-surface-container); }` |
-| `--flight-nav-suite-scaffold-bar-compact-height` | `var(--flight-nav-bar-container-height, 80px)` | Compact bottom navigation row height | `.shell { --flight-nav-suite-scaffold-bar-compact-height: 84px; }` |
-| `--flight-nav-suite-scaffold-bar-medium-height` | `var(--flight-nav-bar-container-horizontal-height, 64px)` | Medium bottom navigation row height | `.shell { --flight-nav-suite-scaffold-bar-medium-height: 72px; }` |
+| CSS variable                                     | Default                                                   | Used for                                                  | Override example                                                                            |
+| ------------------------------------------------ | --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `--flight-nav-suite-scaffold-min-height`         | `100dvh`                                                  | Scaffold minimum height                                   | `.shell { --flight-nav-suite-scaffold-min-height: 100vh; }`                                 |
+| `--flight-nav-suite-scaffold-container-color`    | `var(--mat-sys-surface, #fffbfe)`                         | Scaffold content background; also set by `containerColor` | `.shell { --flight-nav-suite-scaffold-container-color: var(--mat-sys-surface-container); }` |
+| `--flight-nav-suite-scaffold-bar-compact-height` | `var(--flight-nav-bar-container-height, 80px)`            | Compact bottom navigation row height                      | `.shell { --flight-nav-suite-scaffold-bar-compact-height: 84px; }`                          |
+| `--flight-nav-suite-scaffold-bar-medium-height`  | `var(--flight-nav-bar-container-horizontal-height, 64px)` | Medium bottom navigation row height                       | `.shell { --flight-nav-suite-scaffold-bar-medium-height: 72px; }`                           |
 
 ---
 

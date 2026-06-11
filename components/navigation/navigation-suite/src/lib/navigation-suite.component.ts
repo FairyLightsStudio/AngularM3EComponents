@@ -12,13 +12,13 @@ import { MatIconModule } from '@angular/material/icon';
 import {
   MatNavigationBarComponent,
   MatNavigationBarItemComponent,
-} from '@fairylights-studio/navigation-bar';
-import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/navigation-rail';
+} from '@fairylights-studio/ngx-m3-navigation-bar';
+import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/ngx-m3-navigation-rail';
 import {
   MatNavigationActiveIcon,
   MatNavigationIcon,
   MatNavigationLabel,
-} from '@fairylights-studio/navigation-common';
+} from '@fairylights-studio/ngx-m3-navigation-common';
 import { MatNavigationSuiteItemComponent } from './navigation-suite-item.component';
 import {
   MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT,

@@ -13,7 +13,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { MatNavigationRailComponent } from './navigation-rail.component';
-import { MatNavigationItemBase } from '@fairylights-studio/navigation-common';
+import { MatNavigationItemBase } from '@fairylights-studio/ngx-m3-navigation-common';
 
 @Component({
   selector: 'mat-navigation-rail-item',

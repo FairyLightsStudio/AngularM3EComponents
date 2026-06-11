@@ -7,7 +7,7 @@ import {
   MAT_NAVIGATION_BAR_MODULES,
   MatNavigationBarComponent,
   MatNavigationBarItemComponent,
-} from '@fairylights-studio/navigation-bar';
+} from '@fairylights-studio/ngx-m3-navigation-bar';
 
 type NavigationBarStoryArgs = {
   selectedIndex: number;

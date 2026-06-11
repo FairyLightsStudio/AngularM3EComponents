@@ -1,6 +1,6 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "@fairylights-studio/button",
+  "name": "@fairylights-studio/ngx-m3-button",
   "projectType": "library",
   "sourceRoot": "components/button/src",
   "prefix": "lib",

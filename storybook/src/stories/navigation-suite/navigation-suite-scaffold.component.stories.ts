@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
 import {
@@ -12,7 +12,7 @@ import {
   MatNavigationSuiteItemComponent,
   MatNavigationSuitePrimaryAction,
   type MatNavigationSuiteType,
-} from '@fairylights-studio/navigation-suite';
+} from '@fairylights-studio/ngx-m3-navigation-suite';
 
 type NavigationSuiteStoryArgs = {
   selectedIndex: number;
@@ -153,7 +153,6 @@ const renderProjectedSuite: Story['render'] = (args) => ({
       </mat-navigation-suite-scaffold>
   `,
 });
-
 
 export const AutoSuiteType: Story = {
   args: {

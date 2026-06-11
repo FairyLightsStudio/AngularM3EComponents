@@ -39,7 +39,7 @@
       },
     },
     "components/button": {
-      "name": "@fairylights-studio/button",
+      "name": "@fairylights-studio/ngx-m3-button",
       "version": "0.0.1",
       "dependencies": {
         "tslib": "catalog:",
@@ -52,7 +52,7 @@
       },
     },
     "components/navigation/navigation-bar": {
-      "name": "@fairylights-studio/navigation-bar",
+      "name": "@fairylights-studio/ngx-m3-navigation-bar",
       "version": "0.0.1",
       "dependencies": {
         "tslib": "catalog:",
@@ -62,11 +62,11 @@
         "@angular/common": "catalog:",
         "@angular/core": "catalog:",
         "@angular/material": "catalog:",
-        "@fairylights-studio/navigation-common": "0.0.1",
+        "@fairylights-studio/ngx-m3-navigation-common": "0.0.1",
       },
     },
     "components/navigation/navigation-common": {
-      "name": "@fairylights-studio/navigation-common",
+      "name": "@fairylights-studio/ngx-m3-navigation-common",
       "version": "0.0.1",
       "dependencies": {
         "tslib": "catalog:",
@@ -79,7 +79,7 @@
       },
     },
     "components/navigation/navigation-rail": {
-      "name": "@fairylights-studio/navigation-rail",
+      "name": "@fairylights-studio/ngx-m3-navigation-rail",
       "version": "0.0.1",
       "dependencies": {
         "tslib": "catalog:",
@@ -89,11 +89,11 @@
         "@angular/common": "catalog:",
         "@angular/core": "catalog:",
         "@angular/material": "catalog:",
-        "@fairylights-studio/navigation-common": "0.0.1",
+        "@fairylights-studio/ngx-m3-navigation-common": "0.0.1",
       },
     },
     "components/navigation/navigation-suite": {
-      "name": "@fairylights-studio/navigation-suite",
+      "name": "@fairylights-studio/ngx-m3-navigation-suite",
       "version": "0.0.1",
       "dependencies": {
         "tslib": "catalog:",
@@ -103,13 +103,13 @@
         "@angular/common": "catalog:",
         "@angular/core": "catalog:",
         "@angular/material": "catalog:",
-        "@fairylights-studio/navigation-bar": "0.0.1",
-        "@fairylights-studio/navigation-common": "0.0.1",
-        "@fairylights-studio/navigation-rail": "0.0.1",
+        "@fairylights-studio/ngx-m3-navigation-bar": "0.0.1",
+        "@fairylights-studio/ngx-m3-navigation-common": "0.0.1",
+        "@fairylights-studio/ngx-m3-navigation-rail": "0.0.1",
       },
     },
     "storybook": {
-      "name": "@fairylights-studio/storybook",
+      "name": "@fairylights-studio/ngx-m3-storybook",
       "version": "0.0.0",
       "dependencies": {
         "@storybook/addon-docs": "10.4.0",
@@ -538,17 +538,17 @@
 
     "@exodus/bytes": ["@exodus/bytes@1.15.1", "", { "peerDependencies": { "@noble/hashes": "^1.8.0 || ^2.0.0" }, "optionalPeers": ["@noble/hashes"] }, "sha512-S6mL0yNB/Abt9Ei4tq8gDhcczc4S3+vQ4ra7vxnAf+YHC02srtqxKKZghx2Dq6p0e66THKwR6r8N6P95wEty7Q=="],
 
-    "@fairylights-studio/button": ["@fairylights-studio/button@workspace:components/button"],
+    "@fairylights-studio/ngx-m3-button": ["@fairylights-studio/ngx-m3-button@workspace:components/button"],
 
-    "@fairylights-studio/navigation-bar": ["@fairylights-studio/navigation-bar@workspace:components/navigation/navigation-bar"],
+    "@fairylights-studio/ngx-m3-navigation-bar": ["@fairylights-studio/ngx-m3-navigation-bar@workspace:components/navigation/navigation-bar"],
 
-    "@fairylights-studio/navigation-common": ["@fairylights-studio/navigation-common@workspace:components/navigation/navigation-common"],
+    "@fairylights-studio/ngx-m3-navigation-common": ["@fairylights-studio/ngx-m3-navigation-common@workspace:components/navigation/navigation-common"],
 
-    "@fairylights-studio/navigation-rail": ["@fairylights-studio/navigation-rail@workspace:components/navigation/navigation-rail"],
+    "@fairylights-studio/ngx-m3-navigation-rail": ["@fairylights-studio/ngx-m3-navigation-rail@workspace:components/navigation/navigation-rail"],
 
-    "@fairylights-studio/navigation-suite": ["@fairylights-studio/navigation-suite@workspace:components/navigation/navigation-suite"],
+    "@fairylights-studio/ngx-m3-navigation-suite": ["@fairylights-studio/ngx-m3-navigation-suite@workspace:components/navigation/navigation-suite"],
 
-    "@fairylights-studio/storybook": ["@fairylights-studio/storybook@workspace:storybook"],
+    "@fairylights-studio/ngx-m3-storybook": ["@fairylights-studio/ngx-m3-storybook@workspace:storybook"],
 
     "@gar/promise-retry": ["@gar/promise-retry@1.0.3", "", {}, "sha512-GmzA9ckNokPypTg10pgpeHNQe7ph+iIKKmhKu3Ob9ANkswreCx7R3cKmY781K8QK3AqVL3xVh9A42JvIAbkkSA=="],
 

@@ -1,6 +1,6 @@
 # Navigation Rail
 
-`@fairylights-studio/navigation-rail` provides Material 3 Expressive navigation rail components for Angular Material apps.
+`@fairylights-studio/ngx-m3-navigation-rail` provides Material 3 Expressive navigation rail components for Angular Material apps.
 
 The package does not ship Sass theme mixins. Configure Angular Material in application styles; navigation rail consumes Angular Material runtime system variables for color, typography, and motion, and exposes `--flight-*` variables for layout customization.
 

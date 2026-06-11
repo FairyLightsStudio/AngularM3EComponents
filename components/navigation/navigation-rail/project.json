@@ -1,6 +1,6 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "name": "@fairylights-studio/navigation-rail",
+  "name": "@fairylights-studio/ngx-m3-navigation-rail",
   "projectType": "library",
   "sourceRoot": "components/navigation/navigation-rail/src",
   "prefix": "lib",

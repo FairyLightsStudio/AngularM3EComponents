@@ -2,7 +2,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { expect, userEvent, within } from 'storybook/test';
-import { MatNavigationRailToggleComponent } from '@fairylights-studio/navigation-rail';
+import { MatNavigationRailToggleComponent } from '@fairylights-studio/ngx-m3-navigation-rail';
 
 type NavigationRailToggleStoryArgs = {
   expanded: boolean;

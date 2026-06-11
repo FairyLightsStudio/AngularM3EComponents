@@ -11,7 +11,7 @@ import {
   MatNavigationIcon,
   MatNavigationActiveIcon,
   MatNavigationLabel,
-} from '@fairylights-studio/navigation-common';
+} from '@fairylights-studio/ngx-m3-navigation-common';
 
 export const MAT_NAVIGATION_BAR_MODULES = [
   MatNavigationBarComponent,

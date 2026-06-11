@@ -27,7 +27,7 @@ import * as FabStories from './extended-fab-collapsed.directive.stories';
 > current FAB host classes and internal CSS structure to apply the collapsed extended-FAB state.
 > If Angular Material changes its FAB DOM or class names, this directive and its stylesheet may
 > need to be updated. Once [angular/components#33041 feat(button): add expanded state to extended FAB for smooth collapse/expand transitions
-](https://github.com/angular/components/issues/33041)
+> ](https://github.com/angular/components/issues/33041)
 > is resolved, this module will be deprecated.
 
 ## Getting Started
@@ -42,12 +42,12 @@ Configure Angular Material in your application styles.
   language="ts"
   code={`import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';`}
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';`}
 />
 
 Include the package stylesheet once after Angular Material styles:
 
-<Source language="scss" code={`@use '@fairylights-studio/button/styles';`} />
+<Source language="scss" code={`@use '@fairylights-studio/ngx-m3-button/styles';`} />
 
 ### 3. HTML — template
 
@@ -66,7 +66,7 @@ Include the package stylesheet once after Angular Material styles:
   code={`import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/button';
+import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 
 @Component({
 selector: 'app-my-page',

@@ -1,5 +1,5 @@
 {
-  "name": "@fairylights-studio/storybook",
+  "name": "@fairylights-studio/ngx-m3-storybook",
   "version": "0.0.0",
   "private": true,
   "dependencies": {

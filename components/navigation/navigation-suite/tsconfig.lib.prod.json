@@ -3,11 +3,15 @@
   "compilerOptions": {
     "declarationMap": false,
     "paths": {
-      "@fairylights-studio/navigation-common": [
+      "@fairylights-studio/ngx-m3-navigation-common": [
         "../../../dist/components/navigation/navigation-common"
       ],
-      "@fairylights-studio/navigation-bar": ["../../../dist/components/navigation/navigation-bar"],
-      "@fairylights-studio/navigation-rail": ["../../../dist/components/navigation/navigation-rail"]
+      "@fairylights-studio/ngx-m3-navigation-bar": [
+        "../../../dist/components/navigation/navigation-bar"
+      ],
+      "@fairylights-studio/ngx-m3-navigation-rail": [
+        "../../../dist/components/navigation/navigation-rail"
+      ]
     }
   },
   "angularCompilerOptions": {
