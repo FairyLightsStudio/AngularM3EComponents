@@ -1,6 +1,6 @@
 {
   "name": "@fairylights-studio/ngx-m3-navigation-bar",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Material 3 Expressive bottom navigation bar for Angular Material",
   "license": "MIT",
   "author": "FairyLights Studio",
@@ -25,7 +25,7 @@
     "@angular/common": "catalog:",
     "@angular/core": "catalog:",
     "@angular/material": "catalog:",
-    "@fairylights-studio/ngx-m3-navigation-common": "0.2.0"
+    "@fairylights-studio/ngx-m3-navigation-common": "0.3.0"
   },
   "dependencies": {
     "tslib": "catalog:"
