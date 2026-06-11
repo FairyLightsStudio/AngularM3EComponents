@@ -31,5 +31,10 @@
   },
   "sideEffects": [
     "./styles.scss"
-  ]
+  ],
+  "exports": {
+    "./styles.scss": {
+      "default": "./styles.scss"
+    }
+  }
 }

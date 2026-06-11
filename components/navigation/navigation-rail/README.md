@@ -1,14 +1,7 @@
 # Navigation Rail
 
-`@fairylights-studio/ngx-m3-navigation-rail` provides Material 3 Expressive navigation rail components for Angular Material apps.
+Material 3 Expressive side navigation rail for Angular Material.
 
-The package does not ship Sass theme mixins. Configure Angular Material in application styles; navigation rail consumes Angular Material runtime system variables for color, typography, and motion, and exposes `--flight-*` variables for layout customization.
+> This is a **third-party** implementation by FairyLights Studio, not an official Angular / Google component.
 
-```css
-.workspace-rail {
-  --flight-nav-rail-container-collapsed-width: 88px;
-  --flight-nav-rail-item-button-collapsed-height: 76px;
-}
-```
-
-See the Storybook docs for the full variable table and usage examples.
+[查看源代码 / Source](https://github.com/FairyLightsStudio/AngularM3EComponents) · [查看文档 / Docs](https://some-angular-m3e-components.pages.dev/?path=/docs/navigation-navigation-rail-rail--docs)
