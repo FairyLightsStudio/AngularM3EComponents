@@ -27,6 +27,11 @@ jobs:
 
       - run: bun install --frozen-lockfile
 
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - run: bun nx run-many --target=build --all
 
       - run: bun nx release --yes
