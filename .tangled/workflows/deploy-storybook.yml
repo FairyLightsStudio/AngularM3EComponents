@@ -1,0 +1,35 @@
+when:
+  - event: ['push', 'manual']
+    branch: ['main']
+
+engine: 'nixery'
+
+clone:
+  depth: 2 # need HEAD~1 for path diff check
+
+dependencies:
+  nixpkgs:
+    - bun
+    - git
+    - nodejs
+  nixpkgs/nixpkgs-unstable:
+    - wrangler
+
+steps:
+  - name: 'Check for storybook changes'
+    command: |
+      if git diff --name-only HEAD~1 | grep -qE '^(storybook/|components/|\.storybook/)'; then
+        echo "Storybook files changed, proceeding."
+      else
+        echo "No storybook changes, skipping."
+        exit 0
+      fi
+
+  - name: 'Install dependencies'
+    command: 'bun install --frozen-lockfile'
+
+  - name: 'Build Storybook'
+    command: 'bun run build-storybook'
+
+  - name: 'Deploy to Cloudflare Pages'
+    command: 'npx wrangler pages deploy dist/storybook/storybook --project-name some-angular-m3e-components'
