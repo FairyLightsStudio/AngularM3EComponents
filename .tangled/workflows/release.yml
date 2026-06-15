@@ -60,7 +60,7 @@ steps:
           continue
         fi
         bun pm pack
-        echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+        npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
         if npm publish ./*.tgz --access public; then
           echo "$PKG@$VERSION published successfully."
         else
