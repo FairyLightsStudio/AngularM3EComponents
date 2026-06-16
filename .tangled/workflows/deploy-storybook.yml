@@ -39,4 +39,4 @@ steps:
     command: 'bun run build-storybook'
 
   - name: 'Deploy to Cloudflare Pages'
-    command: 'npx wrangler pages deploy dist/storybook/storybook --project-name some-angular-m3e-components --branch production'
+    command: 'npx wrangler pages deploy dist/storybook/storybook --project-name some-angular-m3e-components --branch main'
