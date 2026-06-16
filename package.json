@@ -5,7 +5,7 @@
     "storybook": "nx run storybook:storybook",
     "storybook:docs": "nx run storybook:storybook --docs",
     "build-storybook": "nx run storybook:build-storybook",
-    "deploy-storybook": "nx run storybook:build-storybook && wrangler pages deploy dist/storybook/storybook --project-name some-angular-m3e-components"
+    "deploy-storybook": "nx run storybook:build-storybook && wrangler pages deploy dist/storybook/storybook --project-name some-angular-m3e-components --branch production"
   },
   "private": true,
   "workspaces": [
