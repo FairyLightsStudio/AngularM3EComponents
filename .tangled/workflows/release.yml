@@ -41,8 +41,8 @@ steps:
   - name: 'Build all packages'
     command: 'bun nx run-many --target=build --all'
 
-  # - name: 'Release (version bump, changelog, git tag)'
-  #   command: 'bun nx release --yes --skip-publish'
+  - name: 'Release (version bump, changelog, git tag)'
+    command: 'bun nx release --yes --skip-publish'
 
   - name: 'Publish to npm'
     command: |
