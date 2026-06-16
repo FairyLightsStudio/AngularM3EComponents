@@ -1,6 +1,6 @@
 {
   "name": "@fairylights-studio/ngx-m3-navigation-suite",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Material 3 Expressive navigation suite scaffold with responsive breakpoint switching for Angular Material",
   "license": "MIT",
   "author": "FairyLights Studio",
@@ -26,9 +26,9 @@
     "@angular/common": "catalog:",
     "@angular/core": "catalog:",
     "@angular/material": "catalog:",
-    "@fairylights-studio/ngx-m3-navigation-common": "0.3.1",
-    "@fairylights-studio/ngx-m3-navigation-bar": "0.3.1",
-    "@fairylights-studio/ngx-m3-navigation-rail": "0.3.2"
+    "@fairylights-studio/ngx-m3-navigation-common": "0.3.2",
+    "@fairylights-studio/ngx-m3-navigation-bar": "0.3.2",
+    "@fairylights-studio/ngx-m3-navigation-rail": "0.3.3"
   },
   "dependencies": {
     "tslib": "catalog:"
