@@ -1,8 +1,7 @@
 :host {
   display: block;
-  width: 100%;
-  height: 100%;
-  min-height: var(--flight-nav-suite-scaffold-min-height, 100dvh);
+  position: fixed;
+  inset: 0;
 }
 
 .mat-navigation-suite-scaffold__layout {
@@ -10,12 +9,13 @@
   display: grid;
   width: 100%;
   height: 100%;
-  min-height: var(--flight-nav-suite-scaffold-min-height, 100dvh);
   overflow: hidden;
   background: var(--flight-nav-suite-scaffold-container-color, var(--mat-sys-surface, #fffbfe));
   transition:
-    grid-template-columns var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
-    grid-template-rows var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+    grid-template-columns var(--mat-sys-duration-medium2, 300ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    grid-template-rows var(--mat-sys-duration-medium2, 300ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 :host(.mat-navigation-suite-scaffold--bar-compact) .mat-navigation-suite-scaffold__layout {
@@ -23,7 +23,10 @@
     'content'
     'navigation';
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) var(--flight-nav-suite-scaffold-bar-compact-height, var(--flight-nav-bar-container-height, 80px));
+  grid-template-rows: minmax(0, 1fr) var(
+      --flight-nav-suite-scaffold-bar-compact-height,
+      var(--flight-nav-bar-container-height, 80px)
+    );
 }
 
 :host(.mat-navigation-suite-scaffold--bar-medium) .mat-navigation-suite-scaffold__layout {
@@ -31,7 +34,10 @@
     'content'
     'navigation';
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) var(--flight-nav-suite-scaffold-bar-medium-height, var(--flight-nav-bar-container-horizontal-height, 64px));
+  grid-template-rows: minmax(0, 1fr) var(
+      --flight-nav-suite-scaffold-bar-medium-height,
+      var(--flight-nav-bar-container-horizontal-height, 64px)
+    );
 }
 
 :host(.mat-navigation-suite-scaffold--rail-collapsed) .mat-navigation-suite-scaffold__layout {
@@ -60,16 +66,24 @@
   grid-template-rows: minmax(0, 1fr) 0;
 }
 
-:host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed)
+:host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed
+  )
   .mat-navigation-suite-scaffold__layout,
-:host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded)
+:host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
+  )
   .mat-navigation-suite-scaffold__layout {
   grid-template-columns: 0 minmax(0, 1fr);
 }
 
-:host-context([dir='rtl']):host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed)
+:host-context([dir='rtl']):host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed
+  )
   .mat-navigation-suite-scaffold__layout,
-:host-context([dir='rtl']):host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded)
+:host-context([dir='rtl']):host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
+  )
   .mat-navigation-suite-scaffold__layout {
   grid-template-columns: minmax(0, 1fr) 0;
 }
@@ -80,8 +94,10 @@
   min-width: 0;
   min-height: 0;
   transition:
-    opacity var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
-    transform var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+    opacity var(--mat-sys-duration-medium2, 300ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--mat-sys-duration-medium2, 300ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .mat-navigation-suite-scaffold__content {
@@ -106,7 +122,8 @@
   overflow: hidden;
 }
 
-:host(.mat-navigation-suite-scaffold--navigation-hidden) .mat-navigation-suite-scaffold__navigation {
+:host(.mat-navigation-suite-scaffold--navigation-hidden)
+  .mat-navigation-suite-scaffold__navigation {
   opacity: 0;
   pointer-events: none;
 }
@@ -118,16 +135,24 @@
   transform: translateY(100%);
 }
 
-:host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed)
+:host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed
+  )
   .mat-navigation-suite-scaffold__navigation,
-:host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded)
+:host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
+  )
   .mat-navigation-suite-scaffold__navigation {
   transform: translateX(-100%);
 }
 
-:host-context([dir='rtl']):host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed)
+:host-context([dir='rtl']):host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-collapsed
+  )
   .mat-navigation-suite-scaffold__navigation,
-:host-context([dir='rtl']):host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded)
+:host-context([dir='rtl']):host(
+    .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
+  )
   .mat-navigation-suite-scaffold__navigation {
   transform: translateX(100%);
 }
@@ -135,12 +160,13 @@
 .mat-navigation-suite-scaffold__primary-action {
   pointer-events: auto;
   transition:
-    opacity var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
-    transform var(--mat-sys-duration-medium2, 300ms) var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+    opacity var(--mat-sys-duration-medium2, 300ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
+    transform var(--mat-sys-duration-medium2, 300ms)
+      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
-:host(.mat-navigation-suite-scaffold--bar-compact)
-  .mat-navigation-suite-scaffold__primary-action,
+:host(.mat-navigation-suite-scaffold--bar-compact) .mat-navigation-suite-scaffold__primary-action,
 :host(.mat-navigation-suite-scaffold--bar-medium) .mat-navigation-suite-scaffold__primary-action {
   position: absolute;
   z-index: 2;

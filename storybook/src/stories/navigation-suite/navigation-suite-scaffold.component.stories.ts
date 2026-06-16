@@ -148,6 +148,128 @@ const renderProjectedSuite: Story['render'] = (args) => ({
           <h2 style="margin: 0 0 8px">Workspace</h2>
           <p style="margin: 0; max-width: 52ch">
             The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
+          </p>          <p style="margin: 0; max-width: 52ch">
+            The scaffold switches between navigation rail and navigation bar layouts.
           </p>
         </section>
       </mat-navigation-suite-scaffold>
