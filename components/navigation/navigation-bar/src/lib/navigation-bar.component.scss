@@ -5,7 +5,7 @@
   width: 100%;
   height: var(--flight-nav-bar-container-height, 80px);
   background-color: var(--mat-sys-surface-container, #f3edf7);
-  z-index: var(--flight-nav-bar-item-container-z-index, 100);
+  z-index: var(--flight-nav-bar-container-z-index, 100);
 }
 
 :host:has(.mat-navigation-bar-item-horizontal) {

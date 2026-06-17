@@ -15,7 +15,7 @@
   flex: 0 0 var(--flight-nav-bar-item-horizontal-width, 168px);
   min-width: var(--flight-nav-bar-item-horizontal-width, 168px);
   max-width: var(--flight-nav-bar-item-horizontal-width, 168px);
-  height: var(--flight-nav-bar-item-horizontal-height, 64px);
+  height: 64px;
 }
 
 .mat-navigation-bar-item-container {
@@ -41,9 +41,9 @@
   grid-template-rows: 1fr;
   place-items: center;
   position: relative;
-  width: var(--flight-nav-bar-item-icon-wrapper-width, 56px);
-  height: var(--flight-nav-bar-item-icon-wrapper-height, 32px);
-  border-radius: var(--flight-nav-bar-item-icon-wrapper-shape, 16px);
+  width: 56px;
+  height: 32px;
+  border-radius: 16px;
 }
 
 .mat-navigation-bar-item-active-indicator {
@@ -51,7 +51,7 @@
   grid-row: 1;
   width: 0%;
   height: 100%;
-  border-radius: var(--flight-nav-bar-item-icon-wrapper-shape, 16px);
+  border-radius: 16px;
   background-color: var(--mat-sys-secondary-container, #e8def8);
   opacity: 0;
   transition:
@@ -84,9 +84,9 @@
   align-items: center;
   width: max-content;
   min-width: 0;
-  height: var(--flight-nav-bar-item-horizontal-indicator-height, 40px);
-  border-radius: var(--flight-nav-bar-item-horizontal-indicator-shape, 20px);
-  padding: var(--flight-nav-bar-item-horizontal-padding, 0 20px);
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 20px;
   transition: padding var(--mat-sys-duration-short4, 200ms) linear;
 }
 
@@ -115,7 +115,7 @@
   z-index: 1;
   display: flex;
   align-items: center;
-  margin-left: var(--flight-nav-bar-item-label-spacing, 4px);
+  margin-left: 4px;
   font-family: var(--mat-sys-label-large-font, Roboto, sans-serif);
   font-size: var(--mat-sys-label-large-size, 0.875rem);
   font-weight: var(--mat-sys-label-large-weight, 500);
@@ -147,7 +147,7 @@
 .mat-navigation-bar-item-label-container {
   display: flex;
   overflow: hidden;
-  margin-top: var(--flight-nav-bar-item-label-spacing, 4px);
+  margin-top: 4px;
   font-family: var(--mat-sys-label-large-font, Roboto, sans-serif);
   font-size: var(--mat-sys-label-large-size, 0.875rem);
   font-weight: var(--mat-sys-label-large-weight, 500);
@@ -165,7 +165,7 @@
 :host(.mat-navigation-bar-item-selected) .mat-navigation-bar-item-label-container,
 :host(.mat-navigation-bar-item-always-show-label) .mat-navigation-bar-item-label-container {
   opacity: 1;
-  height: var(--flight-nav-bar-item-label-container-height, 16px);
+  height: var(--mat-sys-label-large-line-height, 1.25rem);
 }
 
 :host(.mat-navigation-bar-item-selected) .mat-navigation-bar-item-label-container {
