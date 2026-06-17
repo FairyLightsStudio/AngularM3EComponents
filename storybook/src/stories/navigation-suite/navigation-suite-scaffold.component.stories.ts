@@ -33,24 +33,28 @@ type NavigationSuiteStoryItem = {
 const navItems: readonly NavigationSuiteStoryItem[] = [
   {
     id: 'dashboard',
-    label: 'Dashboard',
+    label: 'Dashboardp',
     icon: 'dashboard',
   },
   {
     id: 'tasks',
-    label: 'Tasks',
+    label: 'Tasksp',
     icon: 'task_alt',
   },
   {
     id: 'reports',
-    label: 'Reports',
+    label: 'Reportsp',
     icon: 'analytics',
+  }, {
+    id: 'users',
+    label: 'Usersp',
+    icon: 'people',
   },
   {
     id: 'admin',
-    label: 'Admin',
+    label: 'Adminp',
     icon: 'admin_panel_settings',
-  },
+  }
 ];
 
 const meta: Meta<NavigationSuiteStoryArgs> = {
