@@ -8,7 +8,10 @@ import {
   input,
   signal,
 } from '@angular/core';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NgTemplateOutlet } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map, startWith } from 'rxjs/operators';
 import { MatNavigationSuiteComponent } from './navigation-suite.component';
 import { MatNavigationSuitePrimaryAction } from './navigation-suite-primary-action.directive';
 import { MatNavigationSuiteScaffoldDefaults } from './navigation-suite-scaffold-defaults';
@@ -16,11 +19,14 @@ import { MatNavigationSuiteScaffoldState } from './navigation-suite-scaffold-sta
 import {
   MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT,
   MatNavigationSuitePrimaryActionAlignment,
+  MatNavigationSuiteResolvedType,
   MatNavigationSuiteScaffoldContext,
   MatNavigationSuiteType,
   MatNavigationSuiteVerticalArrangement,
   type MatNavigationSuitePrimaryActionContext,
 } from './navigation-suite.types';
+
+const barMediumItemWidth = 168;
 
 /** Responsive scaffold that switches between navigation bar and navigation rail layouts. */
 @Component({
@@ -49,8 +55,8 @@ import {
   },
 })
 export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteScaffoldContext {
-  /** Explicit navigation layout, or `null` to use the responsive default. */
-  navSuiteType = input<MatNavigationSuiteType | null>(null);
+  /** Explicit navigation layout, or `Auto` to use the responsive default. */
+  navSuiteType = input<MatNavigationSuiteType>('Auto');
 
   /** External visibility/animation state controller. */
   state = input<MatNavigationSuiteScaffoldState | null>(null);
@@ -68,17 +74,37 @@ export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteSc
   railShowToggle = input(true);
 
   private readonly defaults = inject(MatNavigationSuiteScaffoldDefaults);
+  private readonly viewportRuler = inject(ViewportRuler);
   private readonly defaultNavSuiteType = this.defaults.navSuiteType();
+  private readonly defaultNavSuiteTypeIsAuto = this.defaults.navSuiteTypeIsAuto();
   private readonly fallbackState = new MatNavigationSuiteScaffoldState();
   private readonly primaryAction = contentChild(MatNavigationSuitePrimaryAction);
+  private readonly navigationSuite = contentChild(MatNavigationSuiteComponent);
   private readonly requestedRailType = signal<'Collapsed' | 'Expanded' | null>(null);
+  private readonly viewportWidth = toSignal(
+    this.viewportRuler.change().pipe(
+      startWith(null),
+      map(() => this.viewportRuler.getViewportSize().width),
+    ),
+    { initialValue: this.viewportRuler.getViewportSize().width },
+  );
 
-  currentNavSuiteType = computed(() => {
-    const navSuiteType = this.navSuiteType() ?? this.defaultNavSuiteType();
+  currentNavSuiteType = computed<MatNavigationSuiteResolvedType>(() => {
+    const requestedNavSuiteType = this.navSuiteType();
+    const isAutoNavSuiteType = requestedNavSuiteType === 'Auto';
+    const navSuiteType = this.resolveRequestedNavSuiteType(requestedNavSuiteType);
     const requestedRailType = this.requestedRailType();
 
     if (navSuiteType.startsWith('Rail') && requestedRailType !== null) {
       return requestedRailType === 'Expanded' ? 'RailExpanded' : 'RailCollapsed';
+    }
+
+    if (
+      isAutoNavSuiteType &&
+      this.defaultNavSuiteTypeIsAuto() &&
+      this.shouldAutoBarMediumDowngrade2Compact(navSuiteType)
+    ) {
+      return 'BarCompact';
     }
 
     return navSuiteType;
@@ -114,6 +140,22 @@ export class MatNavigationSuiteScaffoldComponent implements MatNavigationSuiteSc
     }
 
     this.requestedRailType.set(this.isRailExpanded() ? 'Collapsed' : 'Expanded');
+  }
+
+  // 如果用户放了很多的 item 在 BarMedium 中，那么在确定BarMedium撑不下去时，降级到 BarCompact，避免 item 标签重叠。
+  private shouldAutoBarMediumDowngrade2Compact(navSuiteType: MatNavigationSuiteResolvedType): boolean {
+    if (navSuiteType !== 'BarMedium') {
+      return false;
+    }
+
+    const itemCount = this.navigationSuite()?.itemCount() ?? 0;
+    return itemCount > 0 && this.viewportWidth() < itemCount * barMediumItemWidth;
+  }
+
+  private resolveRequestedNavSuiteType(
+    navSuiteType: MatNavigationSuiteType,
+  ): MatNavigationSuiteResolvedType {
+    return navSuiteType === 'Auto' ? this.defaultNavSuiteType() : navSuiteType;
   }
 
   private toCssColor(color: string): string {

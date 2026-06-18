@@ -4,6 +4,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
 import {
   MAT_NAVIGATION_SUITE_SCAFFOLD_DEFAULTS,
+  MatNavigationSuiteResolvedType,
   MatNavigationSuiteType,
 } from './navigation-suite.types';
 
@@ -19,17 +20,17 @@ export class MatNavigationSuiteScaffoldDefaults {
     this.breakpointObserver.observe([compactQuery, mediumQuery]).pipe(
       map((result) => {
         if (result.breakpoints[compactQuery]) {
-          return 'BarCompact' satisfies MatNavigationSuiteType;
+          return 'BarCompact' satisfies MatNavigationSuiteResolvedType;
         }
 
         if (result.breakpoints[mediumQuery]) {
-          return 'BarMedium' satisfies MatNavigationSuiteType;
+          return 'BarMedium' satisfies MatNavigationSuiteResolvedType;
         }
 
-        return 'RailCollapsed' satisfies MatNavigationSuiteType;
+        return 'RailCollapsed' satisfies MatNavigationSuiteResolvedType;
       }),
     ),
-    { initialValue: 'RailCollapsed' satisfies MatNavigationSuiteType },
+    { initialValue: 'RailCollapsed' satisfies MatNavigationSuiteResolvedType },
   );
 
   private readonly configuredNavSuiteType = computed(() => {
@@ -37,11 +38,23 @@ export class MatNavigationSuiteScaffoldDefaults {
     return typeof configured === 'function' ? configured() : configured;
   });
 
-  private readonly currentNavSuiteType = computed(
-    () => this.configuredNavSuiteType() ?? this.adaptiveNavSuiteType(),
-  );
+  private readonly configuredIsAuto = computed(() => {
+    const configured = this.configuredNavSuiteType();
+    return configured === undefined || configured === 'Auto';
+  });
 
-  navSuiteType(): Signal<MatNavigationSuiteType> {
+  private readonly currentNavSuiteType = computed<MatNavigationSuiteResolvedType>(() => {
+    const configured = this.configuredNavSuiteType();
+    return configured === undefined || configured === 'Auto'
+      ? this.adaptiveNavSuiteType()
+      : configured;
+  });
+
+  navSuiteType(): Signal<MatNavigationSuiteResolvedType> {
     return this.currentNavSuiteType;
+  }
+
+  navSuiteTypeIsAuto(): Signal<boolean> {
+    return this.configuredIsAuto;
   }
 }

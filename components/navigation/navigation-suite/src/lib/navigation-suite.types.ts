@@ -1,6 +1,12 @@
 import { InjectionToken, type Signal, type TemplateRef } from '@angular/core';
 
-export type MatNavigationSuiteType = 'BarCompact' | 'BarMedium' | 'RailCollapsed' | 'RailExpanded';
+export type MatNavigationSuiteResolvedType =
+  | 'BarCompact'
+  | 'BarMedium'
+  | 'RailCollapsed'
+  | 'RailExpanded';
+
+export type MatNavigationSuiteType = 'Auto' | MatNavigationSuiteResolvedType;
 
 export type MatNavigationSuiteVerticalArrangement = 'top' | 'center';
 
@@ -27,7 +33,7 @@ export interface MatNavigationSuiteScaffoldDefaultOptions {
  * fallback navigation type or rail expansion state.
  */
 export interface MatNavigationSuiteScaffoldContext {
-  currentNavSuiteType: Signal<MatNavigationSuiteType>;
+  currentNavSuiteType: Signal<MatNavigationSuiteResolvedType>;
   isBar: Signal<boolean>;
   isRailExpanded: Signal<boolean>;
   barLayout: Signal<'vertical' | 'horizontal'>;

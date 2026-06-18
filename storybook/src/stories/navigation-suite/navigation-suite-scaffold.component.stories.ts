@@ -82,7 +82,7 @@ const meta: Meta<NavigationSuiteStoryArgs> = {
     },
     navSuiteType: {
       control: 'radio',
-      options: ['BarCompact', 'BarMedium', 'RailCollapsed', 'RailExpanded'],
+      options: ['Auto', 'BarCompact', 'BarMedium', 'RailCollapsed', 'RailExpanded'],
     },
     alwaysShowItemLabel: {
       control: 'boolean',
@@ -283,7 +283,7 @@ const renderProjectedSuite: Story['render'] = (args) => ({
 export const AutoSuiteType: Story = {
   args: {
     selectedIndex: 0,
-    navSuiteType: undefined,
+    navSuiteType: 'Auto',
   },
   render: renderProjectedSuite,
 };

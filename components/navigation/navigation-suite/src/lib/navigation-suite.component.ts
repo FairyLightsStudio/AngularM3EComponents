@@ -59,6 +59,7 @@ export class MatNavigationSuiteComponent {
   readonly ariaLabel = input('');
 
   protected readonly projectedItems = contentChildren(MatNavigationSuiteItemComponent);
+  readonly itemCount = computed(() => this.projectedItems().length);
 
   private readonly scaffold = inject(MAT_NAVIGATION_SUITE_SCAFFOLD_CONTEXT);
 
