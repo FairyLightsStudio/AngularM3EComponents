@@ -2,12 +2,9 @@ import type { StorybookConfig } from '@storybook/angular';
 import remarkGfm from 'remark-gfm';
 
 const config: StorybookConfig = {
-  stories: [
-    '../src/**/*.stories.@(ts|tsx)',
-    '../src/**/*.mdx',
-  ],
+  stories: ['../src/**/*.stories.@(ts|tsx)', '../src/**/*.mdx'],
   addons: [
-    // Other addons go here
+    '@chromatic-com/storybook',
     {
       name: '@storybook/addon-docs',
       options: {

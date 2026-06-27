@@ -1,6 +1,6 @@
 # Navigation Bar
 
-Material 3 Expressive bottom navigation bar for Angular Material.
+Material 3 bottom navigation bar for Angular Material.
 
 > This is a **third-party** implementation by FairyLights Studio, not an official Angular / Google component.
 

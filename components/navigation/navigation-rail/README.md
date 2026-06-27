@@ -1,6 +1,6 @@
 # Navigation Rail
 
-Material 3 Expressive side navigation rail for Angular Material.
+Material 3 side navigation rail with Expressive expanded and collapsed states for Angular Material.
 
 > This is a **third-party** implementation by FairyLights Studio, not an official Angular / Google component.
 

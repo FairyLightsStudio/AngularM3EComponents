@@ -1,6 +1,6 @@
 # Navigation Common
 
-Shared base classes and directives for Material 3 Expressive navigation components in Angular Material.
+Shared base classes and directives for Material 3 navigation components in Angular Material.
 
 > This is a **third-party** implementation by FairyLights Studio, not an official Angular / Google component.
 

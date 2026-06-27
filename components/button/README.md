@@ -1,6 +1,6 @@
 # Button
 
-Material 3 Expressive extended FAB with collapsed input for Angular Material.
+Material 3 extended FAB with collapsed input for Angular Material.
 
 > This is a **third-party** implementation by FairyLights Studio, not an official Angular / Google component.
 
