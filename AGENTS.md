@@ -1,4 +1,10 @@
-本项目旨在补齐 Angular 官方目前在 Angular Material UI Component Library 没有提供的一些 Material 3 Expressive 组件。
+> **⚠️ IMPORTANT: Keep this file up to date.**
+> After ANY component change (new component, updated feature, changed component, etc.),
+> update the relevant section below. Stale information wastes time and causes errors.
+>
+> Last updated: 2026-06-27
+
+本项目旨在补齐 Angular 官方目前在 Angular Material UI Component Library 没有提供的一些 Material 3 组件。
 
 本项目目前已实现以下包（组件）：
 
@@ -7,13 +13,18 @@
 1. **navigation-common** — 共享基类与指令：`MatNavigationItemBase`（active/disabled/badge/label 状态管理）、`MatNavigationIcon`、`MatNavigationActiveIcon`、`MatNavigationLabel`（内容投影指令），供 bar/rail 复用。
 2. **navigation-bar** — 底部导航栏（`MatNavigationBarComponent` + `MatNavigationBarItemComponent`），适用于手机/小屏横向导航，支持 active/disabled/badge/label 显示与 vertical/horizontal 布局切换。
 3. **navigation-rail** — 侧边导航栏（`MatNavigationRailComponent` + `Item` + `Header` + `Toggle`），适用于大屏竖向导航，支持展开/折叠、双图标（默认/激活态）、徽标、分割线、垂直排列方式、指示器形状（hug/fill）。
-4. **navigation-suite** — 导航套件脚手架（`MatNavigationSuiteScaffoldComponent`），根据 Material 3 断点自动在 navigation-bar 和 navigation-rail 之间切换响应式布局，并包含 `MatNavigationSuiteItem` 和 `MatNavigationSuitePrimaryAction` 辅助组件。
+4. **navigation-suite** — 导航套件脚手架（`MatNavigationSuiteScaffoldComponent`），根据 Material 3
+   断点自动在 navigation-bar 和 navigation-rail 之间切换响应式布局；支持
+   `MatNavigationSuiteScaffoldState` 控制显示/隐藏并返回动画完成 Promise；包含 `MatNavigationSuiteItem`
+   和 `MatNavigationSuitePrimaryAction` 辅助组件，bar 隐藏时 primary action 保持可见，rail 隐藏时随 rail
+   隐藏。
 
 ## `components/button`
 
 5. **button** — `MatExtendedFabCollapsedDirective` 指令，允许已设置 `extended` 的 FAB（`MatFabButton`）通过 `collapsed` input 在展开与折叠形态之间切换。
 
 本项目强依赖Angular Material，不要考虑单独使用 Navigation 包的情况。
+本项目目前不考虑向后兼容，欢迎你为了更好的设计，放弃后向兼容api。
 
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
@@ -72,7 +83,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 使用 bun 而非npm作为依赖项管理
 
-现阶段，不需要AI修改后 自己编译/build，修改完毕后直接告诉主人修改完了就好了。不要AI自己 BUILD， BUILD 的流水线还没搭建好
+现阶段，为快速开发，不需要AI修改后 自己编译/build，修改完毕后直接告诉用户修改完了就好了，用户会快速查验你的更改。
 
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
