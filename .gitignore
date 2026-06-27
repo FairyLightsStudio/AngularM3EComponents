@@ -49,7 +49,7 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
-
+build-storybook.log
 
 .nx/cache
 .nx/workspace-data
