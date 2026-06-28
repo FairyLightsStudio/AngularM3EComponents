@@ -30,11 +30,19 @@ export default meta;
 
 type Story = StoryObj<NavigationRailToggleStoryArgs>;
 
+/**
+ * Toggle button with expand/collapse animation.
+ * Verifies initial collapsed state, aria-expanded toggling on click,
+ * and aria-label updates.
+ */
 export const Toggle: Story = {
   render: (args) => ({
     props: args,
     template: `
-   <mat-navigation-rail-toggle [expanded]="expanded" (click)="expanded = !expanded"></mat-navigation-rail-toggle>
+      <mat-navigation-rail-toggle
+        [expanded]="expanded"
+        (click)="expanded = !expanded"
+      ></mat-navigation-rail-toggle>
     `,
   }),
   args: {
@@ -42,8 +50,22 @@ export const Toggle: Story = {
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('button')).toBeInTheDocument();
-    await userEvent.click(canvas.getByRole('button'));
-    await expect(canvas.getByRole('button')).toBeInTheDocument();
+    const toggle = canvas.getByRole('button');
+
+    // Initial collapsed state
+    await expect(toggle).toBeInTheDocument();
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(toggle).toHaveAttribute('aria-label', 'Expand navigation');
+
+    // Click to expand
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(toggle).toHaveAttribute('aria-label', 'Collapse navigation');
+    await expect(toggle).toHaveClass('expanded');
+
+    // Click again to collapse
+    await userEvent.click(toggle);
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(toggle).toHaveAttribute('aria-label', 'Expand navigation');
   },
 };
