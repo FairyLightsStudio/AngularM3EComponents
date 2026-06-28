@@ -2,6 +2,7 @@
   display: block;
   position: fixed;
   inset: 0;
+  --flight-nav-suite-scaffold-primary-action-gap: 16px;
 }
 
 .mat-navigation-suite-scaffold__layout {
@@ -23,10 +24,7 @@
     'content'
     'navigation';
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) var(
-      --flight-nav-suite-scaffold-bar-compact-height,
-      var(--flight-nav-bar-container-height, 80px)
-    );
+  grid-template-rows: minmax(0, 1fr) var(--flight-nav-suite-scaffold-navigation-size);
 }
 
 :host(.mat-navigation-suite-scaffold--bar-medium) .mat-navigation-suite-scaffold__layout {
@@ -34,21 +32,18 @@
     'content'
     'navigation';
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) var(
-      --flight-nav-suite-scaffold-bar-medium-height,
-      var(--flight-nav-bar-container-horizontal-height, 64px)
-    );
+  grid-template-rows: minmax(0, 1fr) var(--flight-nav-suite-scaffold-navigation-size);
 }
 
 :host(.mat-navigation-suite-scaffold--rail-collapsed) .mat-navigation-suite-scaffold__layout {
   grid-template-areas: 'navigation content';
-  grid-template-columns: max-content minmax(0, 1fr);
+  grid-template-columns: var(--flight-nav-suite-scaffold-navigation-size) minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
 }
 
 :host(.mat-navigation-suite-scaffold--rail-expanded) .mat-navigation-suite-scaffold__layout {
   grid-template-areas: 'navigation content';
-  grid-template-columns: max-content minmax(0, 1fr);
+  grid-template-columns: var(--flight-nav-suite-scaffold-navigation-size) minmax(0, 1fr);
   grid-template-rows: minmax(0, 1fr);
 }
 
@@ -63,7 +58,7 @@
   .mat-navigation-suite-scaffold__layout,
 :host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--bar-medium)
   .mat-navigation-suite-scaffold__layout {
-  grid-template-rows: minmax(0, 1fr) 0;
+  grid-template-rows: minmax(0, 1fr) 0px;
 }
 
 :host(
@@ -74,7 +69,7 @@
     .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
   )
   .mat-navigation-suite-scaffold__layout {
-  grid-template-columns: 0 minmax(0, 1fr);
+  grid-template-columns: 0px minmax(0, 1fr);
 }
 
 :host-context([dir='rtl']):host(
@@ -85,7 +80,7 @@
     .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
   )
   .mat-navigation-suite-scaffold__layout {
-  grid-template-columns: minmax(0, 1fr) 0;
+  grid-template-columns: minmax(0, 1fr) 0px;
 }
 
 .mat-navigation-suite-scaffold__navigation {
@@ -93,11 +88,8 @@
   grid-area: navigation;
   min-width: 0;
   min-height: 0;
-  transition:
-    opacity var(--mat-sys-duration-medium2, 300ms)
-      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
-    transform var(--mat-sys-duration-medium2, 300ms)
-      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+  transition: transform var(--mat-sys-duration-medium2, 300ms)
+    var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 }
 
 .mat-navigation-suite-scaffold__content {
@@ -111,20 +103,39 @@
 :host(.mat-navigation-suite-scaffold--bar-medium) .mat-navigation-suite-scaffold__navigation {
   align-self: end;
   width: 100%;
+  height: var(--flight-nav-suite-scaffold-navigation-size);
   overflow: visible;
 }
 
 :host(.mat-navigation-suite-scaffold--rail-collapsed) .mat-navigation-suite-scaffold__navigation,
 :host(.mat-navigation-suite-scaffold--rail-expanded) .mat-navigation-suite-scaffold__navigation {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
   display: grid;
   grid-template-rows: minmax(0, 1fr);
+  width: var(
+    --flight-nav-suite-scaffold-navigation-surface-size,
+    var(--flight-nav-suite-scaffold-navigation-size)
+  );
   height: 100%;
   overflow: hidden;
 }
 
+:host(.mat-navigation-suite-scaffold--rail-collapsed) .mat-navigation-suite-scaffold__content,
+:host(.mat-navigation-suite-scaffold--rail-expanded) .mat-navigation-suite-scaffold__content {
+  grid-column: 2;
+}
+
+:host-context([dir='rtl']):host(.mat-navigation-suite-scaffold--rail-collapsed)
+  .mat-navigation-suite-scaffold__content,
+:host-context([dir='rtl']):host(.mat-navigation-suite-scaffold--rail-expanded)
+  .mat-navigation-suite-scaffold__content {
+  grid-column: 1;
+}
+
 :host(.mat-navigation-suite-scaffold--navigation-hidden)
   .mat-navigation-suite-scaffold__navigation {
-  opacity: 0;
   pointer-events: none;
 }
 
@@ -132,7 +143,7 @@
   .mat-navigation-suite-scaffold__navigation,
 :host(.mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--bar-medium)
   .mat-navigation-suite-scaffold__navigation {
-  transform: translateY(100%);
+  transform: translateY(var(--flight-nav-suite-scaffold-navigation-size));
 }
 
 :host(
@@ -143,7 +154,10 @@
     .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
   )
   .mat-navigation-suite-scaffold__navigation {
-  transform: translateX(-100%);
+  // Like Angular Material sidenav, rail hide/show keeps the drawer surface at
+  // its own width and moves it by 100% of that width. Only the content offset
+  // needs the measured rail size.
+  transform: translate3d(-100%, 0, 0);
 }
 
 :host-context([dir='rtl']):host(
@@ -154,25 +168,26 @@
     .mat-navigation-suite-scaffold--navigation-hidden.mat-navigation-suite-scaffold--rail-expanded
   )
   .mat-navigation-suite-scaffold__navigation {
-  transform: translateX(100%);
+  transform: translate3d(100%, 0, 0);
 }
 
 .mat-navigation-suite-scaffold__primary-action {
-  pointer-events: auto;
-  transition:
-    opacity var(--mat-sys-duration-medium2, 300ms)
-      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1)),
-    transform var(--mat-sys-duration-medium2, 300ms)
-      var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
-}
-
-:host(.mat-navigation-suite-scaffold--bar-compact) .mat-navigation-suite-scaffold__primary-action,
-:host(.mat-navigation-suite-scaffold--bar-medium) .mat-navigation-suite-scaffold__primary-action {
   position: absolute;
   z-index: 2;
   inset-inline: 16px;
-  bottom: calc(100% + 16px);
+  bottom: calc(
+    var(--flight-nav-suite-scaffold-navigation-size) +
+      var(--flight-nav-suite-scaffold-primary-action-gap)
+  );
   display: flex;
+  pointer-events: auto;
+  transition: bottom var(--mat-sys-duration-medium2, 300ms)
+    var(--mat-sys-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+}
+
+:host(.mat-navigation-suite-scaffold--navigation-hidden)
+  .mat-navigation-suite-scaffold__primary-action {
+  bottom: calc(env(safe-area-inset-bottom) + var(--flight-nav-suite-scaffold-primary-action-gap));
 }
 
 .mat-navigation-suite-scaffold__primary-action--align-start {
@@ -187,14 +202,16 @@
   justify-content: flex-end;
 }
 
-:host(.mat-navigation-suite-scaffold--navigation-hidden)
-  .mat-navigation-suite-scaffold__primary-action {
-  opacity: 0;
-  pointer-events: none;
-}
-
 .mat-navigation-suite-scaffold__suite {
   min-width: 0;
   min-height: 0;
   display: grid;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mat-navigation-suite-scaffold__layout,
+  .mat-navigation-suite-scaffold__navigation,
+  .mat-navigation-suite-scaffold__primary-action {
+    transition-duration: 0ms;
+  }
 }

@@ -134,15 +134,36 @@ height: 100vh;
 }`}
 />
 
+## Visibility State
+
+Create a `MatNavigationSuiteScaffoldState` when the page needs to show or hide the navigation chrome from code. `show()`, `hide()`, `toggle()`, and `snapTo()` return a `Promise<void>` that resolves when the scaffold reaches its settled state.
+
+<Source
+  language="ts"
+  code={`scaffoldState = new MatNavigationSuiteScaffoldState('hidden');
+
+async revealNavigation() {
+await this.scaffoldState.show();
+}
+
+async hideNavigation() {
+await this.scaffoldState.hide();
+}`}
+/>
+
+When a bar layout is hidden, the primary action remains visible and moves to the bottom safe area. When a rail layout is hidden, the primary action is part of the rail header and hides with the rail. Rail hide/show follows Angular Material sidenav: the rail surface keeps its own width and slides with `translate3d()`, while the content area expands or reserves space separately.
+
 ## Runtime CSS Variables
 
 `--flight-*` variables are public customization hooks owned by this library. Color, typography, and motion come from Angular Material `--mat-sys-*` variables. The suite also forwards bar and rail components, so their runtime variables can be set on the scaffold host.
 
-| CSS variable                                     | Default                                                   | Used for                                                  | Override example                                                                            |
-| ------------------------------------------------ | --------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
-| `--flight-nav-suite-scaffold-container-color`    | `var(--mat-sys-surface, #fffbfe)`                         | Scaffold content background; also set by `containerColor` | `.shell { --flight-nav-suite-scaffold-container-color: var(--mat-sys-surface-container); }` |
-| `--flight-nav-suite-scaffold-bar-compact-height` | `var(--flight-nav-bar-container-height, 80px)`            | Compact bottom navigation row height                      | `.shell { --flight-nav-suite-scaffold-bar-compact-height: 84px; }`                          |
-| `--flight-nav-suite-scaffold-bar-medium-height`  | `var(--flight-nav-bar-container-horizontal-height, 64px)` | Medium bottom navigation row height                       | `.shell { --flight-nav-suite-scaffold-bar-medium-height: 72px; }`                           |
+| CSS variable                                      | Default                                                   | Used for                                                                   | Override example                                                                            |
+| ------------------------------------------------- | --------------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| `--flight-nav-suite-scaffold-container-color`     | `var(--mat-sys-surface, #fffbfe)`                         | Scaffold content background; also set by `containerColor`                  | `.shell { --flight-nav-suite-scaffold-container-color: var(--mat-sys-surface-container); }` |
+| `--flight-nav-suite-scaffold-bar-compact-height`  | `var(--flight-nav-bar-container-height, 80px)`            | Compact bottom navigation row height                                       | `.shell { --flight-nav-suite-scaffold-bar-compact-height: 84px; }`                          |
+| `--flight-nav-suite-scaffold-bar-medium-height`   | `var(--flight-nav-bar-container-horizontal-height, 64px)` | Medium bottom navigation row height                                        | `.shell { --flight-nav-suite-scaffold-bar-medium-height: 72px; }`                           |
+| `--flight-nav-suite-scaffold-rail-expanded-width` | `max-content`                                             | Expanded rail surface width; length overrides also seed the content offset | `.shell { --flight-nav-suite-scaffold-rail-expanded-width: 256px; }`                        |
+| `--flight-nav-suite-scaffold-primary-action-gap`  | `16px`                                                    | Gap between bar/FAB, or hidden bar bottom/FAB                              | `.shell { --flight-nav-suite-scaffold-primary-action-gap: 20px; }`                          |
 
 ---
 

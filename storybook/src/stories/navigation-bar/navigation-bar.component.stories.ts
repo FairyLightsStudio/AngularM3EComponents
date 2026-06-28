@@ -15,6 +15,52 @@ type NavigationBarStoryArgs = {
   alwaysShowLabel: boolean;
 };
 
+const TEMPLATE = `
+  <div>
+    <mat-navigation-bar [ariaLabel]="'Primary navigation'">
+      <mat-navigation-bar-item
+        [active]="selectedIndex === 0"
+        [alwaysShowLabel]="alwaysShowLabel"
+        [layout]="layout"
+        (click)="selectedIndex = 0"
+      >
+        <mat-icon *matNavigationIcon>home</mat-icon>
+        <ng-template matNavigationLabel>Home</ng-template>
+      </mat-navigation-bar-item>
+
+      <mat-navigation-bar-item
+        [active]="selectedIndex === 1"
+        [alwaysShowLabel]="alwaysShowLabel"
+        [layout]="layout"
+        (click)="selectedIndex = 1"
+      >
+        <mat-icon *matNavigationIcon>search</mat-icon>
+        <ng-template matNavigationLabel>Search</ng-template>
+      </mat-navigation-bar-item>
+
+      <mat-navigation-bar-item
+        [active]="selectedIndex === 2"
+        [alwaysShowLabel]="alwaysShowLabel"
+        [layout]="layout"
+        (click)="selectedIndex = 2"
+      >
+        <mat-icon *matNavigationIcon matBadge="3" matBadgeDescription="3 unread notifications">notifications</mat-icon>
+        <ng-template matNavigationLabel>Alerts</ng-template>
+      </mat-navigation-bar-item>
+
+      <mat-navigation-bar-item
+        [active]="selectedIndex === 3"
+        [alwaysShowLabel]="alwaysShowLabel"
+        [layout]="layout"
+        (click)="selectedIndex = 3"
+      >
+        <mat-icon *matNavigationIcon>person</mat-icon>
+        <ng-template matNavigationLabel>Profile</ng-template>
+      </mat-navigation-bar-item>
+    </mat-navigation-bar>
+  </div>
+`;
+
 const meta: Meta<NavigationBarStoryArgs> = {
   title: 'Navigation/Navigation Bar',
   component: MatNavigationBarComponent,
@@ -46,63 +92,48 @@ export default meta;
 
 type Story = StoryObj<NavigationBarStoryArgs>;
 
+/**
+ * Vertical layout with always-visible labels.
+ * Verifies initial selection state, click-driven selection change,
+ * badge presence, and proper ARIA attributes.
+ */
 export const Basic: Story = {
   render: (args) => ({
     props: args,
-    template: `
-      <div>
-        <mat-navigation-bar aria-label="Primary navigation">
-          <mat-navigation-bar-item
-            [active]="selectedIndex === 0"
-            [alwaysShowLabel]="alwaysShowLabel"
-            [layout]="layout"
-            (click)="selectedIndex = 0"
-          >
-            <mat-icon *matNavigationIcon>home</mat-icon>
-            <ng-template matNavigationLabel>Homep</ng-template>
-          </mat-navigation-bar-item>
-
-          <mat-navigation-bar-item
-            [active]="selectedIndex === 1"
-            [alwaysShowLabel]="alwaysShowLabel"
-            [layout]="layout"
-            (click)="selectedIndex = 1"
-          >
-            <mat-icon *matNavigationIcon>search</mat-icon>
-            <ng-template matNavigationLabel>Searchp</ng-template>
-          </mat-navigation-bar-item>
-
-          <mat-navigation-bar-item
-            [active]="selectedIndex === 2"
-            [alwaysShowLabel]="alwaysShowLabel"
-            [layout]="layout"
-            (click)="selectedIndex = 2"
-          >
-            <mat-icon *matNavigationIcon matBadge="3" matBadgeDescription="3 unread notifications">notifications</mat-icon>
-            <ng-template matNavigationLabel>Alertsp</ng-template>
-          </mat-navigation-bar-item>
-
-          <mat-navigation-bar-item
-            [active]="selectedIndex === 3"
-            [alwaysShowLabel]="alwaysShowLabel"
-            [layout]="layout"
-            (click)="selectedIndex = 3"
-          >
-            <mat-icon *matNavigationIcon>person</mat-icon>
-            <ng-template matNavigationLabel>Profilep</ng-template>
-          </mat-navigation-bar-item>
-        </mat-navigation-bar>
-      </div>
-    `,
+    template: TEMPLATE,
   }),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByText('Home')).toBeInTheDocument();
+    const bar = canvas.getByRole('navigation', { name: 'Primary navigation' });
+    const items = within(bar).getAllByRole('tab');
+
+    // Four navigation items
+    await expect(items).toHaveLength(4);
+
+    // Initially "Home" (index 0) is selected
+    await expect(items[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(items[1]).toHaveAttribute('aria-selected', 'false');
+
+    // Badge text "3" appears on the Alerts item
+    const alertsItem = items[2];
+    await expect(within(alertsItem).getByText('3')).toBeInTheDocument();
+
+    // Click "Search" — selection moves
     await userEvent.click(canvas.getByText('Search'));
-    await expect(canvas.getByText('Search')).toBeInTheDocument();
+    await expect(items[0]).toHaveAttribute('aria-selected', 'false');
+    await expect(items[1]).toHaveAttribute('aria-selected', 'true');
+
+    // Click "Alerts" — selection moves again
+    await userEvent.click(canvas.getByText('Alerts'));
+    await expect(items[1]).toHaveAttribute('aria-selected', 'false');
+    await expect(items[2]).toHaveAttribute('aria-selected', 'true');
   },
 };
 
+/**
+ * Horizontal layout: labels appear inline beside icons.
+ * Verifies horizontal CSS class and selection state.
+ */
 export const HorizontalLabels: Story = {
   args: {
     selectedIndex: 1,
@@ -115,11 +146,30 @@ export const HorizontalLabels: Story = {
   render: Basic.render,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const bar = canvas.getByRole('navigation', { name: 'Primary navigation' });
+    const items = within(bar).getAllByRole('tab');
+
+    // "Search" is selected
+    await expect(items[1]).toHaveAttribute('aria-selected', 'true');
+
+    // All items have horizontal layout class (on host mat-navigation-bar-item)
+    const itemHosts = canvasElement.querySelectorAll('mat-navigation-bar-item');
+    for (const host of itemHosts) {
+      await expect(host).toHaveClass('mat-navigation-bar-item-horizontal');
+    }
+
+    // Labels visible for all items
+    await expect(canvas.getByText('Home')).toBeInTheDocument();
     await expect(canvas.getByText('Search')).toBeInTheDocument();
     await expect(canvas.getByText('Alerts')).toBeInTheDocument();
+    await expect(canvas.getByText('Profile')).toBeInTheDocument();
   },
 };
 
+/**
+ * Vertical layout with labels hidden for inactive items.
+ * Verifies only the active item reveals its label.
+ */
 export const CompactLabels: Story = {
   args: {
     selectedIndex: 2,
@@ -129,7 +179,20 @@ export const CompactLabels: Story = {
   render: Basic.render,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const bar = canvas.getByRole('navigation', { name: 'Primary navigation' });
+    const items = within(bar).getAllByRole('tab');
+
+    // "Alerts" (index 2) is the selected item
+    await expect(items[2]).toHaveAttribute('aria-selected', 'true');
+
+    // Inactive item hosts should lack always-show-label class
+    const itemHosts = canvasElement.querySelectorAll('mat-navigation-bar-item');
+    await expect(itemHosts[0]).not.toHaveClass('mat-navigation-bar-item-always-show-label');
+    await expect(itemHosts[1]).not.toHaveClass('mat-navigation-bar-item-always-show-label');
+
+    // Click "Home" to change selection
     await userEvent.click(canvas.getByText('Home'));
-    await expect(canvas.getByText('Home')).toBeInTheDocument();
+    await expect(items[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(items[2]).toHaveAttribute('aria-selected', 'false');
   },
 };
