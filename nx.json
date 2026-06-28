@@ -38,6 +38,9 @@
       "conventionalCommits": true,
       "fallbackCurrentVersionResolver": "disk"
     },
+    "conventionalCommits": {
+      "useCommitScope": false
+    },
     "changelog": {
       "workspaceChangelog": {
         "createRelease": "github",
