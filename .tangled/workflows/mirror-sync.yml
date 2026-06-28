@@ -13,18 +13,26 @@ dependencies:
     - openssh
 
 steps:
+  - name: 'Fix container user environment'
+    command: |
+      getent passwd root 2>/dev/null || echo 'root:x:0:0::/tmp:/bin/sh' >> /etc/passwd
+      export HOME=/tmp
+      mkdir -p /tmp/.ssh
+
   - name: 'Setup SSH for GitHub mirror'
     command: |
-      mkdir -p ~/.ssh
-      echo "$DEPLOY_2_GITHUB_SSH_KEY" > ~/.ssh/id_ed25519
-      chmod 600 ~/.ssh/id_ed25519
-      ssh-keyscan -H github.com >> ~/.ssh/known_hosts 2>/dev/null
-
-  - name: 'Test SSH to GitHub'
-    command: 'ssh -vT git@github.com 2>&1; echo "EXIT=$?"'
+      export HOME=/tmp
+      mkdir -p /tmp/.ssh
+      echo "$DEPLOY_2_GITHUB_SSH_KEY" > /tmp/.ssh/id_ed25519
+      chmod 600 /tmp/.ssh/id_ed25519
+      ssh-keyscan -H github.com >> /tmp/.ssh/known_hosts 2>/dev/null
+      # Verify key was written
+      echo "Key bytes: $(wc -c < /tmp/.ssh/id_ed25519)"
 
   - name: 'Push mirror to GitHub'
     command: |
+      export HOME=/tmp
+      export GIT_SSH_COMMAND='ssh -i /tmp/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new'
       git remote set-url mirror git@github.com:FairyLightsStudio/AngularM3EComponents 2>/dev/null \
         || git remote add mirror git@github.com:FairyLightsStudio/AngularM3EComponents
       git push --mirror mirror
