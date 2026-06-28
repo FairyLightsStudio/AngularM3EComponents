@@ -27,12 +27,16 @@ steps:
         exit 1
       fi
 
-  - name: 'Test SSH connection to GitHub'
+  - name: 'Verify SSH key fingerprint'
     command: |
-      ssh -o StrictHostKeyChecking=accept-new -T git@github.com 2>&1 || true
+      echo "Public key fingerprint (should match GitHub deploy key):"
+      ssh-keygen -lf ~/.ssh/id_ed25519
+      echo "Public key content:"
+      ssh-keygen -y -f ~/.ssh/id_ed25519 2>&1
 
   - name: 'Push mirror to GitHub'
     command: |
+      export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
       git remote set-url mirror git@github.com:FairyLightsStudio/AngularM3EComponents 2>/dev/null \
         || git remote add mirror git@github.com:FairyLightsStudio/AngularM3EComponents
       git push --mirror mirror
