@@ -19,6 +19,17 @@ steps:
       echo "$DEPLOY_2_GITHUB_SSH_KEY" > ~/.ssh/id_ed25519
       chmod 600 ~/.ssh/id_ed25519
       ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+      # Debug: check key is present
+      KEY_LENGTH=$(wc -c < ~/.ssh/id_ed25519)
+      echo "SSH key size: $KEY_LENGTH bytes (should be >0)"
+      if [ "$KEY_LENGTH" -eq 0 ]; then
+        echo "ERROR: DEPLOY_2_GITHUB_SSH_KEY secret is empty or not configured."
+        exit 1
+      fi
+
+  - name: 'Test SSH connection to GitHub'
+    command: |
+      ssh -o StrictHostKeyChecking=accept-new -T git@github.com 2>&1 || true
 
   - name: 'Push mirror to GitHub'
     command: |
