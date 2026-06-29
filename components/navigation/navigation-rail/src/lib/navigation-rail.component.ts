@@ -202,7 +202,12 @@ export class MatNavigationRailComponent
       }
     });
 
-    // Unblock transitions only after everything is completely reverted
+    // Force a synchronous reflow while transition is still blocked to commit the reverted collapsed layout state
+    if (typeof window !== 'undefined') {
+      const _triggerReflow = host.offsetWidth;
+    }
+
+    // Unblock transitions only after everything is completely reverted and layout cache is updated
     host.classList.remove('mat-nav-rail-measure-sandbox');
 
     return intrinsicWidth > 0 ? intrinsicWidth : 200;
