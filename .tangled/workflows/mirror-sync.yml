@@ -26,19 +26,19 @@ steps:
       echo "$DEPLOY_2_GITHUB_SSH_KEY" > /tmp/.ssh/id_ed25519
       chmod 600 /tmp/.ssh/id_ed25519
       ssh-keyscan -H github.com >> /tmp/.ssh/known_hosts 2>/dev/null
-      # Verify key was written
-      echo "Key bytes: $(wc -c < /tmp/.ssh/id_ed25519)"
 
   - name: 'Fetch all refs from origin'
     command: |
-      # The CI clone is shallow and detached; fetch full history to get all branches/tags
-      git fetch --unshallow origin 2>/dev/null || git fetch origin '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
+      git fetch --unshallow origin || git fetch origin '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
+      # Force local main to track origin/main
+      git branch -f main origin/main
+      git checkout main
 
-  - name: 'Push mirror to GitHub'
+  - name: 'Force push mirror to GitHub'
     command: |
       export HOME=/tmp
       export GIT_SSH_COMMAND='ssh -i /tmp/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new'
       git remote set-url mirror git@github.com:FairyLightsStudio/AngularM3EComponents 2>/dev/null \
         || git remote add mirror git@github.com:FairyLightsStudio/AngularM3EComponents
-      git push mirror --all
-      git push mirror --tags
+      git push --force mirror --all
+      git push --force mirror --tags
