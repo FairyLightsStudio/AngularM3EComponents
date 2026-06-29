@@ -1,14 +1,25 @@
 import {
   AfterContentInit,
+  AfterViewInit,
   Component,
   ContentChildren,
-  Input,
+  ElementRef,
+  inject,
   input,
   OnDestroy,
   QueryList,
+  signal,
+  computed,
+  effect,
+  untracked,
 } from '@angular/core';
 import { FocusKeyManager, type FocusableOption } from '@angular/cdk/a11y';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
+import {
+  MAT_NAVIGATION_WIDGET,
+  MatNavigationWidget,
+  MatNavigationPlacement,
+} from '@fairylights-studio/ngx-m3-navigation-common';
 import { MatNavigationRailItemComponent } from './navigation-rail-item.component';
 
 export type MatNavRailIndicatorShape = 'hug' | 'fill';
@@ -26,31 +37,183 @@ export type MatNavRailIndicatorShape = 'hug' | 'fill';
     </div>
   `,
   styleUrl: './navigation-rail.component.scss',
+  providers: [
+    {
+      provide: MAT_NAVIGATION_WIDGET,
+      useExisting: MatNavigationRailComponent,
+    },
+  ],
   host: {
     role: 'navigation',
     '[attr.aria-label]': 'ariaLabel() || null',
-    '[class.mat-nav-rail-expanded]': 'expanded',
-    '[class.mat-nav-rail-has-divider]': 'showDivider',
-    '[attr.data-indicator-shape]': 'indicatorShape',
-    '[attr.data-vertical-arrangement]': 'verticalArrangement',
+    '[class.mat-nav-rail-expanded]': 'expanded()',
+    '[class.mat-nav-rail-has-divider]': 'showDivider()',
+    '[attr.data-indicator-shape]': 'indicatorShape()',
+    '[attr.data-vertical-arrangement]': 'verticalArrangement()',
     '(keydown)': '_handleKeydown($event)',
   },
 })
-export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
+export class MatNavigationRailComponent
+  implements AfterContentInit, AfterViewInit, OnDestroy, MatNavigationWidget
+{
   /** Whether the rail shows expanded labels and expanded width. */
-  @Input() expanded = false;
+  expanded = input<boolean>(false);
 
   /** Shape used for each active item indicator. */
-  @Input() indicatorShape: MatNavRailIndicatorShape = 'hug';
+  indicatorShape = input<MatNavRailIndicatorShape>('hug');
 
   /** Whether to draw the divider along the rail edge. */
-  @Input() showDivider = false;
+  showDivider = input<boolean>(false);
 
   /** Vertical alignment for the rail item group. */
-  @Input() verticalArrangement: 'top' | 'center' = 'top';
+  verticalArrangement = input<'top' | 'center'>('top');
 
   /** Accessible label for the navigation landmark. */
   ariaLabel = input<string>('');
+
+  // MatNavigationWidget interface implementation
+  readonly placement = computed(() => 'left' as const);
+  readonly size = signal<number>(80);
+  readonly surfaceSize = signal<number | null>(null).asReadonly();
+
+  private readonly _elementRef = inject(ElementRef);
+  private _cachedExpandedWidth = 80;
+  private _cachedCollapsedWidth = 80;
+  private _previousExpanded?: boolean;
+
+  constructor() {
+    effect(() => {
+      const isExpanded = this.expanded();
+
+      if (typeof window === 'undefined') {
+        return;
+      }
+
+      untracked(() => {
+        this._previousExpanded = isExpanded;
+
+        if (isExpanded) {
+          // Apply pre-cached expanded width immediately, letting grid offset transition smoothly with max-width animation
+          this.size.set(this._cachedExpandedWidth);
+        } else {
+          // Collapse size immediately so the scaffold's grid columns and main content start animating back right away
+          this.size.set(this._cachedCollapsedWidth);
+        }
+      });
+    });
+  }
+
+  private measureCollapsedWidth(): number {
+    const host = this._elementRef.nativeElement;
+    const styles = getComputedStyle(host);
+    const collapsedWidthVar = styles
+      .getPropertyValue('--flight-nav-rail-container-collapsed-width')
+      .trim();
+    if (collapsedWidthVar) {
+      const parsed = Number.parseFloat(collapsedWidthVar);
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+    return 80;
+  }
+
+  private measureIntrinsicExpandedWidth(): number {
+    const host = this._elementRef.nativeElement;
+
+    // Backup original style states
+    const originalMaxWidth = host.style.maxWidth;
+    const originalTransition = host.style.transition;
+    const originalWidth = host.style.width;
+
+    const hadExpandedClass = host.classList.contains('mat-nav-rail-expanded');
+
+    // Backup child item expanded states
+    const items = Array.from(host.querySelectorAll('mat-navigation-rail-item')) as HTMLElement[];
+    const itemStates = items.map(item => ({
+      el: item,
+      hadClass: item.classList.contains('mat-nav-rail-item-expanded')
+    }));
+
+    // Backup FAB collapsed states
+    const fabs = Array.from(host.querySelectorAll('[mat-extended-fab], .mat-mdc-extended-fab')) as HTMLElement[];
+    const fabStates = fabs.map(fab => ({
+      el: fab,
+      hadClass: fab.classList.contains('mat-mdc-extended-fab-collapsed')
+    }));
+
+    // Temporarily force expanded state for accurate DOM measurement
+    host.classList.add('mat-nav-rail-measure-sandbox');
+    host.style.transition = 'none';
+    host.style.maxWidth = 'none';
+    host.style.width = 'max-content';
+
+    if (!hadExpandedClass) {
+      host.classList.add('mat-nav-rail-expanded');
+    }
+
+    itemStates.forEach(state => {
+      if (!state.hadClass) {
+        state.el.classList.add('mat-nav-rail-item-expanded');
+      }
+    });
+
+    fabStates.forEach(state => {
+      if (state.hadClass) {
+        state.el.classList.remove('mat-mdc-extended-fab-collapsed');
+      }
+    });
+
+    // Perform measurement
+    const intrinsicWidth = host.offsetWidth;
+
+    // Restore original styles and classes
+    host.classList.remove('mat-nav-rail-measure-sandbox');
+    host.style.maxWidth = originalMaxWidth;
+    host.style.transition = originalTransition;
+    host.style.width = originalWidth;
+
+    if (!hadExpandedClass) {
+      host.classList.remove('mat-nav-rail-expanded');
+    }
+
+    itemStates.forEach(state => {
+      if (!state.hadClass) {
+        state.el.classList.remove('mat-nav-rail-item-expanded');
+      }
+    });
+
+    fabStates.forEach(state => {
+      if (state.hadClass) {
+        state.el.classList.add('mat-mdc-extended-fab-collapsed');
+      }
+    });
+
+    return intrinsicWidth > 0 ? intrinsicWidth : 200;
+  }
+
+
+
+  ngAfterViewInit(): void {
+    if (typeof window !== 'undefined') {
+      // Async measure on startup to get the ideal expanded width and store in cache
+      Promise.resolve().then(() => {
+        const expandedWidth = this.measureIntrinsicExpandedWidth();
+        this._cachedExpandedWidth = expandedWidth;
+
+        const collapsedWidth = this.measureCollapsedWidth();
+        this._cachedCollapsedWidth = collapsedWidth;
+
+        if (this.expanded()) {
+          this.size.set(expandedWidth);
+        } else {
+          this.size.set(collapsedWidth);
+        }
+      });
+    }
+  }
+
+
 
   @ContentChildren(MatNavigationRailItemComponent, { descendants: true })
   protected _items!: QueryList<MatNavigationRailItemComponent>;
@@ -67,6 +230,19 @@ export class MatNavigationRailComponent implements AfterContentInit, OnDestroy {
       .withTypeAhead();
 
     this._setInitialActiveItem();
+
+    // Dynamically update cached expanded size when items list changes
+    this._items.changes.subscribe(() => {
+      if (typeof window !== 'undefined') {
+        Promise.resolve().then(() => {
+          const expandedWidth = this.measureIntrinsicExpandedWidth();
+          this._cachedExpandedWidth = expandedWidth;
+          if (this.expanded()) {
+            this.size.set(expandedWidth);
+          }
+        });
+      }
+    });
   }
 
   protected _handleKeydown(event: KeyboardEvent): void {

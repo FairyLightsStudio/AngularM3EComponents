@@ -61,3 +61,9 @@
     outline: solid 1px currentColor;
   }
 }
+
+:host(.mat-nav-rail-measure-sandbox) {
+  &, & *, & ::ng-deep * {
+    transition: none !important;
+  }
+}

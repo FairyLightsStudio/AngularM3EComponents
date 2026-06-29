@@ -30,8 +30,8 @@ import { MatNavigationItemBase } from '@fairylights-studio/ngx-m3-navigation-com
     >
       <div
         class="mat-nav-rail-indicator"
-        [class.indicator-fill]="rail?.indicatorShape === 'fill'"
-        [class.indicator-hug]="rail?.indicatorShape === 'hug'"
+        [class.indicator-fill]="rail?.indicatorShape() === 'fill'"
+        [class.indicator-hug]="rail?.indicatorShape() === 'hug'"
       >
         <div class="mat-nav-rail-ripple" matRipple [matRippleTrigger]="buttonEl"></div>
 
@@ -60,7 +60,7 @@ import { MatNavigationItemBase } from '@fairylights-studio/ngx-m3-navigation-com
   styleUrl: './navigation-rail-item.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[class.mat-nav-rail-item-expanded]': 'rail?.expanded',
+    '[class.mat-nav-rail-item-expanded]': 'rail?.expanded()',
   },
 })
 export class MatNavigationRailItemComponent

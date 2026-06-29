@@ -6,6 +6,7 @@ import {
   contentChildren,
   inject,
   input,
+  viewChild,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +16,8 @@ import {
 } from '@fairylights-studio/ngx-m3-navigation-bar';
 import { MAT_NAVIGATION_RAIL_MODULES } from '@fairylights-studio/ngx-m3-navigation-rail';
 import {
+  MAT_NAVIGATION_WIDGET,
+  MatNavigationWidget,
   MatNavigationActiveIcon,
   MatNavigationIcon,
   MatNavigationLabel,
@@ -47,11 +50,23 @@ import {
   templateUrl: './navigation-suite.component.html',
   styleUrl: './navigation-suite.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: MAT_NAVIGATION_WIDGET,
+      useExisting: MatNavigationSuiteComponent,
+    },
+  ],
   host: {
     class: 'mat-navigation-suite',
   },
 })
-export class MatNavigationSuiteComponent {
+export class MatNavigationSuiteComponent implements MatNavigationWidget {
+  // Proxy MAT_NAVIGATION_WIDGET properties from inner component (rail or bar)
+  private readonly innerWidget = viewChild(MAT_NAVIGATION_WIDGET);
+  readonly placement = computed(() => this.innerWidget()?.placement() ?? ('left' as const));
+  readonly size = computed(() => this.innerWidget()?.size() ?? 80);
+  readonly surfaceSize = computed(() => this.innerWidget()?.surfaceSize() ?? null);
+
   /** Whether bar item labels remain visible when inactive. */
   readonly alwaysShowItemLabel = input(true);
 

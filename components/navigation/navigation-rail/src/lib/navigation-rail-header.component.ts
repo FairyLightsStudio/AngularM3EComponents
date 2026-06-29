@@ -103,7 +103,8 @@ export class MatNavigationRailHeaderComponent implements AfterViewInit, OnDestro
         for (const entry of entries) {
           const el = entry.target as HTMLElement;
           const width = el.offsetWidth;
-          if (width > 0) {
+          // Only record the measured width when the element has fully rendered (avoiding intermediate 24px icon-only states)
+          if (width >= 32) {
             el.style.setProperty('--_measured-width', `${width}px`);
             this.resizeObserver.unobserve(el);
           }

@@ -48,9 +48,10 @@ import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
 export class MatNavigationBarComponent implements AfterContentInit, AfterViewInit, OnDestroy, MatNavigationWidget {
   readonly placement = signal<MatNavigationPlacement>('bottom').asReadonly();
   readonly size = signal<number>(80);
-  readonly surfaceSize = signal<number | null>(null);
+  readonly surfaceSize = signal<number | null>(null).asReadonly();
 
   private _elementRef = inject(ElementRef);
+  private _resizeObserver: ResizeObserver | null = null;
   /** Accessible label for the navigation landmark. */
   ariaLabel = input<string>('');
 
@@ -80,12 +81,24 @@ export class MatNavigationBarComponent implements AfterContentInit, AfterViewIni
   }
 
   ngAfterViewInit(): void {
-    // 浏览器环境下测量实际渲染高度并更新
     if (typeof window !== 'undefined') {
-      const height = this._elementRef.nativeElement.offsetHeight;
-      if (height > 0) {
-        this.size.set(height);
+      const host = this._elementRef.nativeElement;
+
+      const initialHeight = host.offsetHeight;
+      if (initialHeight > 0) {
+        this.size.set(initialHeight);
       }
+
+      // Dynamically observe host height changes (e.g. layout updates) and sync
+      this._resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const height = (entry.target as HTMLElement).offsetHeight;
+          if (height > 0) {
+            this.size.set(height);
+          }
+        }
+      });
+      this._resizeObserver.observe(host);
     }
   }
 
@@ -109,6 +122,7 @@ export class MatNavigationBarComponent implements AfterContentInit, AfterViewIni
 
   ngOnDestroy(): void {
     this._keyManager?.destroy();
+    this._resizeObserver?.disconnect();
     this._destroyed.next();
     this._destroyed.complete();
   }
