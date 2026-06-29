@@ -1,18 +1,26 @@
 import {
   AfterContentInit,
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   ContentChildren,
+  ElementRef,
   inject,
   input,
   OnDestroy,
   QueryList,
+  signal,
 } from '@angular/core';
 import { FocusKeyManager, type FocusableOption } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import {
+  MAT_NAVIGATION_WIDGET,
+  MatNavigationWidget,
+  MatNavigationPlacement,
+} from '@fairylights-studio/ngx-m3-navigation-common';
 import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
 
 /** Bottom navigation container for compact and medium screen layouts. */
@@ -25,13 +33,24 @@ import { MatNavigationBarItemComponent } from './navigation-bar-item.component';
   `,
   styleUrl: './navigation-bar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: MAT_NAVIGATION_WIDGET,
+      useExisting: MatNavigationBarComponent,
+    },
+  ],
   host: {
     role: 'navigation',
     '[attr.aria-label]': 'ariaLabel() || null',
     '(keydown)': '_handleKeydown($event)',
   },
 })
-export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
+export class MatNavigationBarComponent implements AfterContentInit, AfterViewInit, OnDestroy, MatNavigationWidget {
+  readonly placement = signal<MatNavigationPlacement>('bottom').asReadonly();
+  readonly size = signal<number>(80);
+  readonly surfaceSize = signal<number | null>(null);
+
+  private _elementRef = inject(ElementRef);
   /** Accessible label for the navigation landmark. */
   ariaLabel = input<string>('');
 
@@ -57,6 +76,16 @@ export class MatNavigationBarComponent implements AfterContentInit, OnDestroy {
       this._dir.change.pipe(takeUntil(this._destroyed)).subscribe((dir) => {
         this._keyManager.withHorizontalOrientation(dir);
       });
+    }
+  }
+
+  ngAfterViewInit(): void {
+    // 浏览器环境下测量实际渲染高度并更新
+    if (typeof window !== 'undefined') {
+      const height = this._elementRef.nativeElement.offsetHeight;
+      if (height > 0) {
+        this.size.set(height);
+      }
     }
   }
 

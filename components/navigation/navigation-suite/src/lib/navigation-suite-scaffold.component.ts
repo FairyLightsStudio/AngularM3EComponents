@@ -17,6 +17,10 @@ import { ViewportRuler } from '@angular/cdk/scrolling';
 import { NgTemplateOutlet } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map, startWith } from 'rxjs/operators';
+import {
+  MAT_NAVIGATION_WIDGET,
+  MatNavigationWidget,
+} from '@fairylights-studio/ngx-m3-navigation-common';
 import { MatNavigationSuiteComponent } from './navigation-suite.component';
 import { MatNavigationSuitePrimaryAction } from './navigation-suite-primary-action.directive';
 import { MatNavigationSuiteScaffoldDefaults } from './navigation-suite-scaffold-defaults';
@@ -97,12 +101,8 @@ export class MatNavigationSuiteScaffoldComponent
   private readonly navigationSuite = contentChild(MatNavigationSuiteComponent);
   private readonly layoutElement = viewChild<ElementRef<HTMLElement>>('layout');
   private readonly navigationElement = viewChild<ElementRef<HTMLElement>>('navigation');
+  private readonly navigationWidget = contentChild(MAT_NAVIGATION_WIDGET, { descendants: true });
   private readonly requestedRailType = signal<'Collapsed' | 'Expanded' | null>(null);
-  // Expanded rails can size to `max-content`, which is not broadly animatable
-  // back to a fixed collapsed width. Cache the latest measured pixel width for
-  // the content offset; the rail surface itself uses a separate freeze below.
-  private readonly railExpandedSize = signal<number | null>(null);
-  private readonly railSurfaceSize = signal<string | null>(null);
   private readonly viewportWidth = toSignal(
     this.viewportRuler.change().pipe(
       startWith(null),
@@ -110,9 +110,6 @@ export class MatNavigationSuiteScaffoldComponent
     ),
     { initialValue: this.viewportRuler.getViewportSize().width },
   );
-  private railMeasureFrame: number | null = null;
-  private railMeasureTimeout: ReturnType<typeof setTimeout> | null = null;
-  private railSurfaceSizeResetTimeout: ReturnType<typeof setTimeout> | null = null;
   private settlementFrame: number | null = null;
   private settlementTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -160,19 +157,22 @@ export class MatNavigationSuiteScaffoldComponent
   });
 
   protected containerColorValue = computed(() => this.toCssColor(this.containerColor()));
-  protected navigationSizeValue = computed(() =>
-    this.defaultNavigationSize(this.currentNavSuiteType()),
-  );
-  protected navigationSurfaceSizeValue = computed(
-    () => this.railSurfaceSize() ?? this.defaultNavigationSurfaceSize(this.currentNavSuiteType()),
-  );
 
-  private readonly railExpandedSizeEffect = effect(() => {
-    if (this.currentNavSuiteType() === 'RailExpanded') {
-      this.scheduleRailExpandedSizeMeasure();
-    } else {
-      this.clearRailExpandedSizeMeasure();
+  protected navigationSizeValue = computed(() => {
+    const widget = this.navigationWidget();
+    if (widget) {
+      return `${widget.size()}px`;
     }
+    return this.defaultNavigationSize(this.currentNavSuiteType());
+  });
+
+  protected navigationSurfaceSizeValue = computed(() => {
+    const widget = this.navigationWidget();
+    if (widget) {
+      const surfaceSize = widget.surfaceSize();
+      return surfaceSize !== null ? `${surfaceSize}px` : `${widget.size()}px`;
+    }
+    return this.defaultNavigationSurfaceSize(this.currentNavSuiteType());
   });
 
   private readonly transitionSettlementEffect = effect(() => {
@@ -182,13 +182,6 @@ export class MatNavigationSuiteScaffoldComponent
     const navSuiteType = this.currentNavSuiteType();
 
     if (isAnimating) {
-      if (navSuiteType === 'RailExpanded') {
-        // Visibility transitions use the cached expanded rail width only for
-        // the content offset. The rail surface itself keeps its width and
-        // slides like mat-sidenav.
-        untracked(() => this.freezeCurrentRailExpandedSize());
-      }
-
       this.scheduleTransitionSettlement(state, targetValue, navSuiteType);
     } else {
       this.clearTransitionSettlement();
@@ -196,8 +189,6 @@ export class MatNavigationSuiteScaffoldComponent
   });
 
   ngOnDestroy(): void {
-    this.clearRailExpandedSizeMeasure();
-    this.clearRailSurfaceSizeReset();
     this.clearTransitionSettlement();
   }
 
@@ -207,18 +198,11 @@ export class MatNavigationSuiteScaffoldComponent
     }
 
     if (this.isRailExpanded()) {
-      // If the user collapses while the rail is still expanding, there may not
-      // be a settled cached width yet. Freeze the rendered surface separately
-      // so the inner rail can animate its max-width down to the collapsed size.
-      const frozenWidth = this.freezeCurrentRailExpandedSize();
       this.requestedRailType.set('Collapsed');
-      this.scheduleRailSurfaceSizeReset(frozenWidth);
       return;
     }
 
-    this.clearRailSurfaceSizeReset();
     this.requestedRailType.set('Expanded');
-    this.scheduleRailSurfaceSizeReset();
   }
 
   protected handleLayoutTransitionEnd(event: TransitionEvent): void {
@@ -257,148 +241,6 @@ export class MatNavigationSuiteScaffoldComponent
     navSuiteType: MatNavigationSuiteType,
   ): MatNavigationSuiteResolvedType {
     return navSuiteType === 'Auto' ? this.defaultNavSuiteType() : navSuiteType;
-  }
-
-  private scheduleRailExpandedSizeMeasure(): void {
-    this.clearRailExpandedSizeMeasure();
-
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    this.railMeasureFrame = window.requestAnimationFrame(() => {
-      this.railMeasureFrame = null;
-
-      if (this.currentNavSuiteType() !== 'RailExpanded') {
-        return;
-      }
-
-      const railElement = this.getRailElement();
-      const delay = railElement === null ? 0 : this.transitionTotalMs(railElement, 'max-width');
-
-      // Wait until the rail's own max-width transition settles before reading
-      // its intrinsic expanded width. Measuring during the transition would
-      // reintroduce the "chasing width" jank this cache is meant to avoid.
-      this.railMeasureTimeout = setTimeout(() => {
-        this.railMeasureTimeout = null;
-
-        if (this.currentNavSuiteType() === 'RailExpanded') {
-          this.measureRailExpandedSize();
-        }
-      }, delay + transitionEndFallbackBufferMs);
-    });
-  }
-
-  private clearRailExpandedSizeMeasure(): void {
-    if (this.railMeasureFrame !== null && typeof window !== 'undefined') {
-      window.cancelAnimationFrame(this.railMeasureFrame);
-      this.railMeasureFrame = null;
-    }
-
-    if (this.railMeasureTimeout !== null) {
-      clearTimeout(this.railMeasureTimeout);
-      this.railMeasureTimeout = null;
-    }
-  }
-
-  private measureRailExpandedSize(): void {
-    const width = this.measureCurrentRailWidth();
-
-    if (width === null) {
-      return;
-    }
-
-    this.setRailExpandedSize(width);
-  }
-
-  private freezeCurrentRailExpandedSize(): number | null {
-    const layoutElement = this.layoutElement()?.nativeElement;
-    const measuredWidth = this.measureCurrentRailWidth();
-
-    if (layoutElement === undefined || measuredWidth === null) {
-      return null;
-    }
-
-    const offsetWidth = this.setRailExpandedSize(measuredWidth);
-    const offsetWidthValue = `${offsetWidth}px`;
-    const surfaceWidthValue = `${measuredWidth}px`;
-
-    this.railSurfaceSize.set(surfaceWidthValue);
-    layoutElement.style.setProperty(
-      '--flight-nav-suite-scaffold-navigation-size',
-      offsetWidthValue,
-    );
-    layoutElement.style.setProperty(
-      '--flight-nav-suite-scaffold-navigation-surface-size',
-      surfaceWidthValue,
-    );
-    // Force the browser to commit the frozen custom properties before the
-    // class change swaps the content offset to the collapsed value.
-    void layoutElement.offsetWidth;
-
-    return measuredWidth;
-  }
-
-  private measureCurrentRailWidth(): number | null {
-    const railElement = this.getRailElement();
-
-    if (railElement === null) {
-      return null;
-    }
-
-    const width = railElement.offsetWidth || railElement.getBoundingClientRect().width;
-    const roundedWidth = Math.round(width);
-
-    return roundedWidth > 0 ? roundedWidth : null;
-  }
-
-  private setRailExpandedSize(width: number): number {
-    const currentWidth = untracked(() => this.railExpandedSize());
-
-    if (
-      currentWidth !== null &&
-      Math.abs(currentWidth - width) <= railWidthMeasurementTolerancePx
-    ) {
-      return currentWidth;
-    }
-
-    this.railExpandedSize.set(width);
-    return width;
-  }
-
-  private scheduleRailSurfaceSizeReset(frozenWidth: number | null = null): void {
-    this.clearRailSurfaceSizeReset();
-
-    if (frozenWidth === null && untracked(() => this.railSurfaceSize()) === null) {
-      return;
-    }
-
-    if (typeof window === 'undefined') {
-      this.railSurfaceSize.set(null);
-      return;
-    }
-
-    const railElement = this.getRailElement();
-    const delay = railElement === null ? 0 : this.transitionTotalMs(railElement, 'max-width');
-
-    this.railSurfaceSizeResetTimeout = setTimeout(() => {
-      this.railSurfaceSizeResetTimeout = null;
-      this.railSurfaceSize.set(null);
-    }, delay + transitionEndFallbackBufferMs);
-  }
-
-  private clearRailSurfaceSizeReset(): void {
-    if (this.railSurfaceSizeResetTimeout !== null) {
-      clearTimeout(this.railSurfaceSizeResetTimeout);
-      this.railSurfaceSizeResetTimeout = null;
-    }
-  }
-
-  private getRailElement(): HTMLElement | null {
-    return (
-      this.navigationElement()?.nativeElement.querySelector<HTMLElement>('mat-navigation-rail') ??
-      null
-    );
   }
 
   private scheduleTransitionSettlement(
@@ -451,7 +293,6 @@ export class MatNavigationSuiteScaffoldComponent
 
   private completeCurrentTransition(): void {
     this.clearTransitionSettlement();
-    this.railSurfaceSize.set(null);
     this.currentState()._completeTransition();
   }
 
@@ -583,16 +424,8 @@ export class MatNavigationSuiteScaffoldComponent
         return 'var(--flight-nav-suite-scaffold-bar-medium-height, var(--flight-nav-bar-container-horizontal-height, 64px))';
       case 'RailCollapsed':
         return 'var(--flight-nav-rail-container-collapsed-width, 80px)';
-      case 'RailExpanded': {
-        const measuredWidth = this.railExpandedSize();
-        // The absolutely positioned rail surface can size itself with
-        // max-content, but the grid track cannot infer that intrinsic width.
-        // Keep content at the collapsed offset until the expanded rail has
-        // settled and we have a real pixel width to animate toward.
-        return measuredWidth === null
-          ? 'var(--flight-nav-suite-scaffold-rail-expanded-width, var(--flight-nav-rail-container-collapsed-width, 80px))'
-          : `${measuredWidth}px`;
-      }
+      case 'RailExpanded':
+        return 'var(--flight-nav-suite-scaffold-rail-expanded-width, var(--flight-nav-rail-container-collapsed-width, 80px))';
     }
   }
 
