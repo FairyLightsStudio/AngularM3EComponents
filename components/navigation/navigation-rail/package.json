@@ -1,6 +1,6 @@
 {
   "name": "@fairylights-studio/ngx-m3-navigation-rail",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Material 3 side navigation rail with Expressive expanded and collapsed states for Angular Material",
   "license": "MIT",
   "author": "FairyLights Studio",
