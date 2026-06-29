@@ -144,16 +144,18 @@ export class MatNavigationRailComponent
 
     // Backup child item expanded states
     const items = Array.from(host.querySelectorAll('mat-navigation-rail-item')) as HTMLElement[];
-    const itemStates = items.map(item => ({
+    const itemStates = items.map((item) => ({
       el: item,
-      hadClass: item.classList.contains('mat-nav-rail-item-expanded')
+      hadClass: item.classList.contains('mat-nav-rail-item-expanded'),
     }));
 
     // Backup FAB collapsed states
-    const fabs = Array.from(host.querySelectorAll('[mat-extended-fab], .mat-mdc-extended-fab')) as HTMLElement[];
-    const fabStates = fabs.map(fab => ({
+    const fabs = Array.from(
+      host.querySelectorAll('[mat-extended-fab], .mat-mdc-extended-fab'),
+    ) as HTMLElement[];
+    const fabStates = fabs.map((fab) => ({
       el: fab,
-      hadClass: fab.classList.contains('mat-mdc-extended-fab-collapsed')
+      hadClass: fab.classList.contains('mat-mdc-extended-fab-collapsed'),
     }));
 
     // Temporarily force expanded state for accurate DOM measurement
@@ -166,13 +168,13 @@ export class MatNavigationRailComponent
       host.classList.add('mat-nav-rail-expanded');
     }
 
-    itemStates.forEach(state => {
+    itemStates.forEach((state) => {
       if (!state.hadClass) {
         state.el.classList.add('mat-nav-rail-item-expanded');
       }
     });
 
-    fabStates.forEach(state => {
+    fabStates.forEach((state) => {
       if (state.hadClass) {
         state.el.classList.remove('mat-mdc-extended-fab-collapsed');
       }
@@ -190,13 +192,13 @@ export class MatNavigationRailComponent
       host.classList.remove('mat-nav-rail-expanded');
     }
 
-    itemStates.forEach(state => {
+    itemStates.forEach((state) => {
       if (!state.hadClass) {
         state.el.classList.remove('mat-nav-rail-item-expanded');
       }
     });
 
-    fabStates.forEach(state => {
+    fabStates.forEach((state) => {
       if (state.hadClass) {
         state.el.classList.add('mat-mdc-extended-fab-collapsed');
       }
@@ -237,6 +239,7 @@ export class MatNavigationRailComponent
 
   ngAfterViewInit(): void {
     if (typeof window !== 'undefined') {
+      // FIXME: 如果item在rail的生命周期内有变化，例如出现了一些更长的label，需要重新测算expandedWidth，目前只是在ngAfterViewInit中测算了一次
       // Async measure on startup to get the ideal expanded width and store in cache
       Promise.resolve().then(() => {
         const expandedWidth = this.measureIntrinsicExpandedWidth();
@@ -253,8 +256,6 @@ export class MatNavigationRailComponent
       });
     }
   }
-
-
 
   @ContentChildren(MatNavigationRailItemComponent, { descendants: true })
   protected _items!: QueryList<MatNavigationRailItemComponent>;
