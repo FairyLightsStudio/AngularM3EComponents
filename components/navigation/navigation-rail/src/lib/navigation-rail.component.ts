@@ -51,6 +51,7 @@ export type MatNavRailIndicatorShape = 'hug' | 'fill';
     '[attr.data-indicator-shape]': 'indicatorShape()',
     '[attr.data-vertical-arrangement]': 'verticalArrangement()',
     '(keydown)': '_handleKeydown($event)',
+    '(transitionend)': '_handleTransitionEnd($event)',
   },
 })
 export class MatNavigationRailComponent
@@ -74,12 +75,14 @@ export class MatNavigationRailComponent
   // MatNavigationWidget interface implementation
   readonly placement = computed(() => 'left' as const);
   readonly size = signal<number>(80);
-  readonly surfaceSize = signal<number | null>(null).asReadonly();
+  readonly surfaceSize = signal<number | null>(null);
 
   private readonly _elementRef = inject(ElementRef);
   private _cachedExpandedWidth = 80;
   private _cachedCollapsedWidth = 80;
   private _previousExpanded?: boolean;
+
+  private railSurfaceSizeResetTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
     effect(() => {
@@ -90,14 +93,25 @@ export class MatNavigationRailComponent
       }
 
       untracked(() => {
+        const isInitial = this._previousExpanded === undefined;
+        const hasChanged = this._previousExpanded !== isExpanded;
         this._previousExpanded = isExpanded;
 
         if (isExpanded) {
+          this.clearRailSurfaceSizeReset();
           // Apply pre-cached expanded width immediately, letting grid offset transition smoothly with max-width animation
           this.size.set(this._cachedExpandedWidth);
+          this.surfaceSize.set(null);
         } else {
-          // Collapse size immediately so the scaffold's grid columns and main content start animating back right away
+          // Freeze surfaceSize to prevent scaffold navigation container clipping during collapse
+          this.surfaceSize.set(this._cachedExpandedWidth);
           this.size.set(this._cachedCollapsedWidth);
+
+          if (isInitial || !hasChanged) {
+            this.surfaceSize.set(null);
+          } else {
+            this.scheduleRailSurfaceSizeReset();
+          }
         }
       });
     });
@@ -192,7 +206,27 @@ export class MatNavigationRailComponent
     return intrinsicWidth > 0 ? intrinsicWidth : 200;
   }
 
+  private scheduleRailSurfaceSizeReset(): void {
+    this.clearRailSurfaceSizeReset();
+    this.railSurfaceSizeResetTimeout = setTimeout(() => {
+      this.railSurfaceSizeResetTimeout = null;
+      this.surfaceSize.set(null);
+    }, 5000); // 5s fallback safety net in case transitionend does not fire
+  }
 
+  private clearRailSurfaceSizeReset(): void {
+    if (this.railSurfaceSizeResetTimeout !== null) {
+      clearTimeout(this.railSurfaceSizeResetTimeout);
+      this.railSurfaceSizeResetTimeout = null;
+    }
+  }
+
+  protected _handleTransitionEnd(event: TransitionEvent): void {
+    if (event.propertyName === 'max-width' || event.propertyName === 'width') {
+      this.clearRailSurfaceSizeReset();
+      this.surfaceSize.set(null);
+    }
+  }
 
   ngAfterViewInit(): void {
     if (typeof window !== 'undefined') {
@@ -265,6 +299,7 @@ export class MatNavigationRailComponent
 
   ngOnDestroy(): void {
     this._keyManager?.destroy();
+    this.clearRailSurfaceSizeReset();
   }
 
   private _getEventItem(event: KeyboardEvent): MatNavigationRailItemComponent | undefined {
