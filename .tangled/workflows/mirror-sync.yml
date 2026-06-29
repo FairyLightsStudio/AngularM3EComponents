@@ -29,10 +29,16 @@ steps:
       # Verify key was written
       echo "Key bytes: $(wc -c < /tmp/.ssh/id_ed25519)"
 
+  - name: 'Fetch all refs from origin'
+    command: |
+      # The CI clone is shallow and detached; fetch full history to get all branches/tags
+      git fetch --unshallow origin 2>/dev/null || git fetch origin '+refs/heads/*:refs/heads/*' '+refs/tags/*:refs/tags/*'
+
   - name: 'Push mirror to GitHub'
     command: |
       export HOME=/tmp
       export GIT_SSH_COMMAND='ssh -i /tmp/.ssh/id_ed25519 -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new'
       git remote set-url mirror git@github.com:FairyLightsStudio/AngularM3EComponents 2>/dev/null \
         || git remote add mirror git@github.com:FairyLightsStudio/AngularM3EComponents
-      git push --mirror mirror
+      git push mirror --all
+      git push mirror --tags
