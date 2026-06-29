@@ -153,3 +153,10 @@ These structural directives control what gets projected into each `mat-navigatio
 | `*matNavigationIcon`       | `[MatNavigationIcon]`       | Primary icon displayed in the item.   |
 | `*matNavigationActiveIcon` | `[MatNavigationActiveIcon]` | Alternative icon shown when `active`. |
 | `matNavigationLabel`       | `[MatNavigationLabel]`      | Label text for the item.              |
+
+---
+
+## IoC & Framework Integration
+
+`MatNavigationBarComponent` implements the `MatNavigationWidget` interface and registers itself via the `MAT_NAVIGATION_WIDGET` injection token. This architecture allows parent layouts (such as `mat-navigation-suite-scaffold`) to automatically detect the bar, query its physical height (`size()`), and place it responsively.
+

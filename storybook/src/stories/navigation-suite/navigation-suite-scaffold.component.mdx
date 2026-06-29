@@ -168,3 +168,14 @@ When a bar layout is hidden, the primary action remains visible and moves to the
 ---
 
 <Stories title="Use Cases" />
+
+---
+
+## IoC & Width Synchronization
+
+`MatNavigationSuiteScaffoldComponent` queries its responsive navigation layout child (the rail or bar component) using the `MAT_NAVIGATION_WIDGET` injection token. 
+
+Because of this IoC decoupling:
+* The scaffold does not need to know whether it has a direct `<mat-navigation-rail>` child or a `<mat-navigation-suite>` wrapper. It simply queries the active widget's size signal.
+* When the rail transitions or collapses, the scaffold dynamically receives the size updates to animate the main content's layout column grid with zero layout jumps.
+

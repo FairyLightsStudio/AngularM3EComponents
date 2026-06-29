@@ -14,10 +14,12 @@
 
 这不是最理想的实现方法。更理想的方向是纯 CSS intrinsic size 过渡，例如 `interpolate-size: allow-keywords` / `calc-size()`，让 `max-content` 与具体长度之间可以直接插值。等 Safari、Firefox 等浏览器支持后，应考虑移除 JS 测量兜底，改为纯 CSS 或以纯 CSS 为主的渐进增强实现。
 
-#### 支持rail、bar外的自定义导航组件（例如 google keep 中的自定义 drawer
+#### 支持rail、bar外的自定义导航组件（例如 google keep 中的自定义 drawer）
 
-我目前没有具体的需求    
-可能要抽象出来一个（获取高度宽度的）接口给第三方导航组件去实现？不确定
+目前我们已经抽象出并在rail、bar侧实现了通用的 `MatNavigationWidget` 接口与 `MAT_NAVIGATION_WIDGET` InjectionToken。
+
+我们的目标是，任何第三方或自定义导航组件只需实现该接口并 provide 该 token，即可无缝嵌入 `mat-navigation-suite-scaffold` 中，实现物理高度与宽度的自动动态测量与自适应响应布局，不过我目前还没有第三方组件的需求，暂时不做这个。
+
 
 ### storybook 引入 compodoc，为文档页展示更全面的 API 列表
 

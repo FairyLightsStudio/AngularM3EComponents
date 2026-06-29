@@ -184,3 +184,13 @@ These structural directives control what gets projected into each `mat-navigatio
 | `*matNavigationIcon`       | `[MatNavigationIcon]`       | Primary icon displayed in the item.   |
 | `*matNavigationActiveIcon` | `[MatNavigationActiveIcon]` | Alternative icon shown when `active`. |
 | `matNavigationLabel`       | `[MatNavigationLabel]`      | Label text for the item.              |
+
+---
+
+## IoC & Framework Integration
+
+`MatNavigationRailComponent` implements the `MatNavigationWidget` interface and registers itself via the `MAT_NAVIGATION_WIDGET` injection token. 
+
+### Ideal Width Auto-Measurement
+Upon startup, the component dynamically measures its ideal expanded layout width under a temporary, transition-blocked sandbox environment, caching the result to prevent layout jumps or text-wrapping during collapsible transitions. This ideal size signal is fully queryable by parent responsive containers.
+
