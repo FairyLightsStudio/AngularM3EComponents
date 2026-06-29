@@ -182,7 +182,6 @@ export class MatNavigationRailComponent
     const intrinsicWidth = host.offsetWidth;
 
     // Restore original styles and classes
-    host.classList.remove('mat-nav-rail-measure-sandbox');
     host.style.maxWidth = originalMaxWidth;
     host.style.transition = originalTransition;
     host.style.width = originalWidth;
@@ -202,6 +201,9 @@ export class MatNavigationRailComponent
         state.el.classList.add('mat-mdc-extended-fab-collapsed');
       }
     });
+
+    // Unblock transitions only after everything is completely reverted
+    host.classList.remove('mat-nav-rail-measure-sandbox');
 
     return intrinsicWidth > 0 ? intrinsicWidth : 200;
   }
