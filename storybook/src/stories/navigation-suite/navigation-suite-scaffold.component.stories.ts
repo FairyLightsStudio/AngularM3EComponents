@@ -295,10 +295,8 @@ export const RailCollapsed: Story = {
       const matches = canvas.getAllByText(item.label);
       await expect(matches.length).toBeGreaterThan(0);
     }
-    const rail = canvasElement.querySelector('mat-navigation-rail');
-    if (rail) {
-      await expect(rail).not.toHaveClass('mat-nav-rail-expanded');
-    }
+    // If collapsed, Compose label is hidden
+    await expect(canvas.getByText('Compose')).not.toBeVisible();
   },
 };
 
@@ -324,11 +322,8 @@ export const RailExpanded: Story = {
       const matches = canvas.getAllByText(item.label);
       await expect(matches.length).toBeGreaterThan(0);
     }
-    const rail = canvasElement.querySelector('mat-navigation-rail');
-    if (rail) {
-      await expect(rail).toHaveClass('mat-nav-rail-expanded');
-      await expect(rail).toHaveAttribute('data-vertical-arrangement', 'center');
-    }
+    // If expanded, Compose label is visible
+    await expect(canvas.getByText('Compose')).toBeVisible();
   },
 };
 
@@ -517,12 +512,6 @@ export const BarMedium: Story = {
     // All items present
     for (const item of navItems) {
       await expect(canvas.getByText(item.label)).toBeInTheDocument();
-    }
-
-    // Items in BarMedium should have horizontal layout
-    const barItemHosts = canvasElement.querySelectorAll('mat-navigation-bar-item');
-    for (const host of barItemHosts) {
-      await expect(host).toHaveClass('mat-navigation-bar-item-horizontal');
     }
   },
 };

@@ -54,7 +54,6 @@ export const Collapsed: Story = {
     await expect(toggle).toBeInTheDocument();
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await expect(toggle).toHaveAttribute('aria-label', 'Expand navigation');
-    await expect(toggle).not.toHaveClass('expanded');
   },
 };
 
@@ -70,7 +69,6 @@ export const Expanded: Story = {
     await expect(toggle).toBeInTheDocument();
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
     await expect(toggle).toHaveAttribute('aria-label', 'Collapse navigation');
-    await expect(toggle).toHaveClass('expanded');
   },
 };
 
@@ -98,7 +96,6 @@ export const ToggleBehavior: Story = {
     // Click to expand
     await userEvent.click(toggle);
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(toggle).toHaveClass('expanded');
 
     // Click again to collapse
     await userEvent.click(toggle);

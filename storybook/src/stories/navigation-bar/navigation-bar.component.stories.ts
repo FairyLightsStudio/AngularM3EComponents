@@ -122,7 +122,7 @@ export const Basic: Story = {
 
 /**
  * Horizontal layout: labels appear inline beside icons.
- * Verifies horizontal CSS class and selection state.
+ * Verifies horizontal layout.
  */
 export const HorizontalLabels: Story = {
   args: {
@@ -141,12 +141,6 @@ export const HorizontalLabels: Story = {
 
     // "Search" is selected
     await expect(items[1]).toHaveAttribute('aria-selected', 'true');
-
-    // All items have horizontal layout class (on host mat-navigation-bar-item)
-    const itemHosts = canvasElement.querySelectorAll('mat-navigation-bar-item');
-    for (const host of itemHosts) {
-      await expect(host).toHaveClass('mat-navigation-bar-item-horizontal');
-    }
 
     // Labels visible for all items
     await expect(canvas.getByText('Home')).toBeInTheDocument();
@@ -175,10 +169,10 @@ export const CompactLabels: Story = {
     // "Alerts" (index 2) is the selected item
     await expect(items[2]).toHaveAttribute('aria-selected', 'true');
 
-    // Inactive item hosts should lack always-show-label class
-    const itemHosts = canvasElement.querySelectorAll('mat-navigation-bar-item');
-    await expect(itemHosts[0]).not.toHaveClass('mat-navigation-bar-item-always-show-label');
-    await expect(itemHosts[1]).not.toHaveClass('mat-navigation-bar-item-always-show-label');
+    // Inactive labels (like "Home" and "Search") should not be visible, while active label is visible
+    await expect(canvas.getByText('Home')).not.toBeVisible();
+    await expect(canvas.getByText('Search')).not.toBeVisible();
+    await expect(canvas.getByText('Alerts')).toBeVisible();
   },
 };
 

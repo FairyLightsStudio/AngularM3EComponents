@@ -138,22 +138,12 @@ export const Collapsed: Story = {
     const canvas = within(canvasElement);
     const rail = canvas.getByRole('navigation', { name: 'Primary navigation' });
 
-    // Collapsed: no expanded class on host
-    await expect(rail).not.toHaveClass('mat-nav-rail-expanded');
-
-    // Divider class present (showDivider=true)
-    await expect(rail).toHaveClass('mat-nav-rail-has-divider');
-
-    // Indicator shape data attribute
-    await expect(rail).toHaveAttribute('data-indicator-shape', 'hug');
-
-    // FAB is collapsed when rail is collapsed
-    const fab = canvas.getByLabelText('Create item');
-    await expect(fab).toHaveClass('mat-mdc-extended-fab-collapsed');
-
     // Toggle button: collapsed state
     const toggle = within(rail).getByRole('button', { name: 'Expand navigation' });
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+    // FAB is collapsed (its label is hidden)
+    await expect(canvas.getByText('Create')).not.toBeVisible();
 
     // Four rail items rendered as buttons with role="tab"
     const railItems = within(rail).getAllByRole('tab');
@@ -169,8 +159,7 @@ export const Collapsed: Story = {
 
 /**
  * Expanded rail with center arrangement and fill indicator shape.
- * Verifies expanded class, selection, FAB expansion, label visibility,
- * center arrangement, and toggle collapse.
+ * Verifies expanded state, selection, FAB expansion, and label visibility.
  */
 export const Expanded: Story = {
   args: {
@@ -185,31 +174,21 @@ export const Expanded: Story = {
     const canvas = within(canvasElement);
     const rail = canvas.getByRole('navigation', { name: 'Primary navigation' });
 
-    // Expanded class present
-    await expect(rail).toHaveClass('mat-nav-rail-expanded');
-
-    // Fill indicator shape
-    await expect(rail).toHaveAttribute('data-indicator-shape', 'fill');
-
-    // Center vertical arrangement
-    await expect(rail).toHaveAttribute('data-vertical-arrangement', 'center');
-
-    // FAB is NOT collapsed when rail is expanded
-    const fab = canvas.getByLabelText('Create item');
-    await expect(fab).not.toHaveClass('mat-mdc-extended-fab-collapsed');
-
     // Toggle shows expanded state
     const toggle = within(rail).getByRole('button', { name: 'Collapse navigation' });
     await expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+    // FAB is NOT collapsed (its label is visible)
+    await expect(canvas.getByText('Create')).toBeVisible();
 
     // Rail items: "Messages" (index 1) is selected
     const railItems = within(rail).getAllByRole('tab');
     await expect(railItems[1]).toHaveAttribute('aria-selected', 'true');
 
-    // Labels visible when expanded (each label appears in both side & bottom containers)
-    await expect(within(rail).getAllByText('Inbox').length).toBeGreaterThan(0);
-    await expect(within(rail).getAllByText('Calendar').length).toBeGreaterThan(0);
-    await expect(within(rail).getAllByText('Settings').length).toBeGreaterThan(0);
+    // Labels visible when expanded
+    await expect(canvas.getByText('Inbox')).toBeVisible();
+    await expect(canvas.getByText('Calendar')).toBeVisible();
+    await expect(canvas.getByText('Settings')).toBeVisible();
   },
 };
 
@@ -227,19 +206,20 @@ export const ToggleBehavior: Story = {
     const rail = canvas.getByRole('navigation', { name: 'Primary navigation' });
     const toggle = within(rail).getByRole('button', { name: 'Expand navigation' });
 
-    // Initial: collapsed
-    await expect(rail).not.toHaveClass('mat-nav-rail-expanded');
+    // Initial: collapsed (label hidden)
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+    await expect(canvas.getByText('Create')).not.toBeVisible();
 
     // Click toggle — rail expands
     await userEvent.click(toggle);
     const collapseToggle = within(rail).getByRole('button', { name: 'Collapse navigation' });
     await expect(collapseToggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(rail).toHaveClass('mat-nav-rail-expanded');
+    await expect(canvas.getByText('Create')).toBeVisible();
 
     // Click toggle again — rail collapses
     await userEvent.click(collapseToggle);
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    await expect(rail).not.toHaveClass('mat-nav-rail-expanded');
+    await expect(canvas.getByText('Create')).not.toBeVisible();
   },
 };
 

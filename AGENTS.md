@@ -84,6 +84,8 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 
 现阶段，为快速开发，不需要AI修改后 自己编译/build，修改完毕后直接告诉用户修改完了就好了，用户会快速查验你的更改。
 
+⚠️ IMPORTANT: 本项目使用jj代替git。当用户要求你推送，添加commit等等时，务必阅读 .agents/skills/jujutsu/SKILL.md，并使用jj cli操作，必须要用到git时要先告知用户征询意见。
+
 <!-- nx configuration start-->
 <!-- Leave the start & end comments to automatically receive updates. -->
 
