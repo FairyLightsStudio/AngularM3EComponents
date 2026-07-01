@@ -164,16 +164,6 @@ export const Collapsed: Story = {
 
     // Messages item has badge "8"
     await expect(within(railItems[1]).getByText('8')).toBeInTheDocument();
-
-    // Click "Messages" — selection moves
-    await userEvent.click(railItems[1]);
-    await expect(railItems[0]).toHaveAttribute('aria-selected', 'false');
-    await expect(railItems[1]).toHaveAttribute('aria-selected', 'true');
-
-    // Click toggle — rail expands
-    await userEvent.click(toggle);
-    await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(rail).toHaveClass('mat-nav-rail-expanded');
   },
 };
 
@@ -220,10 +210,60 @@ export const Expanded: Story = {
     await expect(within(rail).getAllByText('Inbox').length).toBeGreaterThan(0);
     await expect(within(rail).getAllByText('Calendar').length).toBeGreaterThan(0);
     await expect(within(rail).getAllByText('Settings').length).toBeGreaterThan(0);
+  },
+};
 
-    // Click toggle to collapse
+/**
+ * Interactive test verifying expanded/collapsed state toggling.
+ */
+export const ToggleBehavior: Story = {
+  name: 'Behavior/Toggle',
+  args: {
+    expanded: false,
+  },
+  render: Collapsed.render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const rail = canvas.getByRole('navigation', { name: 'Primary navigation' });
+    const toggle = within(rail).getByRole('button', { name: 'Expand navigation' });
+
+    // Initial: collapsed
+    await expect(rail).not.toHaveClass('mat-nav-rail-expanded');
+
+    // Click toggle — rail expands
     await userEvent.click(toggle);
+    const collapseToggle = within(rail).getByRole('button', { name: 'Collapse navigation' });
+    await expect(collapseToggle).toHaveAttribute('aria-expanded', 'true');
+    await expect(rail).toHaveClass('mat-nav-rail-expanded');
+
+    // Click toggle again — rail collapses
+    await userEvent.click(collapseToggle);
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
     await expect(rail).not.toHaveClass('mat-nav-rail-expanded');
   },
 };
+
+/**
+ * Interactive test verifying tab selection changes on click.
+ */
+export const SelectionBehavior: Story = {
+  name: 'Behavior/Selection',
+  args: {
+    selectedIndex: 0,
+  },
+  render: Collapsed.render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const rail = canvas.getByRole('navigation', { name: 'Primary navigation' });
+    const railItems = within(rail).getAllByRole('tab');
+
+    // Initially index 0 is selected
+    await expect(railItems[0]).toHaveAttribute('aria-selected', 'true');
+
+    // Click "Messages" (index 1) — selection moves
+    await userEvent.click(railItems[1]);
+    await expect(railItems[0]).toHaveAttribute('aria-selected', 'false');
+    await expect(railItems[1]).toHaveAttribute('aria-selected', 'true');
+  },
+};
+

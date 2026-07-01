@@ -117,16 +117,6 @@ export const Basic: Story = {
     // Badge text "3" appears on the Alerts item
     const alertsItem = items[2];
     await expect(within(alertsItem).getByText('3')).toBeInTheDocument();
-
-    // Click "Search" — selection moves
-    await userEvent.click(canvas.getByText('Search'));
-    await expect(items[0]).toHaveAttribute('aria-selected', 'false');
-    await expect(items[1]).toHaveAttribute('aria-selected', 'true');
-
-    // Click "Alerts" — selection moves again
-    await userEvent.click(canvas.getByText('Alerts'));
-    await expect(items[1]).toHaveAttribute('aria-selected', 'false');
-    await expect(items[2]).toHaveAttribute('aria-selected', 'true');
   },
 };
 
@@ -189,10 +179,35 @@ export const CompactLabels: Story = {
     const itemHosts = canvasElement.querySelectorAll('mat-navigation-bar-item');
     await expect(itemHosts[0]).not.toHaveClass('mat-navigation-bar-item-always-show-label');
     await expect(itemHosts[1]).not.toHaveClass('mat-navigation-bar-item-always-show-label');
-
-    // Click "Home" to change selection
-    await userEvent.click(canvas.getByText('Home'));
-    await expect(items[0]).toHaveAttribute('aria-selected', 'true');
-    await expect(items[2]).toHaveAttribute('aria-selected', 'false');
   },
 };
+
+/**
+ * Interactive test verifying tab selection changes on click.
+ */
+export const SelectionBehavior: Story = {
+  name: 'Behavior/Selection',
+  args: {
+    selectedIndex: 0,
+  },
+  render: Basic.render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const bar = canvas.getByRole('navigation', { name: 'Primary navigation' });
+    const items = within(bar).getAllByRole('tab');
+
+    // Initially "Home" is selected
+    await expect(items[0]).toHaveAttribute('aria-selected', 'true');
+
+    // Click "Search" — selection moves
+    await userEvent.click(canvas.getByText('Search'));
+    await expect(items[0]).toHaveAttribute('aria-selected', 'false');
+    await expect(items[1]).toHaveAttribute('aria-selected', 'true');
+
+    // Click "Alerts" — selection moves again
+    await userEvent.click(canvas.getByText('Alerts'));
+    await expect(items[1]).toHaveAttribute('aria-selected', 'false');
+    await expect(items[2]).toHaveAttribute('aria-selected', 'true');
+  },
+};
+

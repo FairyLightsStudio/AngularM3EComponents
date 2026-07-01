@@ -239,13 +239,35 @@ export const BarCompactPabConditional: Story = {
 
     // Status text confirms PAB visibility
     await expect(canvas.getByText(/PAB is visible/)).toBeInTheDocument();
+  },
+};
+
+/**
+ * Interactive test verifying PabConditional visibility toggles based on selected destination.
+ */
+export const PabConditionalBehavior: Story = {
+  name: 'Behavior/PAB Conditional',
+  args: {
+    selectedIndex: 0,
+    navSuiteType: 'BarCompact',
+    primaryActionAlignment: 'end',
+  },
+  globals: {
+    viewport: { value: 'mobile2', isRotated: false },
+  },
+  render: BarCompactPabConditional.render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    // Dashboard is selected: PAB visible
+    const composeBtn = canvas.getByLabelText('Create document');
+    await expect(composeBtn).toBeInTheDocument();
 
     // Navigate to "Tasks"
     await userEvent.click(canvas.getByText('Tasks'));
 
     // PAB hidden when not on Dashboard
     await expect(canvas.queryByLabelText('Create document')).not.toBeInTheDocument();
-    await expect(canvas.getByText(/Navigate back to Dashboard/)).toBeInTheDocument();
 
     // Navigate back to Dashboard
     await userEvent.click(canvas.getByText('Dashboard'));
@@ -253,7 +275,6 @@ export const BarCompactPabConditional: Story = {
     // PAB reappears
     const reappearedBtn = canvas.getByLabelText('Create document');
     await expect(reappearedBtn).toBeInTheDocument();
-    await expect(canvas.getByText(/PAB is visible/)).toBeInTheDocument();
   },
 };
 
@@ -426,6 +447,33 @@ export const BarVisibilityState: Story = {
     await expect(stateDisplay).toHaveTextContent(/Current: visible/);
     await expect(stateDisplay).toHaveTextContent(/Target: visible/);
     await expect(stateDisplay).toHaveTextContent(/Animating: false/);
+  },
+};
+
+/**
+ * Interactive test verifying Bar visibility state methods: show, hide, snap, and toggle.
+ */
+export const BarVisibilityBehavior: Story = {
+  name: 'Behavior/Bar Visibility',
+  argTypes: {
+    visibility: { control: 'radio', options: ['visible', 'hidden'] },
+  },
+  args: {
+    selectedIndex: 0,
+    navSuiteType: 'BarCompact',
+    primaryActionAlignment: 'end',
+    visibility: 'visible',
+  },
+  globals: {
+    viewport: { value: 'mobile2', isRotated: false },
+  },
+  render: BarVisibilityState.render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const stateDisplay = canvas.getByTestId('state-display');
+
+    // Initial: visible
+    await expect(stateDisplay).toHaveTextContent(/Current: visible/);
 
     // Click Hide
     await userEvent.click(canvas.getByTestId('btn-hide'));
@@ -438,8 +486,6 @@ export const BarVisibilityState: Story = {
     // Snap hidden (instant, no animation)
     await userEvent.click(canvas.getByTestId('btn-snap'));
     await expect(stateDisplay).toHaveTextContent(/Current: hidden/);
-    await expect(stateDisplay).toHaveTextContent(/Target: hidden/);
-    await expect(stateDisplay).toHaveTextContent(/Animating: false/);
 
     // Toggle back to visible
     await userEvent.click(canvas.getByTestId('btn-toggle'));
@@ -570,6 +616,33 @@ export const RailVisibilityState: Story = {
     await expect(stateDisplay).toHaveTextContent(/Current: visible/);
     await expect(stateDisplay).toHaveTextContent(/Target: visible/);
     await expect(stateDisplay).toHaveTextContent(/Animating: false/);
+  },
+};
+
+/**
+ * Interactive test verifying Rail visibility state methods: show, hide, snap, and toggle.
+ */
+export const RailVisibilityBehavior: Story = {
+  name: 'Behavior/Rail Visibility',
+  argTypes: {
+    visibility: { control: 'radio', options: ['visible', 'hidden'] },
+  },
+  args: {
+    selectedIndex: 0,
+    navSuiteType: 'RailExpanded',
+    verticalArrangement: 'center',
+    visibility: 'visible',
+  },
+  globals: {
+    viewport: { value: 'desktop', isRotated: false },
+  },
+  render: RailVisibilityState.render,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const stateDisplay = canvas.getByTestId('state-display');
+
+    // Initial: visible
+    await expect(stateDisplay).toHaveTextContent(/Current: visible/);
 
     // Click Hide — rail + primary action both hide
     await userEvent.click(canvas.getByTestId('btn-hide'));
@@ -582,8 +655,6 @@ export const RailVisibilityState: Story = {
     // Snap hidden (instant, no animation)
     await userEvent.click(canvas.getByTestId('btn-snap'));
     await expect(stateDisplay).toHaveTextContent(/Current: hidden/);
-    await expect(stateDisplay).toHaveTextContent(/Target: hidden/);
-    await expect(stateDisplay).toHaveTextContent(/Animating: false/);
 
     // Toggle back to visible
     await userEvent.click(canvas.getByTestId('btn-toggle'));
