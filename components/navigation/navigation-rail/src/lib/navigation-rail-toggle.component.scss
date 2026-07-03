@@ -42,3 +42,11 @@ button.expanded .menu-open-icon {
   opacity: 1;
   transform: rotate(0deg);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  :host, :host * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+

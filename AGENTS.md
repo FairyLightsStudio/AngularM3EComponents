@@ -2,9 +2,13 @@
 > After ANY component change (new component, updated feature, changed component, etc.),
 > update the relevant section below. Stale information wastes time and causes errors.
 >
-> Last updated: 2026-06-30
+> Last updated: 2026-07-03
 
 本项目旨在补齐 Angular 官方目前在 Angular Material UI Component Library 没有提供的一些 Material 3 组件。
+
+本项目强依赖Angular Material，不要考虑单独使用 Navigation 包的情况。
+本项目目前不考虑向后兼容，欢迎你为了更好的设计，放弃后向兼容api。
+我们是zoneless，不考虑支持zone.js
 
 本项目目前已实现以下包（组件）：
 
@@ -22,8 +26,6 @@
 
 5. **button** — `MatExtendedFabCollapsedDirective` 指令，允许已设置 `extended` 的 FAB（`MatFabButton`）通过 `collapsed` input 在展开与折叠形态之间切换。
 
-本项目强依赖Angular Material，不要考虑单独使用 Navigation 包的情况。
-本项目目前不考虑向后兼容，欢迎你为了更好的设计，放弃后向兼容api。
 
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 

@@ -89,3 +89,13 @@
   transition: margin var(--flight-button-fab-motion-duration-medium1)
     var(--flight-button-fab-motion-easing-standard);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .mat-mdc-fab-base {
+    &, & *, & .mdc-button__label {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+}
+

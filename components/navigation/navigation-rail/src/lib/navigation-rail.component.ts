@@ -103,18 +103,30 @@ export class MatNavigationRailComponent
           this.size.set(this._cachedExpandedWidth);
           this.surfaceSize.set(null);
         } else {
-          // Freeze surfaceSize to prevent scaffold navigation container clipping during collapse
-          this.surfaceSize.set(this._cachedExpandedWidth);
-          this.size.set(this._cachedCollapsedWidth);
-
-          if (isInitial || !hasChanged) {
+          if (this.prefersReducedMotion()) {
+            this.size.set(this._cachedCollapsedWidth);
             this.surfaceSize.set(null);
           } else {
-            this.scheduleRailSurfaceSizeReset();
+            // Freeze surfaceSize to prevent scaffold navigation container clipping during collapse
+            this.surfaceSize.set(this._cachedExpandedWidth);
+            this.size.set(this._cachedCollapsedWidth);
+
+            if (isInitial || !hasChanged) {
+              this.surfaceSize.set(null);
+            } else {
+              this.scheduleRailSurfaceSizeReset();
+            }
           }
         }
       });
     });
+  }
+
+  private prefersReducedMotion(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true
+    );
   }
 
   private measureCollapsedWidth(): number {

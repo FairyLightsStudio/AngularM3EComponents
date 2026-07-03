@@ -67,3 +67,11 @@
     transition: none !important;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  :host, :host * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
