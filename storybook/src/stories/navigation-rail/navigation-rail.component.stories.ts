@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatExtendedFabCollapsedDirective } from '@fairylights-studio/ngx-m3-button';
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, within, waitFor } from 'storybook/test';
 import {
   MAT_NAVIGATION_RAIL_MODULES,
   MatNavRailIndicatorShape,
@@ -185,10 +185,18 @@ export const Expanded: Story = {
     const railItems = within(rail).getAllByRole('tab');
     await expect(railItems[1]).toHaveAttribute('aria-selected', 'true');
 
-    // Labels visible when expanded
-    await expect(canvas.getByText('Inbox')).toBeVisible();
-    await expect(canvas.getByText('Calendar')).toBeVisible();
-    await expect(canvas.getByText('Settings')).toBeVisible();
+    // Labels visible when expanded (only side labels are visible, bottom labels are hidden)
+    const inboxLabels = canvas.getAllByText('Inbox');
+    await expect(inboxLabels[0]).toBeVisible();
+    await expect(inboxLabels[1]).not.toBeVisible();
+
+    const calendarLabels = canvas.getAllByText('Calendar');
+    await expect(calendarLabels[0]).toBeVisible();
+    await expect(calendarLabels[1]).not.toBeVisible();
+
+    const settingsLabels = canvas.getAllByText('Settings');
+    await expect(settingsLabels[0]).toBeVisible();
+    await expect(settingsLabels[1]).not.toBeVisible();
   },
 };
 
@@ -214,12 +222,16 @@ export const ToggleBehavior: Story = {
     await userEvent.click(toggle);
     const collapseToggle = within(rail).getByRole('button', { name: 'Collapse navigation' });
     await expect(collapseToggle).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByText('Create')).toBeVisible();
+    await waitFor(async () => {
+      await expect(canvas.getByText('Create')).toBeVisible();
+    });
 
     // Click toggle again — rail collapses
     await userEvent.click(collapseToggle);
     await expect(toggle).toHaveAttribute('aria-expanded', 'false');
-    await expect(canvas.getByText('Create')).not.toBeVisible();
+    await waitFor(async () => {
+      await expect(canvas.getByText('Create')).not.toBeVisible();
+    });
   },
 };
 
