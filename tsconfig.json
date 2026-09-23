@@ -4,6 +4,8 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
+      "@fairylights-studio/ngx-m3-adaptive": ["./components/adaptive/src/public-api"],
+      "@fairylights-studio/ngx-m3-adaptive/router": ["./components/adaptive/router/src/public-api"],
       "@fairylights-studio/ngx-m3-button": ["./components/button/src/public-api"],
       "@fairylights-studio/ngx-m3-button/styles": ["./components/button/styles.scss"],
       "@fairylights-studio/ngx-m3-navigation-rail": [
@@ -40,6 +42,7 @@
   },
   "files": [],
   "references": [
+    { "path": "./components/adaptive/tsconfig.lib.json" },
     {
       "path": "./components/button/tsconfig.lib.json"
     },

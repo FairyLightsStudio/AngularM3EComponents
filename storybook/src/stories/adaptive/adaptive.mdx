@@ -1,0 +1,139 @@
+import { Meta, Title, Subtitle, Canvas } from '@storybook/addon-docs/blocks';
+import * as ScaffoldStories from './adaptive.stories';
+import * as ResizingStories from './resizing.stories';
+import * as SuiteStories from './navigation-suite.stories';
+import * as RouterStories from './router.stories';
+
+<Meta title="Adaptive/Overview" />
+
+<Title>Adaptive Material 3 panes</Title>
+
+<Subtitle>
+  Container-responsive List–Detail, Supporting and three-pane layouts with retained content state,
+  local navigation, floating panes and accessible resizing.
+</Subtitle>
+
+These examples are third-party implementations by FairyLights Studio, not official Angular or Google
+components. They follow the AndroidX adaptive layout sources supplied for this project, adapted to
+browser behavior. See the package `WEB-ADAPTATION.md` for the source map and the deliberate
+platform differences.
+
+⚠️ 这是临时的、AI 生成、**且尚未经过人类调优**的组件库，旨在“比没有强”，**不要将其用于严肃环境**。  
+⚠️ This is a temporary, AI-generated component library—**unrefined by humans**—intended merely as a "better-than-nothing" solution; **DO NOT USE IT IN PRODUCTION ENVIRONMENTS**.
+
+Each `ng-template matPane` is instantiated exactly once into a stable pane container. Switching
+between hidden, side-by-side, vertically reflowed and floating presentations never recreates your
+Angular component, its form state or its scroll position.
+
+<Canvas of={ScaffoldStories.ListDetail} />
+
+Adaptation is decided from the **measured width of the scaffold**, not the viewport, so a layout that
+sits next to an expanded navigation rail adapts to the space actually left over.
+
+<Canvas of={SuiteStories.RailContentResize} />
+
+## List–Detail, Supporting and three panes
+
+List–Detail maps List to `secondary`, Detail to `primary` and an optional Extra pane to
+`tertiary`. Supporting maps Main to `primary` and Supporting to `secondary`. The three-pane
+scaffold takes explicit strategies and logical order.
+
+| Available width  | Maximum columns |
+| ---------------- | --------------- |
+| Below 840px      | 1               |
+| 840–1199px       | 2               |
+| 1200px and above | 3               |
+
+Supporting content reflows beneath Main in a single-column layout that has enough definite height,
+matching the current AndroidX default. Without an explicit `height`, panes use natural document
+height and height-based reflow is disabled, so content can never feed back into the layout decision.
+
+<Canvas of={ScaffoldStories.TallSupportingReflow} />
+<Canvas of={ScaffoldStories.ThreePanes} />
+
+## Floating panes
+
+`Levitate` presents the current destination above the other panes. Restrict it to single-column
+layouts with `onlyIfSinglePane`, which reproduces the common narrow-screen sheet pattern while
+leaving wide layouts unchanged.
+
+`levitationPosition` accepts `auto` and `popover` in addition to the fixed edges. Both follow the
+control that opened the pane — from a click, or from the focused control for keyboard activation.
+`auto` docks to whichever edge that control is proportionally closest to, so a pane opened from the
+left opens on the left rather than jumping to a configured edge. `popover` places the pane beside the
+control the way a menu does, flipping above the trigger when there is no room below and staying inside
+the scaffold.
+
+<Canvas of={ScaffoldStories.ConditionalLevitation} />
+
+By default a floating pane blocks the layout behind it: it draws a scrim over the scaffold and makes
+the other panes `inert`, so the pointer and the keyboard both stop at the scrim. Activating the scrim
+or pressing Escape raises a dismiss request instead of being handled silently.
+
+<Canvas of={ScaffoldStories.ScrimmedLevitation} />
+
+Set `[scrim]="false"` when a floating pane should stay passive and leave the layout behind fully
+usable, such as a persistent tool palette.
+
+<Canvas of={ScaffoldStories.NonmodalLevitation} />
+
+A modal floating pane keeps the same Angular content but is presented through a native modal dialog:
+the browser disables interaction outside it across the whole page and supplies the backdrop. Because
+the top layer is positioned against the viewport, the pane is presented viewport-anchored rather than
+inside the scaffold, so reserve modality for a real dialog.
+
+<Canvas of={ScaffoldStories.ModalLevitation} />
+
+## Resizing
+
+Split resizing applies only when exactly two panes are Expanded — the same scope as the reference
+implementation. Sizes are remembered per role pair, so List/Detail never overwrite Detail/Extra.
+Configured anchors define where a release snaps, including RTL, and the separator is fully
+keyboard operable.
+
+The layout's own split position is not one of those anchors. Express a resting width the user can
+return to — a narrow list beside a wide detail pane — as a fixed offset anchor and make it the
+`initialAnchor`, which is the idiom the AndroidX samples use. This example registers five anchors:
+collapsed, narrow start, even split, narrow end and full.
+
+<Canvas of={ResizingStories.SplitAndAnchors} />
+<Canvas of={ResizingStories.RtlSplit} />
+
+Edge-docked sheets use their own size state with collapsed, partial and expanded stops.
+
+<Canvas of={ResizingStories.EndSheet} />
+<Canvas of={ResizingStories.BottomSheet} />
+
+## Right-to-left
+
+Logical start/end order, pane placement, anchor values and keyboard directions all follow the
+ambient direction, while the DOM reading order stays logical.
+
+<Canvas of={ScaffoldStories.RightToLeft} />
+
+## Navigation
+
+Local navigation keeps a destination trail for pane priority and policy-based Back. A missing Back
+target is a safe no-op, and browser Back is never intercepted implicitly.
+
+<Canvas of={ScaffoldStories.ListDetail} />
+
+The optional Router entry point stores the trail in the URL, so deep links work and ordinary browser
+Back/Forward behave normally. Pane-policy Back is a separate, explicit operation that replaces the
+current URL entry.
+
+<Canvas of={RouterStories.QueryParamNavigation} />
+
+## Reduced motion
+
+Animations settle immediately under `prefers-reduced-motion`, and interrupted operations always
+resolve to the latest requested state rather than depending on a transition event.
+
+<Canvas of={ScaffoldStories.ReducedMotion} />
+
+## Known scope limits
+
+Foldable hinges and device posture, predictive or gesture-following Back, operating-system gesture
+exclusion, automatic business data fetching, and frame-for-frame Compose physics are intentionally
+not implemented. Retained hidden panes keep their business subscriptions running; pause expensive
+work using the exposed adaptation state when that matters.

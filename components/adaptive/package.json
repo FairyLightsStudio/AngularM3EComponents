@@ -1,0 +1,61 @@
+{
+  "name": "@fairylights-studio/ngx-m3-adaptive",
+  "version": "0.1.0",
+  "description": "Adaptive Material 3 pane scaffolds, navigation and resizing for Angular Material",
+  "license": "MIT",
+  "author": "FairyLights Studio",
+  "keywords": [
+    "angular",
+    "material",
+    "material-3",
+    "adaptive",
+    "pane"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://tangled.org/fairylights.org/AngularM3EComponents.git",
+    "directory": "components/adaptive"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@angular/cdk": "catalog:",
+    "@angular/common": "catalog:",
+    "@angular/core": "catalog:",
+    "@angular/material": "catalog:",
+    "@angular/router": "^22.0.0",
+    "rxjs": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "@angular/router": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "tslib": "catalog:"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "module": "dist/fesm2022/fairylights-studio-ngx-m3-adaptive.mjs",
+  "typings": "dist/types/fairylights-studio-ngx-m3-adaptive.d.ts",
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./dist/types/fairylights-studio-ngx-m3-adaptive.d.ts",
+      "default": "./dist/fesm2022/fairylights-studio-ngx-m3-adaptive.mjs"
+    },
+    "./router": {
+      "types": "./dist/types/fairylights-studio-ngx-m3-adaptive-router.d.ts",
+      "default": "./dist/fesm2022/fairylights-studio-ngx-m3-adaptive-router.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "WEB-ADAPTATION.md",
+    "CHANGELOG.md"
+  ]
+}

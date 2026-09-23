@@ -1,0 +1,37 @@
+@if (scrimRole(); as blockedRole) {
+  <div
+    class="mat-pane-scaffold__scrim"
+    aria-hidden="true"
+    (click)="dismiss(blockedRole, 'scrim')"
+  ></div>
+}
+@for (pane of panes(); track pane) {
+  <mat-pane-renderer
+    [pane]="pane"
+    [paneId]="paneId(pane.role())"
+    [value]="scaffoldValue()[pane.role()]"
+    [rect]="paneRects()[pane.role()]"
+    [constrained]="height() !== null"
+    [collapsed]="isCollapsed(pane.role())"
+    [direction]="direction()"
+    [expansionState]="expansionState()"
+    [resolvedPosition]="resolvedPositions()[pane.role()] ?? null"
+    [placement]="popoverPlacements()[pane.role()] ?? null"
+    [blocked]="scrimRole() !== null && pane.role() !== scrimRole()"
+    (focusEntered)="rememberFocus(pane.role(), $event)"
+    (dismissRequest)="dismiss(pane.role(), $event)"
+  />
+}
+@if (split(); as pair) {
+  <mat-pane-resize-handle
+    class="split-handle"
+    [style.left.px]="splitLeft()"
+    [expansionState]="expansionState()"
+    [direction]="direction()"
+    [controls]="splitControls()"
+    [label]="splitLabel()"
+    [value]="splitValue()"
+    [availableSize]="availableWidth()"
+    [attr.inert]="scrimRole() ? '' : null"
+  />
+}

@@ -1,0 +1,28 @@
+<dialog
+  #dialog
+  [id]="paneId()"
+  [attr.role]="modal() ? 'dialog' : 'region'"
+  [attr.aria-modal]="modal() ? 'true' : null"
+  [attr.aria-label]="pane().label()"
+  [attr.aria-labelledby]="pane().labelledBy()"
+  [attr.open]="!modal() && !hidden() ? '' : null"
+  [hidden]="hidden()"
+  [inert]="hidden() || blocked()"
+  tabindex="-1"
+  [class.floating]="floating()"
+  [class.constrained]="constrained()"
+  [attr.data-position]="position()"
+  [attr.dir]="direction()"
+  [style.left.px]="placement()?.x ?? (!floating() && constrained() ? rect()?.x : null)"
+  [style.top.px]="placement()?.top ?? (!floating() && constrained() ? rect()?.y : null)"
+  [style.bottom.px]="placement()?.bottom ?? null"
+  [style.maxWidth.px]="placement()?.maxWidth ?? null"
+  [style.maxHeight.px]="placement()?.maxHeight ?? null"
+  [style.width.px]="width()"
+  [style.height.px]="height()"
+  (cancel)="onCancel($event)"
+  (click)="onDialogClick($event)"
+  (focusin)="onFocus($event)"
+>
+  <ng-container [ngTemplateOutlet]="pane().template" />
+</dialog>

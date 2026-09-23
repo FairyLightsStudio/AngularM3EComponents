@@ -1,0 +1,35 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "@fairylights-studio/ngx-m3-adaptive",
+  "projectType": "library",
+  "sourceRoot": "components/adaptive/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@angular/build:ng-packagr",
+      "configurations": {
+        "production": {
+          "tsConfig": "components/adaptive/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "components/adaptive/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "bun test ./components/adaptive/tests"
+      },
+      "cache": true
+    },
+    "nx-release-publish": {
+      "executor": "@nx/js:release-publish",
+      "options": {
+        "packageRoot": "{projectRoot}"
+      },
+      "dependsOn": ["^nx-release-publish"]
+    }
+  }
+}

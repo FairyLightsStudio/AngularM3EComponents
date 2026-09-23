@@ -1,0 +1,49 @@
+:host {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  width: 24px;
+  height: 100%;
+  box-sizing: border-box;
+  cursor: col-resize;
+  touch-action: none;
+  user-select: none;
+  outline: none;
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-primary, #6750a4);
+    outline-offset: -2px;
+  }
+}
+
+.mat-pane-resize-handle-line {
+  width: 2px;
+  height: 100%;
+  background: var(--mat-sys-outline, #79747e);
+  border-radius: 1px;
+  pointer-events: none;
+  transition:
+    background-color 150ms ease,
+    width 150ms ease;
+}
+
+:host(:hover) .mat-pane-resize-handle-line,
+:host([data-dragging='true']) .mat-pane-resize-handle-line {
+  background: var(--mat-sys-primary, #6750a4);
+  width: 4px;
+}
+
+@media (forced-colors: active) {
+  .mat-pane-resize-handle-line {
+    background: CanvasText;
+  }
+
+  :host(:hover) .mat-pane-resize-handle-line,
+  :host([data-dragging='true']) .mat-pane-resize-handle-line {
+    background: Highlight;
+  }
+
+  :host(:focus-visible) {
+    outline: 2px solid Highlight;
+  }
+}

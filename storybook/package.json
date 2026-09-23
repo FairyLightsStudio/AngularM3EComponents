@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@fairylights-studio/ngx-m3-adaptive": "workspace:*",
     "@storybook/addon-docs": "10.4.0",
     "@storybook/angular": "10.4.0",
     "remark-gfm": "^4.0.1",

@@ -32,7 +32,7 @@
   },
   "analytics": true,
   "release": {
-    "projects": ["components/button", "components/navigation/*"],
+    "projects": ["components/button", "components/navigation/*", "components/adaptive"],
     "projectsRelationship": "independent",
     "version": {
       "conventionalCommits": true,

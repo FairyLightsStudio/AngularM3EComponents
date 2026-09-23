@@ -1,0 +1,30 @@
+:host {
+  display: flex;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  align-items: stretch;
+  color: var(--mat-sys-on-surface, #1d1b20);
+}
+:host.constrained {
+  display: block;
+  min-height: 0;
+}
+/* Covers the panes behind a levitated pane that is not presented as a modal dialog. It sits above the
+   split handle so a blocked layout cannot still be resized, and below the floating pane itself. */
+.mat-pane-scaffold__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: var(--mat-pane-scrim-color, rgb(0 0 0 / 32%));
+}
+.split-handle {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  width: 24px;
+  transform: translateX(-50%);
+}
