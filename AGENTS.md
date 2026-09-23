@@ -24,16 +24,15 @@
 
 ## `components/adaptive`
 
-⚠️ 这是AI 生成、**暂时未经过人类确认及调优**的组件库。    
+⚠️ 这是AI 生成、**暂时未经过人类确认及调优**的组件库。
 
 6. **adaptive**（`@fairylights-studio/ngx-m3-adaptive`）— 自适应 Pane 组件族，按**容器实测宽度**（而非浏览器视口）在单栏/双栏/三栏之间切换，并支持 Hidden/Expanded/**Reflow**（纵向重排）/**Levitate**（浮动）四种适配状态。包含
-   `MatThreePaneScaffoldComponent`、`MatListDetailPaneScaffoldComponent`（List=secondary、Detail=primary、Extra=tertiary）、`MatSupportingPaneScaffoldComponent`（Main=primary、Supporting=secondary，默认 Supporting 在单栏高屏下 Reflow 到 Main 下方）、内容投影指令 `MatPaneDirective`（`ng-template matPane`）、纯函数布局决策 `calculatePaneScaffoldDirective` / `calculatePaneScaffoldValue` / `calculatePaneRects`、本地导航器 `MatThreePaneScaffoldNavigator`（四种回退策略）、双 Pane 分隔条状态 `MatPaneExpansionState`（按角色对记忆尺寸、锚点吸附）与浮动 sheet 尺寸状态 `MatPaneDragToResizeState`。每个 pane 模板只实例化一次并常驻，隐藏/重排/浮动均不重建内容，因此表单与滚动状态得以保留。可选次入口 `/router` 提供以 URL 为唯一已提交状态源的 `createMatPaneRouterNavigator` 与 `createMatPaneQueryParamCodec`。
+   `MatThreePaneScaffoldComponent`、`MatListDetailPaneScaffoldComponent`（List=secondary、Detail=primary、Extra=tertiary）、`MatSupportingPaneScaffoldComponent`（Main=primary、Supporting=secondary，默认 Supporting 在单栏高屏下 Reflow 到 Main 下方）、内容投影指令 `MatPaneDirective`（`ng-template matPane`）、纯函数布局决策 `calculatePaneScaffoldDirective` / `calculatePaneScaffoldValue` / `calculatePaneRects`、本地导航器 `MatThreePaneScaffoldNavigator`（四种回退策略）、双 Pane 分隔条状态 `MatPaneExpansionState`（按角色对记忆尺寸、锚点吸附）与浮动 sheet 尺寸状态 `MatPaneDragToResizeState`。每个 pane 模板只实例化一次并常驻，隐藏/重排/浮动均不重建内容，因此表单与滚动状态得以保留。提供 `MAT_PANE_SCAFFOLD_MODULES` 模块数组供一站式导入。可选次入口 `/router` 提供以 URL 为唯一已提交状态源的 `createMatPaneRouterNavigator` 与 `createMatPaneQueryParamCodec`。
    **平台差异（重要）**：测量 `ResizeObserver` 容器；浮动 pane 默认用脚手架内 scrim + 背后 pane `inert` 阻挡（`scrim` 可关），`modal` 时改用原生 `<dialog>` 顶层实现页级模态；指针/键盘可访问分隔条；**不实现**折叠屏/铰链/姿态、预测式跟手返回、系统边缘手势排除，也不追求 Compose 物理动画逐帧一致。详见 `components/adaptive/WEB-ADAPTATION.md`。
 
 ## `components/button`
 
 7. **button** — `MatExtendedFabCollapsedDirective` 指令，允许已设置 `extended` 的 FAB（`MatFabButton`）通过 `collapsed` input 在展开与折叠形态之间切换。
-
 
 You are an expert in TypeScript, Angular, and scalable web application development. You write functional, maintainable, performant, and accessible code following Angular and TypeScript best practices.
 

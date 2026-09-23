@@ -1,4 +1,4 @@
-import { Meta, Title, Subtitle, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Title, Subtitle, Canvas, Source } from '@storybook/addon-docs/blocks';
 import * as ScaffoldStories from './adaptive.stories';
 import * as ResizingStories from './resizing.stories';
 import * as SuiteStories from './navigation-suite.stories';
@@ -18,8 +18,114 @@ components. They follow the AndroidX adaptive layout sources supplied for this p
 browser behavior. See the package `WEB-ADAPTATION.md` for the source map and the deliberate
 platform differences.
 
+[![npm version](https://img.shields.io/npm/v/@fairylights-studio/ngx-m3-adaptive)](https://www.npmjs.com/package/@fairylights-studio/ngx-m3-adaptive)
+
 ⚠️ 这是临时的、AI 生成、**且尚未经过人类调优**的组件库，旨在“比没有强”，**不要将其用于严肃环境**。  
 ⚠️ This is a temporary, AI-generated component library—**unrefined by humans**—intended merely as a "better-than-nothing" solution; **DO NOT USE IT IN PRODUCTION ENVIRONMENTS**.
+
+## Getting Started
+
+### 1. Configure Angular Material
+
+Configure Angular Material in your application styles. Adaptive pane scaffolds consume the generated `--mat-sys-*` runtime variables and do not provide a Sass theme mixin.
+
+### 2. Import the module
+
+<Source
+  language="ts"
+  code={`import {
+  MAT_PANE_SCAFFOLD_MODULES,
+  createListDetailPaneNavigator,
+  MatPaneExpansionState,
+} from '@fairylights-studio/ngx-m3-adaptive';
+import { MatButtonModule } from '@angular/material/button';`}
+/>
+
+Or import the individual standalone components:
+
+<Source
+  language="ts"
+  code={`import {
+  MatListDetailPaneScaffoldComponent,
+  MatPaneDirective,
+  createListDetailPaneNavigator,
+  MatPaneExpansionState,
+} from '@fairylights-studio/ngx-m3-adaptive';
+import { MatButtonModule } from '@angular/material/button';`}
+/>
+
+### 3. TypeScript — component class
+
+<Source
+  language="ts"
+  code={`import { Component, ChangeDetectionStrategy, inject, DestroyRef } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import {
+  MAT_PANE_SCAFFOLD_MODULES,
+  createListDetailPaneNavigator,
+  MatPaneExpansionState,
+} from '@fairylights-studio/ngx-m3-adaptive';
+
+@Component({
+selector: 'app-messages',
+imports: [MatButtonModule, MAT_PANE_SCAFFOLD_MODULES],
+changeDetection: ChangeDetectionStrategy.OnPush,
+templateUrl: './messages.component.html',
+styleUrl: './messages.component.scss',
+})
+export class MessagesComponent {
+readonly panes = createListDetailPaneNavigator();
+readonly split = new MatPaneExpansionState({
+anchors: [
+{ type: 'proportion', proportion: 0 },
+{ type: 'offset', offset: 280, edge: 'start' },
+{ type: 'proportion', proportion: 0.5 },
+{ type: 'offset', offset: 280, edge: 'end' },
+{ type: 'proportion', proportion: 1 },
+],
+initialAnchor: { type: 'offset', offset: 280, edge: 'start' },
+});
+
+constructor() {
+inject(DestroyRef).onDestroy(() => this.split.destroy());
+}
+}`}
+/>
+
+### 4. HTML — template
+
+<Source
+  language="html"
+  code={`<mat-list-detail-pane-scaffold
+  [navigator]="panes"
+  [expansionState]="split"
+  [height]="640"
+>
+  <ng-template matPane="secondary" label="Messages">
+    <h2>Messages</h2>
+    <button matButton (click)="panes.navigateTo('primary', 'message-42')">
+      Open message
+    </button>
+  </ng-template>
+
+  <ng-template matPane="primary" label="Message details">
+    <h2>Message details</h2>
+    <p>Selected: {{ panes.currentDestination()?.contentKey }}</p>
+    <button
+      matButton
+      [disabled]="!panes.canNavigateBack('PopLatest')"
+      (click)="panes.navigateBack('PopLatest')"
+    >
+      Back to messages
+    </button>
+    <label>Draft <input aria-label="Draft" /></label>
+  </ng-template>
+</mat-list-detail-pane-scaffold>`}
+/>
+
+---
+
+## Rendering model
 
 Each `ng-template matPane` is instantiated exactly once into a stable pane container. Switching
 between hidden, side-by-side, vertically reflowed and floating presentations never recreates your
